@@ -1,0 +1,22 @@
++++++++++++++++++++++ Requirements ++++++++++++++++++++++++++
++++++++ STEP 1 ++++++++++
+Create database
+Create a database named fintrack_db.
+
+Create users table
+id — primary key, auto-increment
+name — user's name
+email — unique
+password — hashed password
+created_at
+updated_at
+
+Connect Node.js to MySQL
+Configure the backend so it can connect to fintrack_db.
+
+Create database configuration
+Keep database credentials in environment variables.
+Do not hard-code the password in the source code.
+
+Test the connection
+Make sure the Node.js backend can successfully connect to MySQL.
