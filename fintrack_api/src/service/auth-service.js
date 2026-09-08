@@ -12,7 +12,7 @@ const getAllUsers = async () => {
     return users;
 }
 
-const emailCheck = async(userEmail) => {
+const emailCheck = async (userEmail) => {
     const [user] = await pool.query(
         `
         SELECT 
@@ -26,7 +26,7 @@ const emailCheck = async(userEmail) => {
     return user[0];
 }
 
-const registerNewUser = async(name, email, password_hash) => {
+const registerNewUser = async (name, email, password_hash) => {
     const [user] = await pool.query(
         `
         INSERT INTO users
@@ -53,8 +53,25 @@ const registerNewUser = async(name, email, password_hash) => {
     return newUser[0];
 }
 
+const searchUserByEmail = async (email) => {
+    const [user] = await pool.query(
+        `
+        SELECT 
+            id AS user_id,
+            email,
+            password_hash
+        FROM users 
+        WHERE email = ?
+        `,
+        [email]
+    )
+
+    return user[0];
+}
+
 module.exports = {
     getAllUsers,
     emailCheck,
-    registerNewUser
+    registerNewUser,
+    searchUserByEmail
 }
