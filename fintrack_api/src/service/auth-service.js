@@ -12,7 +12,7 @@ const getAllUsers = async () => {
     return users;
 }
 
-const emailCheck = async(userEmail) => {
+const emailCheck = async (userEmail) => {
     const [user] = await pool.query(
         `
         SELECT 
@@ -26,7 +26,7 @@ const emailCheck = async(userEmail) => {
     return user[0];
 }
 
-const registerNewUser = async(name, email, password_hash) => {
+const registerNewUser = async (name, email, password_hash) => {
     const [user] = await pool.query(
         `
         INSERT INTO users
@@ -53,8 +53,39 @@ const registerNewUser = async(name, email, password_hash) => {
     return newUser[0];
 }
 
+const searchUserByEmail = async (email) => {
+    const [user] = await pool.query(
+        `
+        SELECT 
+            id AS user_id,
+            name AS user_name,
+            email,
+            password_hash
+        FROM users 
+        WHERE email = ?
+        `,
+        [email]
+    )
+
+    return user[0];
+}
+
+const storeRefreshToken = async (userId, hashedRefreshToken) => {
+    await pool.query(
+        `
+        INSERT INTO refresh_tokens
+        (user_id, token, expires_at)
+        VALUES
+        (?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY))
+        `,
+        [userId, hashedRefreshToken]
+    )
+}
+
 module.exports = {
     getAllUsers,
     emailCheck,
-    registerNewUser
+    registerNewUser,
+    searchUserByEmail,
+    storeRefreshToken
 }
