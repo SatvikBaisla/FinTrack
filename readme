@@ -77,6 +77,13 @@ Invalid email/password.
 Inactive/non-existent user if applicable.
 Database/server errors.
 
++++++++ STEP 4 ++++++++++
+1. Create POST /api/auth/refresh — it should accept the refresh token and issue a new access token when the refresh token is valid.
+2. Validate the refresh token — check that it exists in refresh_tokens, belongs to a user, is not revoked, and expires_at has not passed.
+3. Generate a new access token — use the associated user's id and authorization information.
+4. Handle invalid/expired/revoked tokens — return an appropriate authentication error instead of issuing a token.
+5. Do not create a new refresh-token record yet — keep the existing refresh token for now. We'll introduce token rotation later as the requirements evolve.
+
 +++++++++++++++++++++ Tables ++++++++++++++++++++++++++
 1. users
 CREATE TABLE fintrack_db.users (
@@ -86,4 +93,18 @@ CREATE TABLE fintrack_db.users (
     password_hash VARCHAR(255) NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+2. refresh token
+CREATE TABLE fintrack_db.refresh_tokens (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    token VARCHAR(400),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    expires_at DATETIME NOT NULL,
+    revoked_at DATETIME,
+    
+    CONSTRAINT fk_refresh_token_users
+		FOREIGN KEY (user_id)
+        REFERENCES fintrack_db.users(id)
 );
