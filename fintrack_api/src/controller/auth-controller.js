@@ -108,20 +108,43 @@ const loginUser = async (req, res) => {
 
         // compare the password
         const passCompare = await bcrypt.compare(
-            password, 
+            password,
             user.password_hash
         )
-        if(!passCompare){
+        if (!passCompare) {
             return res.status(401).json({
                 success: false,
                 message: 'wrong password'
             })
         }
 
+        // create tokens for login
+        // access token
+        const accessToken = await jwt.sign(
+            { userId: user.user_id },
+            process.env.AT_SALT,
+            { expiresIn: '15m' }
+        )
+
+        // refresh token
+        const refreshToken = await jwt.sign(
+            { userId: user.user_id },
+            process.env.RT_SALT,
+            { expiresIn: '7d' }
+        )
+
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            secure: false,       // true in production with HTTPS
+            sameSite: 'lax',
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        });
+
         // login response
         return res.status(200).json({
             success: true,
-            message: 'user found'
+            message: 'user found',
+            accessToken: accessToken
         })
     }
     catch (error) {
