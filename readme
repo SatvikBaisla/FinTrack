@@ -1,22 +1,43 @@
 +++++++++++++++++++++ Requirements ++++++++++++++++++++++++++
 +++++++ STEP 1 ++++++++++
-Create database
+1. Create database
 Create a database named fintrack_db.
-
-Create users table
+2. Create users table
 id — primary key, auto-increment
 name — user's name
 email — unique
 password — hashed password
 created_at
 updated_at
-
-Connect Node.js to MySQL
+3. Connect Node.js to MySQL
 Configure the backend so it can connect to fintrack_db.
-
-Create database configuration
+4. Create database configuration
 Keep database credentials in environment variables.
 Do not hard-code the password in the source code.
-
-Test the connection
+5. Test the connection
 Make sure the Node.js backend can successfully connect to MySQL.
+
++++++++ STEP 2 ++++++++++
+1. Create Register API
+POST /api/auth/register
+2. Accept
+name
+email
+password
+3. Validate
+All fields required.
+Email must be valid.
+Email must not already exist.
+Password must meet a reasonable minimum length.
+4. Hash password
+Hash the password before storing it.
+Never store the plain-text password.
+5. Create user
+Insert the user into the existing users table.
+6. API response
+Return success message and basic user information.
+Do not return password_hash.
+7. Handle errors
+Duplicate email.
+Invalid input.
+Database/server errors.
