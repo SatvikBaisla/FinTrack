@@ -41,3 +41,38 @@ Do not return password_hash.
 Duplicate email.
 Invalid input.
 Database/server errors.
+
++++++++ STEP 3 ++++++++++
+1. Create Login API
+POST /api/auth/login
+2. Accept
+email
+password
+3. Validate
+Email and password are required.
+Check that the user exists.
+Verify the password against password_hash.
+4. Generate Access Token
+Generate a JWT access token after successful authentication.
+Token should contain the user's id and any basic authorization information we need.
+5. Generate Refresh Token
+Generate a separate refresh token.
+Do not return/store it as plain data in the frontend.
+6. Create refresh_tokens table
+id
+user_id
+token
+expires_at
+created_at
+revoked_at
+7. Store refresh token
+Store the refresh token associated with the user.
+Add a foreign key from refresh_tokens.user_id → users.id.
+8. Return login response
+Return the access token.
+Return basic user information.
+Do not return password or password hash.
+9. Handle errors
+Invalid email/password.
+Inactive/non-existent user if applicable.
+Database/server errors.
