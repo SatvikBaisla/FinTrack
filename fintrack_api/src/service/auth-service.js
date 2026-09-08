@@ -58,6 +58,7 @@ const searchUserByEmail = async (email) => {
         `
         SELECT 
             id AS user_id,
+            name AS user_name,
             email,
             password_hash
         FROM users 
@@ -69,9 +70,22 @@ const searchUserByEmail = async (email) => {
     return user[0];
 }
 
+const storeRefreshToken = async (userId, hashedRefreshToken) => {
+    await pool.query(
+        `
+        INSERT INTO refresh_tokens
+        (user_id, token, expires_at)
+        VALUES
+        (?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY))
+        `,
+        [userId, hashedRefreshToken]
+    )
+}
+
 module.exports = {
     getAllUsers,
     emailCheck,
     registerNewUser,
-    searchUserByEmail
+    searchUserByEmail,
+    storeRefreshToken
 }

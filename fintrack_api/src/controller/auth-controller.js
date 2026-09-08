@@ -133,6 +133,10 @@ const loginUser = async (req, res) => {
             { expiresIn: '7d' }
         )
 
+        // store hashed refresh token in db
+        const hashedRefreshToken = await bcrypt.hash(refreshToken, 10);
+        await authService.storeRefreshToken(user.user_id, hashedRefreshToken);
+
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             secure: false,       // true in production with HTTPS
@@ -140,10 +144,13 @@ const loginUser = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000
         });
 
+        const { password_hash, ...userDetails } = user;
+
         // login response
         return res.status(200).json({
             success: true,
-            message: 'user found',
+            message: 'user login successfull',
+            data: userDetails,
             accessToken: accessToken
         })
     }
