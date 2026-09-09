@@ -82,10 +82,28 @@ const storeRefreshToken = async (userId, hashedRefreshToken) => {
     )
 }
 
+const findRefreshToken = async (userId) => {
+    const [tokens] = await pool.query(
+        `
+        SELECT
+            id AS token_id,
+            token
+        FROM refresh_tokens
+        WHERE user_id = ?
+            AND revoked_at IS NULL
+            AND expires_at > NOW();
+        `,
+        [userId]   
+    )
+
+    return tokens;
+}
+
 module.exports = {
     getAllUsers,
     emailCheck,
     registerNewUser,
     searchUserByEmail,
-    storeRefreshToken
+    storeRefreshToken,
+    findRefreshToken
 }
