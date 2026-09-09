@@ -164,10 +164,10 @@ const loginUser = async (req, res) => {
 
 const refreshToken = async (req, res) => {
     try {
-        // get refresh token frnm cookies 
+        // get refresh token from cookies 
         const refreshToken = req.cookies.refreshToken;
 
-        // if not refreshtoken
+        // if no refreshtoken
         if (!refreshToken) {
             return res.status(401).json({
                 success: false,
@@ -236,9 +236,77 @@ const refreshToken = async (req, res) => {
     }
 }
 
+const logoutUser = async (req, res) => {
+    try {
+        // get refresh token from cookies 
+        const refreshToken = req.cookies.refreshToken;
+
+        // if no refreshtoken
+        if (!refreshToken) {
+            return res.status(401).json({
+                success: false,
+                message: 'allready logged out'
+            })
+        }
+
+        // now decode and get the userId
+        const decodedToken = jwt.verify(
+            refreshToken,
+            process.env.RT_SALT
+        )
+
+        // get all tokens of the user 
+        const tokens = await authService.findRefreshToken(decodedToken.userId);
+
+        // loop through and find the token needed
+        let matchedTokenId;
+        for (let i = 0; i < tokens.length; i++) {
+            const compare = await bcrypt.compare(
+                refreshToken,
+                tokens[i].token
+            )
+            if (compare) {
+                matchedTokenId = tokens[i].token_id;
+                break;
+            }
+        }
+
+        // if no token found
+        if (!matchedTokenId) {
+            return res.status(401).json({
+                success: false,
+                message: 'allready logged out'
+            })
+        }
+
+        // remove refresh token cookie
+        req.clearCookie('refreshToken', {
+            httpOnly: true,
+            secure: false,
+            sameSite: 'lax'
+        });
+
+        // update the the revoked_at column in db
+        await authService.updateRefreshToken(matchedTokenId);
+
+        return res.status(200).json({
+            success: true,
+            message: 'user have been logged out'
+        })
+
+    }
+    catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
 module.exports = {
     getAllUsers,
     registerNewUser,
     loginUser,
-    refreshToken
+    refreshToken,
+    logoutUser
 }
