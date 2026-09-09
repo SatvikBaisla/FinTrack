@@ -84,6 +84,13 @@ Database/server errors.
 4. Handle invalid/expired/revoked tokens — return an appropriate authentication error instead of issuing a token.
 5. Do not create a new refresh-token record yet — keep the existing refresh token for now. We'll introduce token rotation later as the requirements evolve.
 
++++++++ STEP 5 ++++++++++
+1. Create POST /api/auth/logout — the endpoint should receive the refresh token being used by the client.
+2. Find the matching stored token — use the same hashed-token comparison approach you used in the refresh flow.
+3. Revoke the token — once matched, update its revoked_at with the current date/time.
+4. Make logout idempotent — if the token is already revoked or doesn't exist, don't expose unnecessary token information; simply return an appropriate logout response.
+5. Do not delete the token record — keep it in the database so you retain the token's history.
+
 +++++++++++++++++++++ Tables ++++++++++++++++++++++++++
 1. users
 CREATE TABLE fintrack_db.users (

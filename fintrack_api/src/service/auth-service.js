@@ -99,11 +99,23 @@ const findRefreshToken = async (userId) => {
     return tokens;
 }
 
+const updateRefreshToken = async (tokenId) => {
+    await pool.query(
+        `
+        UPDATE refresh_tokens
+        SET revoked_at = NOW()
+        WHERE id = ?;
+        `,
+        [tokenId]
+    )
+}
+
 module.exports = {
     getAllUsers,
     emailCheck,
     registerNewUser,
     searchUserByEmail,
     storeRefreshToken,
-    findRefreshToken
+    findRefreshToken,
+    updateRefreshToken
 }
