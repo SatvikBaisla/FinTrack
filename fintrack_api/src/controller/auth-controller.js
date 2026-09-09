@@ -120,14 +120,14 @@ const loginUser = async (req, res) => {
 
         // create tokens for login
         // access token
-        const accessToken = await jwt.sign(
+        const accessToken = jwt.sign(
             { userId: user.user_id },
             process.env.AT_SALT,
             { expiresIn: '15m' }
         )
 
         // refresh token
-        const refreshToken = await jwt.sign(
+        const refreshToken = jwt.sign(
             { userId: user.user_id },
             process.env.RT_SALT,
             { expiresIn: '7d' }
@@ -162,9 +162,83 @@ const loginUser = async (req, res) => {
     }
 }
 
+const refreshToken = async (req, res) => {
+    try {
+        // get refresh token frnm cookies 
+        const refreshToken = req.cookies.refreshToken;
+
+        // if not refreshtoken
+        if (!refreshToken) {
+            return res.status(401).json({
+                success: false,
+                message: 'refresh token required'
+            })
+        }
+
+        // now decode and get the userId
+        const decodedToken = jwt.verify(
+            refreshToken,
+            process.env.RT_SALT
+        )
+
+        // get all tokens of the user 
+        const tokens = await authService.findRefreshToken(decodedToken.userId);
+
+        // loop through and find the token needed
+        let matchedToken;
+        for (let i = 0; i < tokens.length; i++) {
+            const compare = await bcrypt.compare(
+                refreshToken,
+                tokens[i].token
+            )
+            if (compare) {
+                matchedToken = tokens[i].token;
+                break;
+            }
+        }
+
+        // if no token found
+        if (!matchedToken) {
+            return res.status(401).json({
+                success: false,
+                message: 'refresh token is expired or revoked'
+            })
+        }
+
+        // token found create new access token 
+        const newAccessToken = jwt.sign(
+            { userId: decodedToken.userId },
+            process.env.AT_SALT,
+            { expiresIn: '15m' }
+        )
+
+        return res.status(200).json({
+            success: true,
+            message: 'access token refreshed',
+            token: newAccessToken
+        })
+    }
+    catch (error) {
+        if (
+            error.name === 'TokenExpiredError' ||
+            error.name === 'JsonWebTokenError'
+        ) {
+            return res.status(401).json({
+                success: false,
+                message: 'invalid or expired refresh token'
+            });
+        }
+
+        return res.status(500).json({
+            success: false,
+            message: 'internal server error'
+        });
+    }
+}
 
 module.exports = {
     getAllUsers,
     registerNewUser,
-    loginUser
+    loginUser,
+    refreshToken
 }
