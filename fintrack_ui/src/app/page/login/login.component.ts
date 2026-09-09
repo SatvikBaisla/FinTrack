@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormControlName, FormGroup } from '@angular/forms';
 import { ILoginRequestBody } from '../../common/interface/common';
+import { AuthService } from '../../common/service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent {
   emailErrorMessage: string = '';
   passwordErrorMessage: string = '';
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   checkLoginForm() {
     const email = this.loginForm.value.email;
@@ -44,5 +45,26 @@ export class LoginComponent {
 
   login() {
     const reqBody: ILoginRequestBody = this.loginForm.value;
+    this.authService.userLogin(reqBody).subscribe(response => {
+      // if the api success -> false
+      if (!response.success) {
+        switch (response.message) {
+          case 'invalid email address':
+            this.emailErrorMessage = 'Please enter a valid email';
+            break;
+          case 'no user found':
+            this.emailErrorMessage = 'No user with this email';
+            break;
+          case 'wrong password':
+            this.passwordErrorMessage = 'Incorrect password';
+            break;
+          default:
+            alert('Login Error: ' + response.message);
+        }
+      }
+
+      // if the api success -> true
+      console.log('user login successfull');
+    })
   }
 }
