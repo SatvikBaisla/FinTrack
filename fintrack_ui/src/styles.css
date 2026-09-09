@@ -1,1 +1,101 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+:root {
+    /* color */
+    --primary-color: #092328;
+    --secondary-color: #2C2C2C;
+    --accent-color: #EEEEEE;
+    --background-color: #fff;
+    --text-color-light: #fff;
+    --text-color-dark: #333;
+    --text-warning: #E63946;
+    --text-success: #838921;
+
+    /* font size */
+    --font-heading: 20px;
+    --font-subheading: 18px;
+    --font-text: 16px;
+    --font-text-small: 14px;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+}
+
+/* input field */
+.input-field-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+.input-label{
+    margin-bottom: 5px;
+    font-size: var(--font-text);
+}
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px solid var(--accent-color);
+    border-radius: 6px;
+    font-size: var(--font-text);
+    opacity: 0.9;
+}
+.error-message-container {
+    min-height: 20px;
+    min-width: 20px;
+}
+.error-message {
+    color: var(--text-warning);
+    font-size: var(--font-text-small);
+}
+
+/* button */
+.btn-container {
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-container:last-child {
+    padding-bottom: 10px;
+}
+.btn {
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: var(--font-text);
+    cursor: pointer;
+    transition: 0.4s;
+}
+.btn:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+.btn-light {
+    color: var(--text-color-dark);
+    background: none;
+    border: 1px solid var(--accent-color);
+    color: var(--text-color-light);
+}
+.btn-light:hover {
+    background-color: var(--accent-color);
+    color: var(--text-color-dark);
+}
+.btn-light:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.btn-dark {
+    color: var(--text-color-light);
+    background-color: var(--secondary-color);
+    border: 1px solid var(--accent-color);
+}
+.btn-dark:hover {
+    background-color: var(--primary-color);
+}
+.btn-dark:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

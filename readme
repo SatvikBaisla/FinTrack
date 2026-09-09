@@ -91,6 +91,14 @@ Database/server errors.
 4. Make logout idempotent — if the token is already revoked or doesn't exist, don't expose unnecessary token information; simply return an appropriate logout response.
 5. Do not delete the token record — keep it in the database so you retain the token's history.
 
++++++++ STEP 6 ++++++++++
+1. Create the Angular login screen — add fields for email and password.
+2. Connect it to POST /api/auth/login — submit the form to your existing login API.
+3. Handle login states — show validation errors and an appropriate message for invalid credentials.
+4. Store the access token — temporarily store the returned access token on the frontend so it can later be used for authenticated API requests.
+5. Redirect after successful login — navigate the user to a temporary authenticated/home screen.
+6. Keep the refresh-token handling as it is — don't add the interceptor or authentication middleware yet.
+
 +++++++++++++++++++++ Tables ++++++++++++++++++++++++++
 1. users
 CREATE TABLE fintrack_db.users (

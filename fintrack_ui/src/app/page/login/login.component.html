@@ -1,0 +1,54 @@
+<section class="login-section">
+    <div class="login-container">
+        <h2>Login</h2>
+        <form [formGroup]="loginForm" 
+                (submit)="login()">
+            <div class="input-field-container">
+                <label class="input-label" 
+                        for="username">
+                    Email:
+                </label>
+                <input type="text" 
+                        id="username" 
+                        name="username" 
+                        class="input-field" 
+                        formControlName="email" 
+                        placeholder="Enter email" 
+                        required>
+                <div class="error-message-container">
+                    <span class="error-message" 
+                            *ngIf="emailErrorMessage">
+                        {{emailErrorMessage}}
+                    </span>
+                </div>
+            </div>
+            <div class="input-field-container">
+                <label class="input-label" 
+                        for="password">
+                    Password:
+                </label>
+                <input type="password" 
+                        id="password" 
+                        name="password" 
+                        class="input-field" 
+                        formControlName="password" 
+                        placeholder="Enter password" 
+                        required>
+                <div class="error-message-container">
+                    <span class="error-message" 
+                            *ngIf="passwordErrorMessage">
+                        {{passwordErrorMessage}}
+                    </span>
+                </div>
+            </div>
+            <div class="btn-container">
+                <button class="btn btn-light" 
+                        type="submit" 
+                        [disabled]="isLoginDisabled"
+                        (mouseenter)="checkLoginForm()">
+                    Login
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
