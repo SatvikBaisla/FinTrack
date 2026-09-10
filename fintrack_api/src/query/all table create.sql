@@ -21,3 +21,18 @@ CREATE TABLE fintrack_db.refresh_tokens (
         REFERENCES fintrack_db.users(id)
 );
 SELECT * FROM fintrack_db.refresh_tokens;
+
+CREATE TABLE fintrack_db.accounts (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    type ENUM('cash', 'bank', 'credit_card', 'wallet') NOT NULL,
+    opening_balance DECIMAL(15,2) NOT NULL,
+	current_balance DECIMAL(15,2) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    CONSTRAINT fk_accounts_users
+		FOREIGN KEY (user_id)
+        REFERENCES fintrack_db.users(id)
+);

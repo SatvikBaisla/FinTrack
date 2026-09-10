@@ -99,6 +99,41 @@ Database/server errors.
 5. Redirect after successful login — navigate the user to a temporary authenticated/home screen.
 6. Keep the refresh-token handling as it is — don't add the interceptor or authentication middleware yet.
 
++++++++ STEP 7 ++++++++++
+1. Create the Angular registration screen — add fields for name, email, and password.
+2. Connect it to POST /api/auth/register — submit the form to your existing registration API.
+3. Add frontend validation — required fields, valid email, and the same basic password requirement as the backend.
+4. Handle API responses — display validation, duplicate-email, and server errors appropriately.
+5. Handle successful registration — show a success message and navigate the user to the login screen.
+6. Do not log the user in automatically yet — registration and login remain separate flows for now.
+
++++++++ STEP 8 ++++++++++
+1. Create the authenticated home/dashboard screen — this will become the main screen after login.
+2. Add a basic dashboard layout — create sections/placeholders for:
+Current balance
+Total income
+Total expenses
+Recent transactions
+3. Use static/mock data for now — do not create transaction tables or APIs yet.
+4. Connect navigation — successful login should lead to this dashboard, and the registration flow should continue to lead to login.
+5. Keep the UI structure ready for real data — later steps will replace the mock values with actual database/API data.
+
++++++++ STEP 9 ++++++++++
+1. Create the accounts table — associate each account with a user and store:
+id
+user_id
+name
+type
+opening_balance
+current_balance
+created_at
+updated_at
+2. Add the user relationship — user_id must reference users.id.
+3. Define account types — support at least cash, bank, credit_card, and wallet.
+4. Create account APIs — add endpoints to create, list, update, and delete the user's accounts.
+5. Add the Accounts screen — display the user's accounts and their current balances.
+6. Update the dashboard — replace the static balance with the combined balance from the user's accounts.
+
 +++++++++++++++++++++ Tables ++++++++++++++++++++++++++
 1. users
 CREATE TABLE fintrack_db.users (
@@ -120,6 +155,22 @@ CREATE TABLE fintrack_db.refresh_tokens (
     revoked_at DATETIME,
     
     CONSTRAINT fk_refresh_token_users
+		FOREIGN KEY (user_id)
+        REFERENCES fintrack_db.users(id)
+);
+
+3. accounts
+CREATE TABLE fintrack_db.accounts (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    type ENUM('cash', 'bank', 'credit_card', 'wallet') NOT NULL,
+    opening_balance DECIMAL(15,2) NOT NULL,
+	current_balance DECIMAL(15,2) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    CONSTRAINT fk_accounts_users
 		FOREIGN KEY (user_id)
         REFERENCES fintrack_db.users(id)
 );
