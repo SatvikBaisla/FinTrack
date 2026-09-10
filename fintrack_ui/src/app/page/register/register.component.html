@@ -1,16 +1,35 @@
 <section class="login-section">
     <div class="login-container">
-        <h2>Login</h2>
-        <form [formGroup]="loginForm" 
-                (submit)="login()">
+        <h2>Register</h2>
+        <form [formGroup]="registerForm" 
+                (submit)="registerUser()">
             <div class="input-field-container">
                 <label class="input-label" 
-                        for="username">
+                        for="name">
+                    Name:
+                </label>
+                <input type="text" 
+                        id="name" 
+                        name="name" 
+                        class="input-field" 
+                        formControlName="name" 
+                        placeholder="Enter name" 
+                        required>
+                <div class="error-message-container">
+                    <span class="error-message" 
+                            *ngIf="nameErrorMessage">
+                        {{nameErrorMessage}}
+                    </span>
+                </div>
+            </div>
+            <div class="input-field-container">
+                <label class="input-label" 
+                        for="email">
                     Email:
                 </label>
                 <input type="text" 
-                        id="username" 
-                        name="username" 
+                        id="email" 
+                        name="email" 
                         class="input-field" 
                         formControlName="email" 
                         placeholder="Enter email" 
@@ -44,16 +63,16 @@
             <div class="btn-container">
                 <button class="btn btn-light" 
                         type="submit" 
-                        [disabled]="isLoginDisabled"
-                        (mouseenter)="checkLoginForm()">
-                    Login
+                        [disabled]="isRegisterDisabled"
+                        (mouseenter)="checkRegisterForm()">
+                    Register
                 </button>
             </div>
         </form>
 
         <p class="signup-link">
-            Don't have an account? 
-            <a routerLink="/register">Register</a>
+            Already have an account? 
+            <a routerLink="/">Login</a>
         </p>
     </div>
 </section>
