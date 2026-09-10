@@ -92,7 +92,7 @@ const loginUser = async (req, res) => {
         if (!emailRegex.test(email)) {
             return res.status(400).json({
                 success: false,
-                message: "Invalid email address"
+                message: "invalid email address"
             });
         }
 
