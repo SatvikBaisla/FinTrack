@@ -1,0 +1,199 @@
+.section-content-container{
+    padding: 0px;
+    display: flex;
+    gap: 20px;
+}
+.header-container{
+    padding: 40px;
+    display: flex;
+    align-items: center;
+}
+.header-container .current-balance{
+    padding: 10px;
+    /* background-color: var(--background-color); */
+    border-radius: 4px;
+    font-size: 24px;
+}
+.layer-1{
+    padding: 40px;
+    padding-top: 0;
+    display: flex;
+    gap: 40px;
+    width: 100%;
+}
+.layer-1-box{
+    min-height: 100px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: var(--background-color);
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+}
+.layer-1-box-1{
+    width: 25%;
+}
+.layer-1-box-2{
+    width: 25%;
+}
+.layer-1-box-3{
+    width: 25%;
+}
+.layer-1-box-4{
+    width: 25%;
+}
+
+.layer-2{
+    padding: 40px;
+    padding-top: 0;
+    display: flex;
+    gap: 40px;
+    width: 100%;
+}
+.layer-2-box{
+    min-height: 100px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: var(--background-color);
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+}
+.layer-2-box-1{
+    width: 25%;
+}
+.layer-2-box-2{
+    width: 25%;
+}
+.layer-2-box-3{
+    width: 25%;
+}
+.layer-2-box-4{
+    width: 25%;
+}
+
+.layer-3{
+    padding: 40px;
+    padding-top: 0;
+    display: flex;
+    gap: 40px;
+    width: 100%;
+}
+.layer-3-box{
+    width: 100%;
+    min-height: 100px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: var(--background-color);
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+}
+.days-card-container{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.days-card{
+    padding: 5px;
+    height: 60px;
+    width: 100px;
+    border-radius: 10px;
+    border: 2px solid var(--accent-color);
+    cursor: pointer;
+    transition: 0.4s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.layer-4{
+    padding: 40px;
+    padding-top: 0;
+    display: flex;
+    gap: 40px;
+    width: 100%;
+}
+.layer-4-box{
+    width: 100%;
+    min-height: 100px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: var(--background-color);
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+}
+.expence-form{
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+}
+.expence-form .input-field-container:nth-child(1){
+    width: 20%;
+}
+.expence-form .input-field-container:nth-child(2){
+    width: 20%;
+}
+.expence-form .input-field-container:nth-child(3){
+    width: 60%;
+}
+
+.layer-box-heading{
+    opacity: 0.4;
+    text-align: right;
+}
+.layer-box-heading-with-button{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.layer-box-heading-with-button p{
+    opacity: 0.6;
+}
+.balance-text{
+    margin: 10px 0;
+}
+.layer-box-hint-text{
+    opacity: 0.6;
+}
+.layer-box-list{
+    list-style: none;
+    margin-top: 10px;
+}
+.layer-box-item{
+    padding: 10px 0;
+    border-bottom: 1px solid var(--accent-color);
+    display: flex;
+    align-items: center;
+}
+.layer-box-item:last-child{
+    padding: 10px 0;
+    padding-bottom: 0;
+    border-bottom: none;
+    display: flex;
+    align-items: center;
+}
+
+.month-card-container{
+    width: 180px;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: var(--background-color);
+}
+.month-card{
+    padding: 6px 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 2px solid var(--accent-color);
+    cursor: pointer;
+    transition: 0.4s;
+}
+.month-card:hover{
+    background-color: var(--accent-color);
+    color: var(--text-color-dark);
+}
+.month-card-active{
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+}
+.month-card-active:hover{
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+}
+.month-card:last-child{
+    margin-bottom: 0px;
+}

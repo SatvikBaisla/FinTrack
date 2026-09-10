@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { FormControl, FormControlName, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ILoginRequestBody } from '../../common/interface/common';
 import { AuthService } from '../../common/service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,10 @@ export class LoginComponent {
   emailErrorMessage: string = '';
   passwordErrorMessage: string = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   checkLoginForm() {
     const email = this.loginForm.value.email;
@@ -44,6 +48,10 @@ export class LoginComponent {
   }
 
   login() {
+    // temp navigation to home
+    this.router.navigate(['/home']);
+    return;
+    
     const reqBody: ILoginRequestBody = this.loginForm.value;
     this.authService.userLogin(reqBody).subscribe(response => {
       // if the api success -> false
