@@ -40,7 +40,7 @@ const registerNewUser = async (name, email, password_hash) => {
     const [newUser] = await pool.query(
         `
         SELECT 
-            id, 
+            id As user_id,
             name,
             email, 
             created_at 
