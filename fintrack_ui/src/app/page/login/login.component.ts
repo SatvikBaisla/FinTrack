@@ -48,31 +48,37 @@ export class LoginComponent {
   }
 
   login() {
-    // temp navigation to home
-    this.router.navigate(['/home']);
-    return;
-    
     const reqBody: ILoginRequestBody = this.loginForm.value;
-    this.authService.userLogin(reqBody).subscribe(response => {
-      // if the api success -> false
-      if (!response.success) {
-        switch (response.message) {
+    this.authService.userLogin(reqBody).subscribe({
+      next: response => {
+        if (response.token) {
+          localStorage.setItem('access_token', response.token);
+        }
+
+        console.log('User login successful');
+        this.router.navigate(['/home']);
+      },
+
+      error: error => {
+        console.log(error);
+
+        switch (error.error.message) {
           case 'invalid email address':
             this.emailErrorMessage = 'Please enter a valid email';
             break;
+
           case 'no user found':
             this.emailErrorMessage = 'No user with this email';
             break;
+
           case 'wrong password':
             this.passwordErrorMessage = 'Incorrect password';
             break;
+
           default:
-            alert('Login Error: ' + response.message);
+            alert('Login Error: ' + error.error.message);
         }
       }
-
-      // if the api success -> true
-      console.log('user login successfull');
-    })
+    });
   }
 }
