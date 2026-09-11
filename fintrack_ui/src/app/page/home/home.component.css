@@ -263,3 +263,12 @@
     transform: scale(1.1);
     transition: 0.4s;
 }
+
+.add-edit-form-container{
+    display: flex;
+    gap: 0 20px;
+    flex-wrap: wrap;
+}
+.add-edit-form-container .input-field-container{
+    width: calc(50% - 10px);
+}

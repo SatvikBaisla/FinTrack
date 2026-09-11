@@ -1,3 +1,5 @@
+import { accountType } from "./type";
+
 export interface IApiResponse<T> {
     success: boolean;
     message: string;
@@ -26,5 +28,46 @@ export interface IRegisterResponseBody{
     user_id: number;
     user_name: string;
     email: string;
+    created_at: Date;
+}
+
+// accounts
+export interface IGetAllAccountsRequestBody{
+    account_id: number;
+    name: string;
+    type: accountType;
+    opening_balance: number;
+    current_balance: number;
+    created_at: Date;
+}
+export interface IGetAllAccountsResponseBody{
+    account_id: number;
+    name: string;
+    type: accountType;
+    opening_balance: number;
+    current_balance: number;
+    created_at: Date;
+}
+
+export interface IUserAccount{
+    account_id: number;
+    name: string;
+    type: accountType;
+    opening_balance: number;
+    current_balance: number;
+}
+
+export interface IAddNewAccountRequestBody{
+    name: string;
+    type: accountType;
+    opening_balance: number;
+    current_balance: number;
+}
+export interface IAddNewAccountResponseBody{
+    account_id: number;
+    name: string;
+    type: accountType;
+    opening_balance: number;
+    current_balance: number;
     created_at: Date;
 }

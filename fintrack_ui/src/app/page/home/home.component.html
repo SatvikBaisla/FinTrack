@@ -169,30 +169,53 @@
                 <button class="btn btn-small btn-dark">Add</button>
             </div>
             <ul class="layer-box-list">
-                <li class="layer-box-item">
-                    <span class="font-text">Cash</span>
+                <li class="layer-box-item" *ngFor="let item of userAccounts">
+                    <span class="font-text">{{item.name}} ({{item.type}})</span>
                     <span class="flex-1"></span>
-                    <span class="font-subheading fw-b">₹ 19,000</span>
-                </li>
-                <li class="layer-box-item">
-                    <span class="font-text">Wallet</span>
-                    <span class="flex-1"></span>
-                    <span class="font-subheading fw-b">₹ 2,000</span>
-                </li>
-                <li class="layer-box-item">
-                    <span class="font-text">Bank (SBI)</span>
-                    <span class="flex-1"></span>
-                    <span class="font-subheading fw-b">₹ 12,000</span>
-                </li>
-                <li class="layer-box-item">
-                    <span class="font-text">Bank (IDFC)</span>
-                    <span class="flex-1"></span>
-                    <span class="font-subheading fw-b">₹ 7,000</span>
+                    <span class="font-subheading fw-b">₹ {{item.current_balance | number:'1.2-2':'en-IN'}}</span>
                 </li>
             </ul>
         </div>
         <div class="layer-5-box layer-5-box-2">
-            
+            <div class="layer-box-heading-with-button">
+                <p class="font-text">Add New Account</p>
+            </div>
+            <form class="add-edit-form-container" [formGroup]="addAccountForm">
+                <div class="input-field-container">
+                    <label class="input-label">Account Name:</label>
+                    <input class="input-field" 
+                            type="text" 
+                            placeholder="Enter account name"
+                            formControlName="name">
+                </div>
+                <div class="input-field-container">
+                    <label class="input-label">Account Type:</label>
+                    <select class="input-field"
+                            formControlName="type">
+                        <option *ngFor="let item of accountTypes"
+                                value="{{item.value}}">
+                                {{item.label}}
+                        </option>
+                    </select>
+                </div>
+                <div class="input-field-container">
+                    <label class="input-label">Opening Balance:</label>
+                    <input class="input-field" 
+                            type="text" 
+                            placeholder="Enter opening balance"
+                            formControlName="opening_balance">
+                </div>
+                <div class="input-field-container">
+                    <label class="input-label">Current Balance:</label>
+                    <input class="input-field" 
+                            type="text" 
+                            placeholder="Enter current balance"
+                            formControlName="current_balance">
+                </div>
+            </form>
+            <div class="btn-container">
+                <button class="btn btn-dark" (click)="addNewAccount()">Add Account</button>
+            </div>
         </div>
     </div>
 

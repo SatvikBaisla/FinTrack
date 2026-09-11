@@ -134,6 +134,17 @@ updated_at
 5. Add the Accounts screen — display the user's accounts and their current balances.
 6. Update the dashboard — replace the static balance with the combined balance from the user's accounts.
 
++++++++ STEP 10 ++++++++++
+1. Create the Accounts screen — display all accounts belonging to the user.
+2. Add an account form — allow the user to enter:
+Account name
+Account type
+Opening balance
+3. Add account actions — support create, edit, and delete using the APIs you already built.
+4. Display balances — show current_balance for each account and the combined balance.
+5. Handle API states — show loading, success, validation, and error states.
+6. Update the dashboard — use the real account data instead of the static/mock balance.
+
 +++++++++++++++++++++ Tables ++++++++++++++++++++++++++
 1. users
 CREATE TABLE fintrack_db.users (
