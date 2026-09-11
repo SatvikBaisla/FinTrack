@@ -27,6 +27,7 @@
     border-radius: 20px;
     background-color: var(--background-color);
     box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 .layer-1-box-1{
     width: 25%;
@@ -36,9 +37,24 @@
 }
 .layer-1-box-3{
     width: 25%;
+    /* background-color: #FFF5F8; */
+}
+.layer-1-box-3 .balance-text{
+    color: var(--text-warning);
 }
 .layer-1-box-4{
     width: 25%;
+    /* background-color: #E8F5E9; */
+}
+.layer-1-box-4 .balance-text{
+    color: var(--text-success);
+}
+
+.green-text{
+    color: var(--text-success);
+}
+.red-text{
+    color: var(--text-warning);
 }
 
 .layer-2{
@@ -132,6 +148,27 @@
     width: 60%;
 }
 
+.layer-5{
+    padding: 40px;
+    padding-top: 0;
+    display: flex;
+    gap: 40px;
+    width: 100%;
+}
+.layer-5-box{
+    min-height: 100px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: var(--background-color);
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+}
+.layer-5-box-1{
+    width: 25%;
+}
+.layer-5-box-2{
+    width: 75%;
+}
+
 .layer-box-heading{
     opacity: 0.4;
     text-align: right;
@@ -147,12 +184,26 @@
 .balance-text{
     margin: 10px 0;
 }
+.layer-icon-container{
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.layer-icon-container:hover{
+    background-color: var(--accent-color);
+    transition: 0.4s;
+}
+.layer-icon-container .fa{
+    color: var(--primary-color);
+}
 .layer-box-hint-text{
     opacity: 0.6;
 }
 .layer-box-list{
     list-style: none;
     margin-top: 10px;
+    height: 152px;
+    overflow-y: auto;
 }
 .layer-box-item{
     padding: 10px 0;
@@ -196,4 +247,19 @@
 }
 .month-card:last-child{
     margin-bottom: 0px;
+}
+.layer-box-add-button{
+    font-size: 34px;
+    color: var(--text-success);
+    cursor: pointer;
+    position: absolute;
+    bottom: -15px;
+    right: 25px;
+    border-radius: 50%;
+    background-color: var(--background-color);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+}
+.layer-box-add-button:hover{
+    transform: scale(1.1);
+    transition: 0.4s;
 }
