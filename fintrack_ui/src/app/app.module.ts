@@ -9,6 +9,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './page/home/home.component';
 import { RegisterComponent } from './page/register/register.component';
 import { UpdateComponent } from './page/update/update.component';
+import { SidenavComponent } from './common/component/sidenav/sidenav.component';
+import { AccountsComponent } from './page/accounts/accounts.component';
+import { PagingComponent } from './common/component/paging/paging.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { UpdateComponent } from './page/update/update.component';
     LoginComponent,
     HomeComponent,
     RegisterComponent,
-    UpdateComponent
+    UpdateComponent,
+    SidenavComponent,
+    AccountsComponent,
+    PagingComponent
   ],
   imports: [
     BrowserModule,

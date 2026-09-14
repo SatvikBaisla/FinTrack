@@ -1,0 +1,99 @@
+<section class="section-container">
+    <app-sidenav></app-sidenav>
+    <div class="section-content-container">
+        <!-- page header -->
+        <div class="page-header">
+            <h1 class="page-name font-heading-big">Your Accounts</h1>
+            <div class="flex-1"></div>
+            <button class="btn btn-light" (click)="showAddAccountSection()">Add Account</button>
+        </div>
+        
+        <!-- add new account form -->
+        <div class="form-container"
+            *ngIf="isAddAccountSection">
+            <h1 class="form-header">Add New Account</h1>
+            <form class="form-fields-container" [formGroup]="addAccountForm">
+                <div class="input-field-container half">
+                    <label class="input-label" for="name">
+                        Account Name:
+                    </label>
+                    <input type="text" name="name" class="input-field" placeholder="Enter account name" formControlName="name"
+                        required>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container half">
+                    <label class="input-label" for="type">
+                        Account Type:
+                    </label>
+                    <select class="input-field" formControlName="type" formControlName="type">
+                        <option *ngFor="let item of accountTypes" value="{{item.value}}">
+                            {{item.label}}
+                        </option>
+                    </select>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container half">
+                    <label class="input-label" for="type">
+                        Opening Balance:
+                    </label>
+                    <input type="text" id="username" name="username" class="input-field" placeholder="Enter account opening balance" formControlName="opening_balance"
+                        required>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container half">
+                    <label class="input-label" for="type">
+                        Current Balance:
+                    </label>
+                    <input type="text" id="username" name="username" class="input-field" placeholder="Enter account current balance" formControlName="current_balance"
+                        required>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+            </form>
+            <div class="btn-container">
+                <button class="btn btn-dark" (click)="addNewAccount()">Add Account</button>
+                <button class="btn btn-light" (click)="cancelForm()">Cancel</button>
+            </div>
+        </div>
+
+        <!-- accounts table -->
+        <div class="table-container account-table">
+            <h1 class="table-header">List of your accounts</h1>
+            <table class="table">
+                <tr class="header-row">
+                    <th class="number-column"></th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>opening balance</th>
+                    <th>current balance</th>
+                    <th>created at</th>
+                    <th class="option-column"></th>
+                </tr>
+                <tr *ngFor="let item of userAccounts; let i = index">
+                    <td class="number-column">{{i+1}}.</td>
+                    <td>{{item.name}}</td>
+                    <td class="center light">{{item.type}}</td>
+                    <td class="center light">₹ {{item.opening_balance | number:'1.2-2':'en-IN'}}</td>
+                    <td class="center">₹ {{item.current_balance | number:'1.2-2':'en-IN'}}</td>
+                    <td class="center light">{{item.created_at | date}}</td>
+                    <td class="option-column">
+                        <i class="fa fa-bars" aria-hidden="true"></i>
+                    </td>
+                </tr>
+            </table>
+            <app-paging></app-paging>
+        </div>
+
+    </div>
+</section>

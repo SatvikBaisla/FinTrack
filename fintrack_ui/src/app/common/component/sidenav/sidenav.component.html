@@ -1,0 +1,17 @@
+<div class="sidenav-contianer">
+    <h1 class="nav-header font-heading ta-c opacity-6">
+        Navigation
+    </h1>
+    <ul class="nav-list">
+        <li class="nav-item font-text c-p"
+            *ngFor="let item of navItems"
+            [class.nav-item-active]="item.name == activeNavOption"
+            (click)="changeOption(item.name)">
+            <i class="fa {{item.icon}}" aria-hidden="true"></i>
+            {{item.label}}
+        </li>
+    </ul>
+    <div class="logout-container">
+        <button class="btn btn-light">Logout</button>
+    </div>
+</div>

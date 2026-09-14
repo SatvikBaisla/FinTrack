@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../common/service/user.service';
 import { IGetAllAccountsResponseBody, IUserAccount } from '../../common/interface/common';
 import { FormControl, FormGroup } from '@angular/forms';
-import { accountType } from '../../common/interface/type';
+import { TAccountTypes } from '../../common/interface/type';
+import { NavigationService } from '../../common/service/navigation.service';
 
 @Component({
   selector: 'app-home',
@@ -28,21 +29,22 @@ export class HomeComponent implements OnInit {
 
   addAccountForm: FormGroup = new FormGroup({
     name: new FormControl<string>(''),
-    type: new FormControl<accountType>('cash'),
+    type: new FormControl<TAccountTypes>('cash'),
     opening_balance: new FormControl<number>(0),
     current_balance: new FormControl<number>(0)
   })
 
-  accountTypes: { value: accountType; label: string }[] = [
+  accountTypes: { value: TAccountTypes; label: string }[] = [
     { value: 'cash', label: 'Cash' },
     { value: 'bank', label: 'Bank' },
     { value: 'credit_card', label: 'Credit Card' },
     { value: 'wallet', label: 'Wallet' }
   ];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private navigationService: NavigationService) { }
 
   ngOnInit(): void {
+    this.navigationService.activeNavOption = 'dashboard';
     this.getAllUserAccounts();
   }
 

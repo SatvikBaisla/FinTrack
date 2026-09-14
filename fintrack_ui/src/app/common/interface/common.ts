@@ -1,4 +1,4 @@
-import { accountType } from "./type";
+import { TAccountTypes } from "./type";
 
 export interface IApiResponse<T> {
     success: boolean;
@@ -35,7 +35,7 @@ export interface IRegisterResponseBody{
 export interface IGetAllAccountsRequestBody{
     account_id: number;
     name: string;
-    type: accountType;
+    type: TAccountTypes;
     opening_balance: number;
     current_balance: number;
     created_at: Date;
@@ -43,7 +43,7 @@ export interface IGetAllAccountsRequestBody{
 export interface IGetAllAccountsResponseBody{
     account_id: number;
     name: string;
-    type: accountType;
+    type: TAccountTypes;
     opening_balance: number;
     current_balance: number;
     created_at: Date;
@@ -52,21 +52,21 @@ export interface IGetAllAccountsResponseBody{
 export interface IUserAccount{
     account_id: number;
     name: string;
-    type: accountType;
+    type: TAccountTypes;
     opening_balance: number;
     current_balance: number;
 }
 
 export interface IAddNewAccountRequestBody{
     name: string;
-    type: accountType;
+    type: TAccountTypes;
     opening_balance: number;
     current_balance: number;
 }
 export interface IAddNewAccountResponseBody{
     account_id: number;
     name: string;
-    type: accountType;
+    type: TAccountTypes;
     opening_balance: number;
     current_balance: number;
     created_at: Date;

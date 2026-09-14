@@ -1,22 +1,29 @@
-.section-content-container{
-    padding: 0px;
-    display: flex;
-    gap: 20px;
-}
 .header-container{
     padding: 40px;
     display: flex;
     align-items: center;
 }
-.header-container .current-balance{
+.page-header .current-balance{
     padding: 10px;
     /* background-color: var(--background-color); */
     border-radius: 4px;
     font-size: 24px;
 }
+.layer{
+    padding-bottom: 40px;
+    display: flex;
+    gap: 40px;
+    width: 100%;
+}
+
+
+
+
+
+
+
 .layer-1{
-    padding: 40px;
-    padding-top: 0;
+    padding-bottom: 40px;
     display: flex;
     gap: 40px;
     width: 100%;
@@ -58,8 +65,7 @@
 }
 
 .layer-2{
-    padding: 40px;
-    padding-top: 0;
+    padding-bottom: 40px;
     display: flex;
     gap: 40px;
     width: 100%;
@@ -85,7 +91,7 @@
 }
 
 .layer-3{
-    padding: 40px;
+    padding-bottom: 40px;
     padding-top: 0;
     display: flex;
     gap: 40px;
@@ -119,7 +125,7 @@
 }
 
 .layer-4{
-    padding: 40px;
+    padding-bottom: 40px;
     padding-top: 0;
     display: flex;
     gap: 40px;
@@ -149,7 +155,7 @@
 }
 
 .layer-5{
-    padding: 40px;
+    padding-bottom: 40px;
     padding-top: 0;
     display: flex;
     gap: 40px;

@@ -1,0 +1,34 @@
+.paging-container{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.page-btn{
+    height: 34px;
+    width: 34px;
+    border-radius: 8px;
+    border: 1px solid var(--accent-color);
+    background-color: var(--accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: 0.4s;
+}
+.page-btn:hover{
+    transform: scale(1.1);
+    /* border: 1px solid var(--primary-color); */
+    /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); */
+    opacity: 1;
+}
+.paging-container .active{
+    opacity: 1;
+    color: var(--text-color-light);
+    background-color: var(--primary-color);
+}
+.paging-container .active:hover{
+    opacity: 1;
+    transform: scale(1);
+}
