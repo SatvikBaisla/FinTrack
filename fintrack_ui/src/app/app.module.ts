@@ -12,6 +12,7 @@ import { UpdateComponent } from './page/update/update.component';
 import { SidenavComponent } from './common/component/sidenav/sidenav.component';
 import { AccountsComponent } from './page/accounts/accounts.component';
 import { PagingComponent } from './common/component/paging/paging.component';
+import { SubscriptionComponent } from './page/subscription/subscription.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PagingComponent } from './common/component/paging/paging.component';
     UpdateComponent,
     SidenavComponent,
     AccountsComponent,
-    PagingComponent
+    PagingComponent,
+    SubscriptionComponent
   ],
   imports: [
     BrowserModule,

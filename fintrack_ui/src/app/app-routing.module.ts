@@ -5,6 +5,7 @@ import { HomeComponent } from './page/home/home.component';
 import { RegisterComponent } from './page/register/register.component';
 import { UpdateComponent } from './page/update/update.component';
 import { AccountsComponent } from './page/accounts/accounts.component';
+import { SubscriptionComponent } from './page/subscription/subscription.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'account',
     component: AccountsComponent
+  },
+  {
+    path: 'emisubscription',
+    component: SubscriptionComponent
   },
   {
     path: 'update',

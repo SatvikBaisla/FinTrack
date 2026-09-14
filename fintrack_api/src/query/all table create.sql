@@ -37,3 +37,18 @@ CREATE TABLE fintrack_db.accounts (
         REFERENCES fintrack_db.users(id)
 );
 SELECT * FROM fintrack_db.accounts;
+
+CREATE TABLE fintrack_db.emi_subscription (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    sub_amount DECIMAL(15, 2) NOT NULL,
+    sub_date DATETIME NOT NULL,
+    start_date DATETIME,
+    end_date DATETIME,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    
+    CONSTRAINT emi_subscription_users_fk
+		FOREIGN KEY (user_Id)
+        REFERENCES fintrack_db.users(id)
+);

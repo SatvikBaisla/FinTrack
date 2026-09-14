@@ -75,6 +75,7 @@ export class SidenavComponent implements OnInit{
         break;
       case 'emisubscriptions':
         this.activeNavOption = option;
+        this.router.navigate(['/emisubscription']);
         break;
       case 'debt':
         this.activeNavOption = option;

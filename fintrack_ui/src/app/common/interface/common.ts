@@ -71,3 +71,20 @@ export interface IAddNewAccountResponseBody{
     current_balance: number;
     created_at: Date;
 }
+
+// subscription
+export interface IAddSubscriptionReqBody{
+    name: string,
+    sub_amount: number,
+    sub_date: Date;
+    start_date: Date;
+    end_date: Date;
+}
+export interface IAddSubscriptionResBody{
+    subscription_id: number;
+    name: string,
+    sub_amount: number,
+    sub_date: Date;
+    start_date: Date;
+    end_date: Date;
+}
