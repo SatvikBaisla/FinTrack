@@ -36,3 +36,4 @@ CREATE TABLE fintrack_db.accounts (
 		FOREIGN KEY (user_id)
         REFERENCES fintrack_db.users(id)
 );
+SELECT * FROM fintrack_db.accounts;

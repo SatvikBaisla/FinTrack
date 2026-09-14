@@ -1,1 +1,96 @@
-<p>update works!</p>
+<section class="section-container">
+    <div class="page-header">
+        <h1 class="page-name font-heading-big">Update Page</h1>
+        <div class="flex-1"></div>
+        <div class="back-link font-text">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            <span routerLink="/home">Back to Home</span>
+        </div>
+    </div>
+
+    <div class="update-page-layout-container">
+        <div class="update-box action-box">
+            <h1 class="font-subheading box-heading ta-c">Actions</h1>
+            <ul>
+                <li class="action-item font-text" [class.action-item-active]="selectedAction == item"
+                    *ngFor="let item of actionList" (click)="actionClicked(item)">
+                    <span>{{item}}</span>
+                    <div class="flex-1"></div>
+                    <i *ngIf="selectedAction == item" class="fa fa-arrow-left" aria-hidden="true"></i>
+                </li>
+            </ul>
+        </div>
+        <div class="update-box action-box">
+            <h1 class="font-subheading box-heading ta-c">Records</h1>
+            <ul>
+                <!-- accounts items -->
+                <ng-container *ngIf="selectedAction == 'Accounts'">
+                    <li class="action-item font-text" [class.action-item-active]="selectedRecord?.name == item.name"
+                        *ngFor="let item of userAccounts" (click)="recordClicked(item)">
+                        <span>{{item.name}}</span>
+                        <div class="flex-1"></div>
+                        <span class="opacity-4 font-text-small">(₹ {{item.current_balance | number:'1.2-2':'en-IN'}})</span>
+                        <i *ngIf="selectedRecord?.name == item.name" class="fa fa-arrow-left" aria-hidden="true"></i>
+                    </li>
+                </ng-container>
+            </ul>
+            <div class="btn-container" *ngIf="selectedRecord">
+                <button class="btn btn-small btn-dark" (click)="clearRecord()">Clear</button>
+            </div>
+        </div>
+        <div class="update-box field-box">
+            <h1 class="font-subheading box-heading ta-c">Accounts</h1>
+
+            <div class="capsule-contianer">
+                <div class="capsule" [class.capsule-active]="activeAction == 'add'" (click)="activeAction = 'add'">
+                    Add
+                </div>
+                <div class="capsule" [class.capsule-active]="activeAction == 'edit'" (click)="activeAction = 'edit'">
+                    Edit
+                </div>
+                <div class="capsule-bg" [ngClass]="{
+                        'capsule-left': activeAction == 'add',
+                        'capsule-right': activeAction == 'edit'
+                    }">
+                </div>
+            </div>
+
+            <!-- waring text for editing -->
+            <div class="font-text warning-text opacity-4" *ngIf="activeAction == 'edit' && selectedRecord == null">
+                <p>Please select any record to edit.</p>
+            </div>
+
+            <!-- accounts -->
+            <form class="add-edit-form-container" [formGroup]="addAccountForm">
+                <div class="input-field-container">
+                    <label class="input-label">Account Name:</label>
+                    <input class="input-field" type="text" placeholder="Enter account name" formControlName="name">
+                </div>
+                <div class="input-field-container">
+                    <label class="input-label">Account Type:</label>
+                    <select class="input-field" formControlName="type">
+                        <option *ngFor="let item of accountTypes" value="{{item.value}}">
+                            {{item.label}}
+                        </option>
+                    </select>
+                </div>
+                <div class="input-field-container">
+                    <label class="input-label">Opening Balance:</label>
+                    <input class="input-field" type="text" placeholder="Enter opening balance"
+                        formControlName="opening_balance">
+                </div>
+                <div class="input-field-container">
+                    <label class="input-label">Current Balance:</label>
+                    <input class="input-field" type="text" placeholder="Enter current balance"
+                        formControlName="current_balance">
+                </div>
+                <div class="btn-container">
+                    <button class="btn btn-dark" (click)="addNewAccount()">
+                        <span *ngIf="activeAction == 'add'">Add</span> <span *ngIf="activeAction == 'edit'">Update</span>
+                        Account
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

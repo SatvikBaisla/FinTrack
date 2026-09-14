@@ -1,0 +1,105 @@
+.section-container{
+    padding: 40px;
+}
+.update-page-layout-container{
+    display: flex;
+    gap: 40px;
+    min-height: 600px;
+}
+.update-box{
+    border-radius: 20px;
+    background-color: var(--background-color);
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+.box-heading{
+    padding: 10px;
+}
+.action-box{
+    width: calc(20%);
+    padding: 10px 0;
+}
+.action-box ul{
+    list-style: none;
+}
+.action-box .action-item{
+    padding: 10px;
+    border-bottom: 1px solid var(--accent-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.action-box .action-item:hover{
+    background-color: var(--accent-color);
+    transition: 0.4s;
+}
+.action-box .action-item i{
+    transform: rotate(180deg);
+}
+.action-box .action-item-active{
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+}
+.action-box .action-item-active:hover{
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+}
+.record-box{
+    padding: 10px;
+    width: calc(20%);
+}
+.field-box{
+    padding: 20px;
+    width: calc(60%);
+}
+.capsule-contianer{
+    margin-bottom: 20px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    background-color: var(--accent-color);
+    border-radius: 40px;
+    overflow: hidden;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+.capsule{
+    width: 50%;
+    padding: 10px 20px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 10;
+}
+.capsule-active{
+    color: var(--text-color-light)
+}
+.capsule-bg{
+    width: 50%;
+    height: 100%;
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+    border-radius: 40px;
+    position: absolute;
+    z-index: 1;
+    transition: 0.4s;
+}
+.capsule-left{
+    left: 0;
+}
+.capsule-right{
+    right: 0;
+}
+.add-edit-form-container{
+    padding: 20px;
+    margin-top: 20px;
+    border:1px solid var(--accent-color);
+    border-radius: 20px;
+}
+.warning-text{
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

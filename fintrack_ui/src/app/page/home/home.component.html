@@ -177,100 +177,26 @@
             </ul>
         </div>
         <div class="layer-5-box layer-5-box-2">
-            <div class="layer-box-heading-with-button">
-                <p class="font-text">Add New Account</p>
-            </div>
-            <form class="add-edit-form-container" [formGroup]="addAccountForm">
-                <div class="input-field-container">
-                    <label class="input-label">Account Name:</label>
-                    <input class="input-field" 
-                            type="text" 
-                            placeholder="Enter account name"
-                            formControlName="name">
+            <div class="layer-3-box">
+                <div class="layer-box-heading-with-button">
+                    <p class="font-text">Monthly Expense Target: ₹ 1,000/day</p>
+                    <div class="flex-1"></div>
+                    <button class="btn btn-small btn-dark">Update</button>
                 </div>
-                <div class="input-field-container">
-                    <label class="input-label">Account Type:</label>
-                    <select class="input-field"
-                            formControlName="type">
-                        <option *ngFor="let item of accountTypes"
-                                value="{{item.value}}">
-                                {{item.label}}
-                        </option>
-                    </select>
-                </div>
-                <div class="input-field-container">
-                    <label class="input-label">Opening Balance:</label>
-                    <input class="input-field" 
-                            type="text" 
-                            placeholder="Enter opening balance"
-                            formControlName="opening_balance">
-                </div>
-                <div class="input-field-container">
-                    <label class="input-label">Current Balance:</label>
-                    <input class="input-field" 
-                            type="text" 
-                            placeholder="Enter current balance"
-                            formControlName="current_balance">
-                </div>
-            </form>
-            <div class="btn-container">
-                <button class="btn btn-dark" (click)="addNewAccount()">Add Account</button>
-            </div>
-        </div>
-    </div>
 
-    <div class="layer-4">
-        <div class="layer-4-box">
-            <div class="layer-box-heading-with-button">
-                <p class="font-text">Add New Expense</p>
-                <div class="flex-1"></div>
-                <button class="btn btn-small btn-dark">Add</button>
-            </div>
-            <div class="expence-form">
-                <div class="input-field-container">
-                    <label class="input-label" for="expense-amount">
-                        Expense Amount:
-                    </label>
-                    <input type="text" id="expense-amount" name="expense-amount" class="input-field"
-                        placeholder="Enter expense amount" required>
-                </div>
-                <div class="input-field-container">
-                    <label class="input-label" for="expense-date">
-                        Date:
-                    </label>
-                    <input type="date" id="expense-date" name="expense-date" class="input-field"
-                        placeholder="Enter expense date" required>
-                </div>
-                <div class="input-field-container">
-                    <label class="input-label" for="expense-name">
-                        Expense Note:
-                    </label>
-                    <input type="text" id="expense-name" name="expense-name" class="input-field"
-                        placeholder="Enter expense note" required>
+                <p class="font-subheading">September</p>
+                <br>
+
+                <div class="days-card-container">
+                    <div class="days-card" *ngFor="let day of days">
+                        <p class="font-text ta-c">{{ day }}</p>
+                        <p class="font-text ta-c">₹ 500</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="layer-3">
-        <div class="layer-3-box">
-            <div class="layer-box-heading-with-button">
-                <p class="font-text">Monthly Expense Target: ₹ 1,000/day</p>
-                <div class="flex-1"></div>
-                <button class="btn btn-small btn-dark">Update</button>
-            </div>
-
-            <p class="font-subheading">September</p>
-            <br>
-
-            <div class="days-card-container">
-                <div class="days-card" *ngFor="let day of days">
-                    <p class="font-text ta-c">{{ day }}</p>
-                    <p class="font-text ta-c">₹ 500</p>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- <div class="month-card-container">
         <div class="month-card" [class.month-card-active]="activeMonths.includes(month)" *ngFor="let month of months"
             (click)="monthSelected(month)">
