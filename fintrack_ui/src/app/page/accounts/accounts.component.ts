@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { TAccountTypes } from '../../common/interface/type';
 import { UserService } from '../../common/service/user.service';
-import { IGetAllAccountsResponseBody, IUserAccount } from '../../common/interface/common';
+import { IUserAccount } from '../../common/interface/common';
 import { NavigationService } from '../../common/service/navigation.service';
 
 @Component({
@@ -11,8 +11,7 @@ import { NavigationService } from '../../common/service/navigation.service';
   styleUrl: './accounts.component.css'
 })
 export class AccountsComponent implements OnInit {
-
-  userAccounts: IGetAllAccountsResponseBody[] = [];
+  userAccounts: IUserAccount[] = [];
   isAddAccountSection: boolean = false; 
   
   accountTypes: { value: TAccountTypes; label: string }[] = [
@@ -24,6 +23,7 @@ export class AccountsComponent implements OnInit {
   
   addAccountForm: FormGroup = new FormGroup({
     name: new FormControl<string>(''),
+    ref_number: new FormControl<string>(''),
     type: new FormControl<TAccountTypes>('cash'),
     opening_balance: new FormControl<number>(0),
     current_balance: new FormControl<number>(0)

@@ -13,7 +13,7 @@
             *ngIf="isAddAccountSection">
             <h1 class="form-header">Add New Account</h1>
             <form class="form-fields-container" [formGroup]="addAccountForm">
-                <div class="input-field-container half">
+                <div class="input-field-container onethird">
                     <label class="input-label" for="name">
                         Account Name:
                     </label>
@@ -24,7 +24,18 @@
                         </span>
                     </div>
                 </div>
-                <div class="input-field-container half">
+                <div class="input-field-container onethird">
+                    <label class="input-label" for="name">
+                        Account Ref Number:
+                    </label>
+                    <input type="text" name="name" class="input-field" placeholder="Enter account ref number" formControlName="ref_number"
+                        required>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container onethird">
                     <label class="input-label" for="type">
                         Account Type:
                     </label>
@@ -62,7 +73,7 @@
                 </div>
             </form>
             <div class="btn-container">
-                <button class="btn btn-dark" (click)="addNewAccount()">Add Account</button>
+                <button class="btn btn-dark" (click)="addNewAccount()">Add</button>
                 <button class="btn btn-light" (click)="cancelForm()">Cancel</button>
             </div>
         </div>
@@ -78,6 +89,7 @@
                     <th class="number-column"></th>
                     <th>Name</th>
                     <th>Type</th>
+                    <th>Ref Number</th>
                     <th>opening balance</th>
                     <th>current balance</th>
                     <th>created at</th>
@@ -86,7 +98,8 @@
                 <tr *ngFor="let item of userAccounts; let i = index">
                     <td class="number-column">{{i+1}}.</td>
                     <td>{{item.name}}</td>
-                    <td class="center light">{{item.type}}</td>
+                    <td class="center">{{item.type}}</td>
+                    <td class="center light">#{{item.ref_number}}</td>
                     <td class="center light">₹ {{item.opening_balance | number:'1.2-2':'en-IN'}}</td>
                     <td class="center">₹ {{item.current_balance | number:'1.2-2':'en-IN'}}</td>
                     <td class="center light">{{item.created_at | date}}</td>

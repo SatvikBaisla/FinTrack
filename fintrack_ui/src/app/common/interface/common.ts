@@ -1,4 +1,4 @@
-import { TAccountTypes, TDebtType } from "./type";
+import { TAccountTypes, TDebtType, TSubscriptionStatus } from "./type";
 
 export interface IApiResponse<T> {
     success: boolean;
@@ -35,14 +35,7 @@ export interface IRegisterResponseBody{
 export interface IGetAllAccountsRequestBody{
     account_id: number;
     name: string;
-    type: TAccountTypes;
-    opening_balance: number;
-    current_balance: number;
-    created_at: Date;
-}
-export interface IGetAllAccountsResponseBody{
-    account_id: number;
-    name: string;
+    ref_number: string;
     type: TAccountTypes;
     opening_balance: number;
     current_balance: number;
@@ -52,9 +45,11 @@ export interface IGetAllAccountsResponseBody{
 export interface IUserAccount{
     account_id: number;
     name: string;
+    ref_number: string;
     type: TAccountTypes;
     opening_balance: number;
     current_balance: number;
+    created_at: Date;
 }
 
 export interface IAddNewAccountRequestBody{
@@ -63,30 +58,28 @@ export interface IAddNewAccountRequestBody{
     opening_balance: number;
     current_balance: number;
 }
-export interface IAddNewAccountResponseBody{
-    account_id: number;
-    name: string;
-    type: TAccountTypes;
-    opening_balance: number;
-    current_balance: number;
-    created_at: Date;
-}
 
 // subscription
 export interface IAddSubscriptionReqBody{
     name: string,
+    account_id: number,
     sub_amount: number,
     sub_date: Date;
     start_date: Date;
     end_date: Date;
 }
-export interface IAddSubscriptionResBody{
+export interface ISubscription{
     subscription_id: number;
+    account_id: number;
+    account_name: string;
+    ref_number: string;
+    account_type: TAccountTypes;
     name: string,
     sub_amount: number,
     sub_date: Date;
     start_date: Date;
     end_date: Date;
+    status: TSubscriptionStatus;
 }
 
 // debts
@@ -104,4 +97,15 @@ export interface IUserDebtReqBody{
     amount: number;
     date: Date;
     end_date: Date;
+}
+
+// savings 
+export interface IUserSaving{
+    saving_id: number;
+    account_id: number;
+    account_name: string;
+    account_type: TAccountTypes;
+    saving_amount: number;
+    current_balance: number;
+    created_at: Date;
 }

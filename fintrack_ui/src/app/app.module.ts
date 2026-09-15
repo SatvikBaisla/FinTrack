@@ -15,6 +15,7 @@ import { PagingComponent } from './common/component/paging/paging.component';
 import { SubscriptionComponent } from './page/subscription/subscription.component';
 import { BaseChartDirective } from 'ng2-charts';
 import { DebtsComponent } from './page/debts/debts.component';
+import { SavingComponent } from './page/saving/saving.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { DebtsComponent } from './page/debts/debts.component';
     AccountsComponent,
     PagingComponent,
     SubscriptionComponent,
-    DebtsComponent
+    DebtsComponent,
+    SavingComponent
   ],
   imports: [
     BrowserModule,

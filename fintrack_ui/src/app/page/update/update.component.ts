@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TAccountTypes } from '../../common/interface/type';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserService } from '../../common/service/user.service';
-import { IGetAllAccountsResponseBody, IUserAccount } from '../../common/interface/common';
+import { IUserAccount } from '../../common/interface/common';
 
 type actionTypes = 'add' | 'edit';
 
@@ -15,7 +15,7 @@ export class UpdateComponent implements OnInit{
   selectedAction: string = 'Income Source';
   selectedRecord!: IUserAccount | null;
   activeAction: actionTypes = 'add';
-  userAccounts: IGetAllAccountsResponseBody[] = [];
+  userAccounts: any[] = [];
 
   actionList: string[] = [
     'Income Source',

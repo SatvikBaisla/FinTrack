@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IAddSubscriptionResBody, IApiResponse, IUserDebt, IUserDebtReqBody } from '../interface/common';
+import { ISubscription, IApiResponse, IUserDebt, IUserDebtReqBody, IUserSaving } from '../interface/common';
 import { environment } from '../../../environments/environment.development';
 
 @Injectable({
@@ -12,11 +12,11 @@ export class FinanceService {
 
   // subscriptions
   getAllSubscription() {
-    return this.http.get<IApiResponse<IAddSubscriptionResBody[]>>(`${environment.apiUrl}/finance/subscription`);
+    return this.http.get<IApiResponse<ISubscription[]>>(`${environment.apiUrl}/finance/subscription`);
   }
 
   addNewSubscriptions(reqBody: any) {
-    return this.http.post<IApiResponse<IAddSubscriptionResBody>>(`${environment.apiUrl}/finance/subscription`, reqBody);
+    return this.http.post<IApiResponse<ISubscription>>(`${environment.apiUrl}/finance/subscription`, reqBody);
   }
 
   // debts
@@ -25,5 +25,10 @@ export class FinanceService {
   }
   addNewDebt(reqBody: IUserDebtReqBody) {
     return this.http.post<IApiResponse<IUserDebt>>(`${environment.apiUrl}/finance/debts`, reqBody)
+  }
+
+  // savings
+  getAllSavings() {
+    return this.http.get<IApiResponse<IUserSaving[]>>(`${environment.apiUrl}/finance/savings`);
   }
 }

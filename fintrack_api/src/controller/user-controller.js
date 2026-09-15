@@ -26,12 +26,12 @@ const getAllUserAccounts = async (req, res) => {
 }
 
 
-// request body -> name, type, opening_balance, current_balance
+// req body -> name, ref_number, type, opening_balance, current_balance
 const addNewAccount = async (req, res) => {
     const userId = 2;
-    const {name, type, opening_balance, current_balance} = req.body;
+    const {name, ref_number, type, opening_balance, current_balance} = req.body;
     try{
-        const newAccount = await userService.addNewAccount(name, type, opening_balance, current_balance, userId);
+        const newAccount = await userService.addNewAccount(name, ref_number, type, opening_balance, current_balance, userId);
         if(!newAccount){
             return res.status(404).json({
                 success: false,

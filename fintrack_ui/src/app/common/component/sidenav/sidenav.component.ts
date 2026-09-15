@@ -27,11 +27,11 @@ export class SidenavComponent implements OnInit{
       label: 'Accounts',
       icon: 'fa-users'
     },
-    {
-      name: 'goals',
-      label: 'Goals',
-      icon: 'fa-pie-chart'
-    },
+    // {
+    //   name: 'goals',
+    //   label: 'Goals',
+    //   icon: 'fa-pie-chart'
+    // },
     {
       name: 'emisubscriptions',
       label: 'Emi/Subscriptions',
@@ -83,6 +83,7 @@ export class SidenavComponent implements OnInit{
         break;
       case 'savings':
         this.activeNavOption = option;
+        this.router.navigate(['/savings']);
         break;
       case 'settings':
         this.activeNavOption = option;

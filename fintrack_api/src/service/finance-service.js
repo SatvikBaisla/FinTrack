@@ -4,14 +4,21 @@ const getAllUsersSubscription = async (userId) => {
     const [subscriptions] = await pool.query(
         `
         SELECT
-            id AS subscription_id,
-            name,
-            sub_amount,
-            sub_date,
-            start_date,
-            end_date
-        FROM emi_subscription
-        WHERE user_id = ?
+            e.id AS subscription_id,
+            e.account_id,
+            a.name AS account_name,
+            a.ref_number,
+            a.type AS account_type,
+            e.name,
+            e.sub_amount,
+            e.sub_date,
+            e.start_date,
+            e.end_date,
+            e.status
+        FROM emi_subscription e
+        LEFT JOIN accounts a
+            ON e.account_id = a.id
+        WHERE e.user_id = ?
         ORDER BY sub_date ASC;
         `,
         [userId]
@@ -24,24 +31,31 @@ const addNewSubscription = async (userId, subscriptionDetails) => {
     const [subscription] = await pool.query(
         `
         INSERT INTO emi_subscription
-            (user_id, name, sub_amount, sub_date, start_date, end_date)
+            (user_id, name, account_id, sub_amount, sub_date, start_date, end_date, status)
         VALUES
-            (?, ?, ?, ?, ?, ?);
+            (?, ?, ?, ?, ?, ?, ?, ?);
         `,
-        [userId, subscriptionDetails.name, subscriptionDetails.sub_amount, subscriptionDetails.sub_date, subscriptionDetails.start_date, subscriptionDetails.end_date]
+        [userId, subscriptionDetails.name, subscriptionDetails.account_id, subscriptionDetails.sub_amount, subscriptionDetails.sub_date, subscriptionDetails.start_date, subscriptionDetails.end_date, subscriptionDetails.status]
     );
 
     const [newSubscription] = await pool.query(
         `
         SELECT
-            id AS subscription_id,
-            name,
-            sub_amount,
-            sub_date,
-            start_date,
-            end_date
-        FROM emi_subscription
-        WHERE id = ?;
+            e.id AS subscription_id,
+            e.account_id,
+            a.name AS account_name,
+            a.ref_number,
+            a.type AS account_type,
+            e.name,
+            e.sub_amount,
+            e.sub_date,
+            e.start_date,
+            e.end_date,
+            e.status
+        FROM emi_subscription e
+        LEFT JOIN accounts a
+            ON e.account_id = a.id
+        WHERE e.id = ?;
         `,
         [subscription.insertId]
     );
@@ -97,9 +111,66 @@ const addNewDebt = async (userId, debtDetails) => {
     return newDebt[0];
 }
 
+const getAllSavings = async (userId) => {
+    const [savings] = await pool.query(
+        `
+        SELECT
+            s.id AS saving_id,
+            s.account_id,
+            a.name AS account_name,
+            a.type AS account_type,
+            s.amount AS saving_amount,
+            a.current_balance,
+            s.created_at
+        FROM savings s
+        LEFT JOIN accounts a
+            ON s.account_id = a.id
+        WHERE s.user_id = ?
+        ORDER BY s.created_at DESC;
+        `,
+        [userId]
+    )
+
+    return savings;
+}
+
+const addNewSaving = async (userId, savingDetails) => {
+    const [saving] = await pool.query(
+        `
+        INSERT INTO savings
+            (user_id, account_id, amount)
+        VALUES
+            (?, ?, ?);
+        `,
+        [userId, savingDetails.account_id, savingDetails.amount]
+    )
+
+    const [newSaving] = await pool.query(
+        `
+        SELECT
+            s.id AS saving_id,
+            s.account_id,
+            a.name AS account_name,
+            a.type AS account_type,
+            s.amount AS saving_amount,
+            a.current_balance,
+            s.created_at
+        FROM savings s
+        LEFT JOIN accounts a
+            ON s.account_id = a.id
+        WHERE s.id = ?;
+        `,
+        [saving.insertId]
+    )
+
+    return newSaving[0];
+}
+
 module.exports = {
     getAllUsersSubscription,
     addNewSubscription,
     getAllDebts,
-    addNewDebt
+    addNewDebt,
+    getAllSavings,
+    addNewSaving
 }

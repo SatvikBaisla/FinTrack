@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { IAddSubscriptionReqBody, IAddSubscriptionResBody } from '../../common/interface/common';
+import { IAddSubscriptionReqBody, ISubscription, IUserAccount } from '../../common/interface/common';
 import { NavigationService } from '../../common/service/navigation.service';
 import { FinanceService } from '../../common/service/finance.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ChartConfiguration, ChartData } from 'chart.js';
+import { UserService } from '../../common/service/user.service';
+import { TSubscriptionStatus } from '../../common/interface/type';
 
 @Component({
   selector: 'app-subscription',
@@ -11,17 +13,26 @@ import { ChartConfiguration, ChartData } from 'chart.js';
   styleUrl: './subscription.component.css'
 })
 export class SubscriptionComponent {
-  userSubscriptions: IAddSubscriptionResBody[] = [];
+  userSubscriptions: ISubscription[] = [];
+  userAccounts: IUserAccount[] = [];
   isAddSubscription: boolean = false;
   totalSubsCost: number = 0;
   maxSubsGoal: number = 20000;
 
+  subscriptionStatus: { label: string; value: TSubscriptionStatus }[] = [
+    { label: 'Active', value: 'active' },
+    { label: 'Inactive', value: 'inactive' },
+    { label: 'Paused', value: 'paused' }
+  ]
+
   subscriptionForm: FormGroup = new FormGroup({
     name: new FormControl<string>(''),
+    account_id: new FormControl<number>(0),
     sub_amount: new FormControl<number | null>(null),
     sub_date: new FormControl<Date | null>(null),
     start_date: new FormControl<Date | null>(null),
-    end_date: new FormControl<Date | null>(null)
+    end_date: new FormControl<Date | null>(null),
+    status: new FormControl<TSubscriptionStatus>('active')
   });
 
   public pieChartData: ChartData<'pie'> = {
@@ -36,12 +47,14 @@ export class SubscriptionComponent {
 
   constructor(
     private navigationService: NavigationService,
-    private financeService: FinanceService
+    private financeService: FinanceService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
     this.navigationService.activeNavOption = 'emisubscriptions';
     this.getAllSubscriptions();
+    this.getAllUserAccounts();
   }
 
   getAllSubscriptions() {
@@ -52,6 +65,17 @@ export class SubscriptionComponent {
         datasets: [
           { data: [this.totalSubsCost, (this.maxSubsGoal - this.totalSubsCost)] }
         ]
+      }
+    })
+  }
+
+  getAllUserAccounts() {
+    this.userService.getAllUserAccounts().subscribe({
+      next: response => {
+        this.userAccounts = response.data ?? [];
+      },
+      error: error => {
+        console.log(error.error.message);
       }
     })
   }

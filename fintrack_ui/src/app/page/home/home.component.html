@@ -26,7 +26,7 @@
                 <i class="fa fa-plus-circle layer-box-add-button" aria-hidden="true"></i>
             </div>
             <div class="layer-1-box layer-1-box-3">
-                <p class="font-text layer-box-heading">Total Debt</p>
+                <p class="font-text layer-box-heading">Total Active Debt/Lend</p>
                 <h1 class="balance-text">₹ 12,000<span class="font-text">.00</span></h1>
                 <p class="font-text-small fw-b layer-box-hint-text">Debt Count: 3</p>
                 <i class="fa fa-plus-circle layer-box-add-button" aria-hidden="true"></i>
@@ -42,25 +42,21 @@
         <div class="layer-2">
             <div class="layer-2-box layer-2-box-1">
                 <div class="layer-box-heading-with-button">
-                    <p class="font-text">Income Source List</p>
+                    <p class="font-text">Your Accounts</p>
                     <div class="flex-1"></div>
                     <div class="layer-icon-container">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </div>
                 </div>
                 <ul class="layer-box-list">
-                    <li class="layer-box-item">
-                        <span class="font-text">Job</span>
+                    <li class="layer-box-item" *ngFor="let item of userAccounts">
+                        <span class="font-text">{{item.name}} ({{item.type}})</span>
                         <span class="flex-1"></span>
-                        <span class="font-subheading fw-b green-text">₹ 50,000</span>
-                    </li>
-                    <li class="layer-box-item">
-                        <span class="font-text">Stocks</span>
-                        <span class="flex-1"></span>
-                        <span class="font-subheading fw-b green-text">₹ 20,000</span>
+                        <span class="font-subheading fw-b">₹ {{item.current_balance | number:'1.2-2':'en-IN'}}</span>
                     </li>
                 </ul>
             </div>
+            
             <div class="layer-2-box layer-2-box-2">
                 <div class="layer-box-heading-with-button">
                     <p class="font-text">Emi/Subscriptions List</p>
@@ -104,7 +100,7 @@
             </div>
             <div class="layer-2-box layer-2-box-3">
                 <div class="layer-box-heading-with-button">
-                    <p class="font-text">Debt List</p>
+                    <p class="font-text">Debt Active List</p>
                     <div class="flex-1"></div>
                     <div class="layer-icon-container">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -169,15 +165,22 @@
         <div class="layer-5">
             <div class="layer-5-box layer-5-box-1">
                 <div class="layer-box-heading-with-button">
-                    <p class="font-text">Your Accounts</p>
+                    <p class="font-text">Income Source List</p>
                     <div class="flex-1"></div>
-                    <button class="btn btn-small btn-dark">Add</button>
+                    <div class="layer-icon-container">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </div>
                 </div>
                 <ul class="layer-box-list">
-                    <li class="layer-box-item" *ngFor="let item of userAccounts">
-                        <span class="font-text">{{item.name}} ({{item.type}})</span>
+                    <li class="layer-box-item">
+                        <span class="font-text">Job</span>
                         <span class="flex-1"></span>
-                        <span class="font-subheading fw-b">₹ {{item.current_balance | number:'1.2-2':'en-IN'}}</span>
+                        <span class="font-subheading fw-b green-text">₹ 50,000</span>
+                    </li>
+                    <li class="layer-box-item">
+                        <span class="font-text">Stocks</span>
+                        <span class="flex-1"></span>
+                        <span class="font-subheading fw-b green-text">₹ 20,000</span>
                     </li>
                 </ul>
             </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../common/service/user.service';
-import { IGetAllAccountsResponseBody, IUserAccount } from '../../common/interface/common';
+import { IUserAccount } from '../../common/interface/common';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TAccountTypes } from '../../common/interface/type';
 import { NavigationService } from '../../common/service/navigation.service';
@@ -17,11 +17,12 @@ export class HomeComponent implements OnInit {
   ];
   activeMonths: string[] = [];
   days: number[] = Array.from({ length: 31 }, (_, i) => i + 1);
-  userAccounts: IGetAllAccountsResponseBody[] = [];
+  userAccounts: IUserAccount[] = [];
 
-  selectedAccount: IUserAccount = {
+  selectedAccount: any = {
     account_id: 0,
     name: '',
+    ref_number: '',
     type: 'cash',
     opening_balance: 0,
     current_balance: 0

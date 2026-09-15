@@ -6,12 +6,14 @@ const getAllUserAccounts = async (userId) => {
         SELECT
             id AS account_id,
             name,
+            ref_number,
             type,
             opening_balance,
             current_balance,
             created_at
         FROM accounts
-        WHERE user_id = ?;
+        WHERE user_id = ?
+        ORDER BY current_balance DESC;
         `,
         [userId]
     )
@@ -19,15 +21,15 @@ const getAllUserAccounts = async (userId) => {
     return accounts;
 }
 
-const addNewAccount = async (name, type, opening_balance, current_balance, userId) => {
+const addNewAccount = async (name, ref_number, type, opening_balance, current_balance, userId) => {
     const [account] = await pool.query(
         `
         INSERT INTO accounts
-            (user_id, name, type, opening_balance, current_balance)
+            (user_id, name, ref_number, type, opening_balance, current_balance)
         VALUES
-            (?, ?, ?, ?, ?);
+            (?, ?, ?, ?, ?, ?);
         `,
-        [userId, name, type, opening_balance, current_balance]
+        [userId, name, ref_number, type, opening_balance, current_balance]
     )
 
     const [newAccount] = await pool.query(
@@ -35,6 +37,7 @@ const addNewAccount = async (name, type, opening_balance, current_balance, userI
         SELECT 
             id AS account_id,
             name,
+            ref_number,
             type,
             opening_balance,
             current_balance,

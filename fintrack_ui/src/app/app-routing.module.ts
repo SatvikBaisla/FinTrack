@@ -7,6 +7,7 @@ import { UpdateComponent } from './page/update/update.component';
 import { AccountsComponent } from './page/accounts/accounts.component';
 import { SubscriptionComponent } from './page/subscription/subscription.component';
 import { DebtsComponent } from './page/debts/debts.component';
+import { SavingComponent } from './page/saving/saving.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path: 'debts',
     component: DebtsComponent
+  },
+  {
+    path: 'savings',
+    component: SavingComponent
   }
 ];
 

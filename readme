@@ -186,6 +186,20 @@ CREATE TABLE fintrack_db.accounts (
         REFERENCES fintrack_db.users(id)
 );
 
+ALTER TABLE fintrack_db.accounts
+ADD COLUMN ref_number VARCHAR(50) NULL;
+
+ALTER TABLE fintrack_db.accounts
+MODIFY COLUMN ref_number VARCHAR(50) NULL
+AFTER name;
+
+UPDATE fintrack_db.accounts
+SET ref_number = CONCAT('ACC-', id)
+WHERE id > 0;
+
+ALTER TABLE fintrack_db.accounts
+MODIFY COLUMN ref_number VARCHAR(50) NOT NULL UNIQUE;
+
 4. emi_subscription
 CREATE TABLE fintrack_db.emi_subscription (
 	id INT PRIMARY KEY AUTO_INCREMENT,
@@ -202,6 +216,16 @@ CREATE TABLE fintrack_db.emi_subscription (
         REFERENCES fintrack_db.users(id)
 );
 
+ALTER TABLE fintrack_db.emi_subscription
+ADD account_id INT NOT NULL;
+
+ALTER TABLE fintrack_db.emi_subscription
+MODIFY COLUMN account_id INT NOT NULL
+AFTER user_id;
+
+ALTER TABLE fintrack_db.emi_subscription
+ADD status ENUM('active', 'inactive', 'paused') NOT NULL;
+
 5. debts
 CREATE TABLE fintrack_db.debts (
 	id INT PRIMARY KEY AUTO_INCREMENT,
@@ -216,3 +240,27 @@ CREATE TABLE fintrack_db.debts (
 		FOREIGN KEY (user_id)
 		REFERENCES fintrack_db.users(id)
 );
+
+6. savings
+CREATE TABLE fintrack_db.savings (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    account_id INT NOT NULL,
+    amount DECIMAL(15,2),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    
+    CONSTRAINT savings_accounts_fk
+		FOREIGN KEY (account_id)
+        REFERENCES fintrack_db.accounts(id)
+);
+
+ALTER TABLE fintrack_db.savings
+ADD COLUMN user_id INT NOT NULL;
+
+ALTER TABLE fintrack_db.savings
+MODIFY COLUMN user_id INT NOT NULL
+AFTER id;
+
+ALTER TABLE fintrack_db.savings
+ADD CONSTRAINT savings_users_fk
+FOREIGN KEY (user_id)
+REFERENCES fintrack_db.users(id);

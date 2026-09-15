@@ -18,12 +18,11 @@ const getAllUsersSubscription = async (req, res) => {
     }
 }
 
-// req body -> name, sub_amount, sub_date, start_date, end_date
+// req body -> name, account_id, sub_amount, sub_date, start_date, end_date, status
 const addNewSubscription = async (req, res) => {
     try {
         const userId = 2;
         const subscriptionDetails = req.body;
-
         const newSubscription = await financeService.addNewSubscription(userId, subscriptionDetails);
 
         if (!newSubscription) {
@@ -92,9 +91,55 @@ const addNewDebt = async (req, res) => {
     }
 }
 
+const getAllSavings = async (req, res) => {
+    try {
+        const userId = 2;
+        const savings = await financeService.getAllSavings(userId);
+        return res.status(200).json({
+            success: true,
+            message: 'users all savings',
+            data: savings
+        })
+    }
+    catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+
+// req body -> account_id, amount
+const addNewSaving = async (req, res) => {
+    try {
+        const userId = 2;
+        const savingDetails = req.body;
+        const newSaving = await financeService.addNewSaving(userId, savingDetails);
+        if (!newSaving) {
+            return res.status(404).json({
+                success: false,
+                message: 'fail to add new saving'
+            })
+        }
+        return res.status(200).json({
+            success: true,
+            message: 'saving added successfully',
+            data: newSaving
+        })
+    }
+    catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+
 module.exports = {
     getAllUsersSubscription,
     addNewSubscription,
     getAllDebts,
-    addNewDebt
+    addNewDebt,
+    getAllSavings,
+    addNewSaving
 }

@@ -85,7 +85,7 @@
                 </div>
             </form>
             <div class="btn-container">
-                <button class="btn btn-dark" (click)="addNewDebt()">Add Debt</button>
+                <button class="btn btn-dark" (click)="addNewDebt()">Add</button>
                 <button class="btn btn-light" (click)="cancelForm()">Cancel</button>
             </div>
         </div>
@@ -108,7 +108,7 @@
 
                 <div class="info">
                     <strong class="info-header">Overall Balance:</strong>
-                    <span class="info-body" [class.text-fail]="debtorTotal - lenderTotal < 0">{{debtorTotal - lenderTotal | number:'1.2-2':'en-IN'}}</span>
+                    <span class="info-body" [class.text-fail]="debtorTotal - lenderTotal < 0" [class.text-success]="debtorTotal - lenderTotal > 0">{{debtorTotal - lenderTotal | number:'1.2-2':'en-IN'}}</span>
                 </div>
                 <div class="info">
                     <strong class="info-header">Debt Total:</strong>
@@ -141,7 +141,7 @@
                     <td class="number-column">{{i+1}}.</td>
                     <td>{{item.person_name}}</td>
                     <td class="center light">{{item.type}}</td>
-                    <td class="center">₹ {{item.amount | number:'1.2-2':'en-IN'}}</td>
+                    <td class="center" [class.text-fail]="item.type == 'debtor'" [class.text-success]="item.type == 'lender'">₹ {{item.amount | number:'1.2-2':'en-IN'}}</td>
                     <td class="center">{{item.date | date}}</td>
                     <td class="center light">{{item.end_date == null ? 'N/A' : item.end_date | date}}</td>
                     <td class="option-column">

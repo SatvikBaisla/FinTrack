@@ -12,7 +12,7 @@
         <div class="form-container" *ngIf="isAddSubscription">
             <h1 class="form-header">Add New Emi/Subscriptions</h1>
             <form class="form-fields-container" [formGroup]="subscriptionForm">
-                <div class="input-field-container half">
+                <div class="input-field-container oneforth">
                     <label class="input-label" for="name">
                         Subscription Name:
                     </label>
@@ -23,12 +23,44 @@
                         </span>
                     </div>
                 </div>
-                <div class="input-field-container half">
+                <div class="input-field-container oneforth">
                     <label class="input-label" for="type">
                         Subscription Amount (₹):
                     </label>
                     <input type="text" name="name" class="input-field" placeholder="Enter subscription amount"
                         formControlName="sub_amount" required>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container oneforth">
+                    <label class="input-label" for="type">
+                        Select Account:
+                    </label>
+                    <select class="input-field" formControlName="account_id">
+                        <option value="0">Select Account</option>
+                        <option *ngFor="let item of userAccounts" 
+                            [value]="item.account_id">
+                            {{item.name}} #{{item.ref_number}}
+                        </option>
+                    </select>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container oneforth">
+                    <label class="input-label" for="type">
+                        Select Status:
+                    </label>
+                    <select class="input-field" formControlName="status">
+                        <option value="null">Select Status</option>
+                        <option *ngFor="let item of subscriptionStatus" 
+                            [value]="item.value">
+                            {{item.label}}
+                        </option>
+                    </select>
                     <div class="error-message-container">
                         <span class="error-message">
                         </span>
@@ -69,7 +101,7 @@
                 </div>
             </form>
             <div class="btn-container">
-                <button class="btn btn-dark" (click)="addNewSubscriptions()">Add Emi/Subscriptions</button>
+                <button class="btn btn-dark" (click)="addNewSubscriptions()">Add</button>
                 <button class="btn btn-light" (click)="cancelForm()">Cancel</button>
             </div>
         </div>
@@ -102,19 +134,23 @@
                 <tr class="header-row">
                     <th class="number-column"></th>
                     <th>Subs Name</th>
+                    <th>Linked Account</th>
                     <th>Subs Amount</th>
                     <th>Subs Date</th>
                     <th>start date</th>
                     <th>end date</th>
+                    <th>status</th>
                     <th class="option-column"></th>
                 </tr>
                 <tr *ngFor="let item of userSubscriptions; let i = index">
                     <td class="number-column">{{i+1}}.</td>
                     <td>{{item.name}}</td>
+                    <td class="light">{{item.account_name}} - {{item.account_type}} - #{{item.ref_number}}</td>
                     <td class="center">₹ {{item.sub_amount | number:'1.2-2':'en-IN'}}</td>
                     <td class="center">{{item.sub_date | date:'dd MMM'}}</td>
                     <td class="center light">{{item.start_date | date}}</td>
                     <td class="center light">{{item.end_date == null ? 'N/A' : item.end_date | date}}</td>
+                    <td class="center">{{item.status}}</td>
                     <td class="option-column">
                         <i class="fa fa-bars" aria-hidden="true"></i>
                     </td>
