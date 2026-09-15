@@ -1,0 +1,155 @@
+<section class="section-container">
+    <app-sidenav></app-sidenav>
+    <div class="section-content-container">
+        <!-- page header -->
+        <div class="page-header">
+            <h1 class="page-name font-heading-big">Your Debts</h1>
+            <div class="flex-1"></div>
+            <button class="btn btn-light" (click)="showAddSection()">Add New</button>
+        </div>
+        
+        <!-- add new account form -->
+        <div class="form-container"
+            *ngIf="isAddSection">
+            <h1 class="form-header">Add New Debt</h1>
+            <form class="form-fields-container" [formGroup]="addDebtForm">
+                <div class="input-field-container onethird">
+                    <label class="input-label" for="name">
+                        Person Name:
+                    </label>
+                    <input type="text"
+                        class="input-field" 
+                        placeholder="Enter person name" 
+                        formControlName="person_name"
+                        required>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container onethird">
+                    <label class="input-label" for="type">
+                        Type:
+                    </label>
+                    <select class="input-field" 
+                        formControlName="type">
+                        <option *ngFor="let item of debtTypes" value="{{item.value}}">
+                            {{item.label}}
+                        </option>
+                    </select>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container onethird">
+                    <label class="input-label" for="type">
+                        Debt/Lend Amount:
+                    </label>
+                    <input type="text"
+                        class="input-field" 
+                        placeholder="Enter account opening balance" 
+                        formControlName="amount"
+                        required>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container half">
+                    <label class="input-label" for="type">
+                        Date On:
+                    </label>
+                    <input type="date"
+                        class="input-field" 
+                        placeholder="Enter account current balance" 
+                        formControlName="date"
+                        required>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container half">
+                    <label class="input-label" for="type">
+                        Return/End Date:
+                    </label>
+                    <input type="date" 
+                        class="input-field" 
+                        placeholder="Enter account current balance" 
+                        formControlName="end_date">
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+            </form>
+            <div class="btn-container">
+                <button class="btn btn-dark" (click)="addNewDebt()">Add Debt</button>
+                <button class="btn btn-light" (click)="cancelForm()">Cancel</button>
+            </div>
+        </div>
+
+        <!-- info container -->
+        <div class="info-container">
+            <div class="info-text">
+                <div class="info">
+                    <strong class="info-header">Number of Debtor/Lender:</strong>
+                    <span class="info-body">{{numberDebtorLender}}</span>
+                </div>
+                <div class="info">
+                    <strong class="info-header">Number of Debtor:</strong>
+                    <span class="info-body">{{numberDebtor}}</span>
+                </div>
+                <div class="info">
+                    <strong class="info-header">Number of Lendor:</strong>
+                    <span class="info-body">{{numberLender}}</span>
+                </div>
+
+                <div class="info">
+                    <strong class="info-header">Overall Balance:</strong>
+                    <span class="info-body" [class.text-fail]="debtorTotal - lenderTotal < 0">{{debtorTotal - lenderTotal | number:'1.2-2':'en-IN'}}</span>
+                </div>
+                <div class="info">
+                    <strong class="info-header">Debt Total:</strong>
+                    <span class="info-body">{{debtorTotal | number:'1.2-2':'en-IN'}}</span>
+                </div>
+                <div class="info">
+                    <strong class="info-header">Lend Total:</strong>
+                    <span class="info-body">{{lenderTotal | number:'1.2-2':'en-IN'}}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- accounts table -->
+        <div class="table-container account-table">
+            <div class="table-header">
+                <h1>List of your accounts</h1>
+                <p>1 - {{userDebts.length}} of {{userDebts.length}}</p>
+            </div>
+            <table class="table">
+                <tr class="header-row">
+                    <th class="number-column"></th>
+                    <th>Person Name</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>End Date</th>
+                    <th class="option-column"></th>
+                </tr>
+                <tr *ngFor="let item of userDebts; let i = index">
+                    <td class="number-column">{{i+1}}.</td>
+                    <td>{{item.person_name}}</td>
+                    <td class="center light">{{item.type}}</td>
+                    <td class="center">₹ {{item.amount | number:'1.2-2':'en-IN'}}</td>
+                    <td class="center">{{item.date | date}}</td>
+                    <td class="center light">{{item.end_date == null ? 'N/A' : item.end_date | date}}</td>
+                    <td class="option-column">
+                        <i class="fa fa-bars" aria-hidden="true"></i>
+                    </td>
+                </tr>
+            </table>
+            <app-paging></app-paging>
+        </div>
+    </div>
+</section>

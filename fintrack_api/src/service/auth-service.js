@@ -45,7 +45,7 @@ const registerNewUser = async (name, email, password_hash) => {
             email, 
             created_at 
         FROM users 
-        WHERE id = ?
+        WHERE id = ?;
         `,
         [user.insertId]
     );
@@ -62,7 +62,7 @@ const searchUserByEmail = async (email) => {
             email,
             password_hash
         FROM users 
-        WHERE email = ?
+        WHERE email = ?;
         `,
         [email]
     )
@@ -76,7 +76,7 @@ const storeRefreshToken = async (userId, hashedRefreshToken) => {
         INSERT INTO refresh_tokens
         (user_id, token, expires_at)
         VALUES
-        (?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY))
+        (?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY));
         `,
         [userId, hashedRefreshToken]
     )

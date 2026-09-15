@@ -3,6 +3,7 @@ import { IAddSubscriptionReqBody, IAddSubscriptionResBody } from '../../common/i
 import { NavigationService } from '../../common/service/navigation.service';
 import { FinanceService } from '../../common/service/finance.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ChartConfiguration, ChartData } from 'chart.js';
 
 @Component({
   selector: 'app-subscription',
@@ -12,6 +13,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class SubscriptionComponent {
   userSubscriptions: IAddSubscriptionResBody[] = [];
   isAddSubscription: boolean = false;
+  totalSubsCost: number = 0;
+  maxSubsGoal: number = 20000;
 
   subscriptionForm: FormGroup = new FormGroup({
     name: new FormControl<string>(''),
@@ -19,12 +22,22 @@ export class SubscriptionComponent {
     sub_date: new FormControl<Date | null>(null),
     start_date: new FormControl<Date | null>(null),
     end_date: new FormControl<Date | null>(null)
-  })
+  });
+
+  public pieChartData: ChartData<'pie'> = {
+    // labels: ['Subs Total', 'Amount left'],
+    datasets: [
+      { data: [this.totalSubsCost, (this.maxSubsGoal - this.totalSubsCost)] }
+    ]
+  };
+  public pieChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+  };
 
   constructor(
     private navigationService: NavigationService,
     private financeService: FinanceService
-  ){ }
+  ) { }
 
   ngOnInit(): void {
     this.navigationService.activeNavOption = 'emisubscriptions';
@@ -34,6 +47,12 @@ export class SubscriptionComponent {
   getAllSubscriptions() {
     this.financeService.getAllSubscription().subscribe(response => {
       this.userSubscriptions = response.data ?? [];
+      this.calculateTotalSubCost();
+      this.pieChartData = {
+        datasets: [
+          { data: [this.totalSubsCost, (this.maxSubsGoal - this.totalSubsCost)] }
+        ]
+      }
     })
   }
 
@@ -45,6 +64,13 @@ export class SubscriptionComponent {
       this.getAllSubscriptions();
       this.isAddSubscription = false;
     })
+  }
+
+  calculateTotalSubCost() {
+    this.totalSubsCost = 0;
+    for (let item of this.userSubscriptions) {
+      this.totalSubsCost = this.totalSubsCost + Number(item.sub_amount);
+    }
   }
 
   showAddSubscription() {

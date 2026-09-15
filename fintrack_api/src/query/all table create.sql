@@ -52,3 +52,19 @@ CREATE TABLE fintrack_db.emi_subscription (
 		FOREIGN KEY (user_Id)
         REFERENCES fintrack_db.users(id)
 );
+SELECT * FROM fintrack_db.emi_subscription;
+
+CREATE TABLE fintrack_db.debts (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    person_name VARCHAR(50),
+    type ENUM('lender', 'debtor'),
+    amount DECIMAL(15,2),
+    date DATETIME NOT NULL,
+    end_date DATETIME,
+    
+    CONSTRAINT debts_users_fk
+		FOREIGN KEY (user_id)
+		REFERENCES fintrack_db.users(id)
+);
+SELECT * FROM fintrack_db.debts;

@@ -7,7 +7,7 @@
             <div class="flex-1"></div>
             <button class="btn btn-light" (click)="showAddSubscription()">Add New</button>
         </div>
-        
+
         <!-- add new account form -->
         <div class="form-container" *ngIf="isAddSubscription">
             <h1 class="form-header">Add New Emi/Subscriptions</h1>
@@ -17,8 +17,7 @@
                         Subscription Name:
                     </label>
                     <input type="text" name="name" class="input-field" placeholder="Enter subscription name"
-                        formControlName="name"
-                        required>
+                        formControlName="name" required>
                     <div class="error-message-container">
                         <span class="error-message">
                         </span>
@@ -29,8 +28,7 @@
                         Subscription Amount (₹):
                     </label>
                     <input type="text" name="name" class="input-field" placeholder="Enter subscription amount"
-                        formControlName="sub_amount"
-                        required>
+                        formControlName="sub_amount" required>
                     <div class="error-message-container">
                         <span class="error-message">
                         </span>
@@ -40,9 +38,8 @@
                     <label class="input-label" for="type">
                         Subscription Date:
                     </label>
-                    <input type="date" id="username" name="username" class="input-field" placeholder="Enter subscription date"
-                        formControlName="sub_date"
-                        required>
+                    <input type="date" id="username" name="username" class="input-field"
+                        placeholder="Enter subscription date" formControlName="sub_date" required>
                     <div class="error-message-container">
                         <span class="error-message">
                         </span>
@@ -53,8 +50,7 @@
                         Subscription Start Date:
                     </label>
                     <input type="date" id="username" name="username" class="input-field" placeholder="Enter start date"
-                        formControlName="start_date"
-                        required>
+                        formControlName="start_date" required>
                     <div class="error-message-container">
                         <span class="error-message">
                         </span>
@@ -65,8 +61,7 @@
                         Subscription End Date:
                     </label>
                     <input type="date" id="username" name="username" class="input-field" placeholder="Enter end date"
-                        formControlName="end_date"
-                        required>
+                        formControlName="end_date" required>
                     <div class="error-message-container">
                         <span class="error-message">
                         </span>
@@ -79,9 +74,30 @@
             </div>
         </div>
 
+        <!-- info container -->
+        <div class="info-container">
+            <div class="info-text">
+                <div class="info">
+                    <strong class="info-header">Number of Subs:</strong>
+                    <span class="info-body">{{userSubscriptions.length}}</span>
+                </div>
+                <div class="info">
+                    <strong class="info-header">Total Subs Cost:</strong>
+                    <span class="info-body">₹ {{totalSubsCost | number:'1.2-2':'en-IN'}}</span>
+                </div>
+                <div class="info">
+                    <strong class="info-header">Max Subs Goal:</strong>
+                    <span class="info-body">₹ {{maxSubsGoal | number:'1.2-2':'en-IN'}}</span>
+                </div>
+            </div>
+        </div>
+
         <!-- accounts table -->
         <div class="table-container account-table">
-            <h1 class="table-header">List of your Emi/Subscriptions</h1>
+            <div class="table-header">
+                <h1>List of your Emi/Subscriptions</h1>
+                <p>1 - 1 of 4</p>
+            </div>
             <table class="table">
                 <tr class="header-row">
                     <th class="number-column"></th>

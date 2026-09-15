@@ -1,4 +1,4 @@
-import { TAccountTypes } from "./type";
+import { TAccountTypes, TDebtType } from "./type";
 
 export interface IApiResponse<T> {
     success: boolean;
@@ -86,5 +86,22 @@ export interface IAddSubscriptionResBody{
     sub_amount: number,
     sub_date: Date;
     start_date: Date;
+    end_date: Date;
+}
+
+// debts
+export interface IUserDebt{
+    debt_id: number;
+    person_name: number;
+    type: TDebtType;
+    amount: number;
+    date: Date;
+    end_date: Date;
+}
+export interface IUserDebtReqBody{
+    person_name: number;
+    type: TDebtType;
+    amount: number;
+    date: Date;
     end_date: Date;
 }

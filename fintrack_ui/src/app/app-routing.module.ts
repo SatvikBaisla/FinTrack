@@ -6,6 +6,7 @@ import { RegisterComponent } from './page/register/register.component';
 import { UpdateComponent } from './page/update/update.component';
 import { AccountsComponent } from './page/accounts/accounts.component';
 import { SubscriptionComponent } from './page/subscription/subscription.component';
+import { DebtsComponent } from './page/debts/debts.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: 'update',
     component: UpdateComponent
+  },
+  {
+    path: 'debts',
+    component: DebtsComponent
   }
 ];
 

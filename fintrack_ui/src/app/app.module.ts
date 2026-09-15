@@ -13,6 +13,8 @@ import { SidenavComponent } from './common/component/sidenav/sidenav.component';
 import { AccountsComponent } from './page/accounts/accounts.component';
 import { PagingComponent } from './common/component/paging/paging.component';
 import { SubscriptionComponent } from './page/subscription/subscription.component';
+import { BaseChartDirective } from 'ng2-charts';
+import { DebtsComponent } from './page/debts/debts.component';
 
 @NgModule({
   declarations: [
@@ -24,14 +26,16 @@ import { SubscriptionComponent } from './page/subscription/subscription.componen
     SidenavComponent,
     AccountsComponent,
     PagingComponent,
-    SubscriptionComponent
+    SubscriptionComponent,
+    DebtsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BaseChartDirective
   ],
   providers: [],
   bootstrap: [AppComponent]

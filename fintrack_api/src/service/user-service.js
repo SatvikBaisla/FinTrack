@@ -11,7 +11,7 @@ const getAllUserAccounts = async (userId) => {
             current_balance,
             created_at
         FROM accounts
-        WHERE user_id = ?
+        WHERE user_id = ?;
         `,
         [userId]
     )
@@ -25,7 +25,7 @@ const addNewAccount = async (name, type, opening_balance, current_balance, userI
         INSERT INTO accounts
             (user_id, name, type, opening_balance, current_balance)
         VALUES
-            (?, ?, ?, ?, ?)
+            (?, ?, ?, ?, ?);
         `,
         [userId, name, type, opening_balance, current_balance]
     )
@@ -40,7 +40,7 @@ const addNewAccount = async (name, type, opening_balance, current_balance, userI
             current_balance,
             created_at
         FROM accounts
-        WHERE id = ?
+        WHERE id = ?;
         `,
         [account.insertId]
     )
@@ -57,7 +57,7 @@ const editAccount = async (accountId, name, type, opening_balance, current_balan
             type = ?,
             opening_balance = ?,
             current_balance = ?
-        WHERE id = ?
+        WHERE id = ?;
         `,
         [name, type, opening_balance, current_balance, accountId]
     )
@@ -72,7 +72,7 @@ const editAccount = async (accountId, name, type, opening_balance, current_balan
             current_balance,
             updated_at
         FROM accounts
-        WHERE id = ?
+        WHERE id = ?;
         `,
         [accountId]
     )
@@ -84,7 +84,7 @@ const deleteAccount = async (accountId) => {
     await pool.query(
         `
         DELETE FROM accounts
-        WHERE id = ?
+        WHERE id = ?;
         `,
         [accountId]
     )

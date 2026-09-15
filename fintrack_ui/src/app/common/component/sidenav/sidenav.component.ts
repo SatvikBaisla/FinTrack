@@ -79,6 +79,7 @@ export class SidenavComponent implements OnInit{
         break;
       case 'debt':
         this.activeNavOption = option;
+        this.router.navigate(['/debts']);
         break;
       case 'savings':
         this.activeNavOption = option;
