@@ -98,7 +98,7 @@
     border-radius: var(--border-radius);
 }
 .page-header .page-name{
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     font-size: var(--font-heading-big);
     color: var(--primary-color);
 }
@@ -425,7 +425,9 @@
 .info-container .info-text{
     padding: 12px 24px;
     background-color: var(--background-color);
-    border-left: 1px solid var(--accent-color);
+    border-left: 4px solid var(--color-green-dark);
+    background-color: var(--color-green-light);
+    border-radius: 0 10px 10px 0;
     flex: 1;
     display: flex;
     flex-wrap: wrap;

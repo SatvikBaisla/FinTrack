@@ -87,6 +87,7 @@ export class SidenavComponent implements OnInit{
         break;
       case 'settings':
         this.activeNavOption = option;
+        this.router.navigate(['/settings']);
         break;
       default:
         console.log('No nav option found');

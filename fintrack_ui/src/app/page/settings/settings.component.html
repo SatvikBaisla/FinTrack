@@ -1,0 +1,81 @@
+<section class="section-container">
+    <app-sidenav></app-sidenav>
+    <div class="section-content-container">
+        <!-- page header -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-name">Your Settings</h1>
+                <p class="page-description">Lorem ipsum dolor sit amet.</p>
+            </div>
+            <div class="flex-1"></div>
+        </div>
+
+        <div class="form-container">
+            <h1 class="form-header">Your Information</h1>
+            <form class="form-fields-container">
+                <div class="input-field-container onethird">
+                    <label class="input-label" for="name">
+                        Account Name
+                    </label>
+                    <input type="text" name="name" class="input-field" placeholder="Enter account name"
+                        required>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container onethird">
+                    <label class="input-label" for="name">
+                        Account Ref Number
+                    </label>
+                    <input type="text" name="name" class="input-field" placeholder="Enter account ref number"
+                        required>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container onethird">
+                    <label class="input-label" for="type">
+                        Account Type
+                    </label>
+                    <select class="input-field">
+                        <option>
+                            item.label
+                        </option>
+                    </select>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container half">
+                    <label class="input-label" for="type">
+                        Opening Balance
+                    </label>
+                    <input type="text" id="username" name="username" class="input-field" placeholder="Enter account opening balance"
+                        required>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container half">
+                    <label class="input-label" for="type">
+                        Current Balance
+                    </label>
+                    <input type="text" id="username" name="username" class="input-field" placeholder="Enter account current balance"
+                        required>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+            </form>
+            <div class="btn-container">
+                <button class="btn btn-dark">Update</button>
+                <button class="btn btn-light">Cancel</button>
+            </div>
+        </div>
+    </div>
+</section>

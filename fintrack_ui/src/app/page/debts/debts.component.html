@@ -3,95 +3,17 @@
     <div class="section-content-container">
         <!-- page header -->
         <div class="page-header">
-            <h1 class="page-name font-heading-big">Your Debts</h1>
+            <div>
+                <h1 class="page-name">Your Debts</h1>
+                <p class="page-description">Lorem ipsum dolor sit amet.</p>
+            </div>
             <div class="flex-1"></div>
             <button class="btn btn-light" (click)="showAddSection()">Add New</button>
         </div>
         
-        <!-- add new account form -->
-        <div class="form-container"
-            *ngIf="isAddSection">
-            <h1 class="form-header">Add New Debt</h1>
-            <form class="form-fields-container" [formGroup]="addDebtForm">
-                <div class="input-field-container onethird">
-                    <label class="input-label" for="name">
-                        Person Name:
-                    </label>
-                    <input type="text"
-                        class="input-field" 
-                        placeholder="Enter person name" 
-                        formControlName="person_name"
-                        required>
-                    <div class="error-message-container">
-                        <span class="error-message">
-                        </span>
-                    </div>
-                </div>
-                <div class="input-field-container onethird">
-                    <label class="input-label" for="type">
-                        Type:
-                    </label>
-                    <select class="input-field" 
-                        formControlName="type">
-                        <option *ngFor="let item of debtTypes" value="{{item.value}}">
-                            {{item.label}}
-                        </option>
-                    </select>
-                    <div class="error-message-container">
-                        <span class="error-message">
-                        </span>
-                    </div>
-                </div>
-                <div class="input-field-container onethird">
-                    <label class="input-label" for="type">
-                        Debt/Lend Amount:
-                    </label>
-                    <input type="text"
-                        class="input-field" 
-                        placeholder="Enter account opening balance" 
-                        formControlName="amount"
-                        required>
-                    <div class="error-message-container">
-                        <span class="error-message">
-                        </span>
-                    </div>
-                </div>
-                <div class="input-field-container half">
-                    <label class="input-label" for="type">
-                        Date On:
-                    </label>
-                    <input type="date"
-                        class="input-field" 
-                        placeholder="Enter account current balance" 
-                        formControlName="date"
-                        required>
-                    <div class="error-message-container">
-                        <span class="error-message">
-                        </span>
-                    </div>
-                </div>
-                <div class="input-field-container half">
-                    <label class="input-label" for="type">
-                        Return/End Date:
-                    </label>
-                    <input type="date" 
-                        class="input-field" 
-                        placeholder="Enter account current balance" 
-                        formControlName="end_date">
-                    <div class="error-message-container">
-                        <span class="error-message">
-                        </span>
-                    </div>
-                </div>
-            </form>
-            <div class="btn-container">
-                <button class="btn btn-dark" (click)="addNewDebt()">Add</button>
-                <button class="btn btn-light" (click)="cancelForm()">Cancel</button>
-            </div>
-        </div>
-
         <!-- info container -->
         <div class="info-container">
+            <h1 class="info-heading">Basic Information</h1>
             <div class="info-text">
                 <div class="info">
                     <strong class="info-header">Number of Debtor/Lender:</strong>
@@ -129,7 +51,7 @@
             </div>
             <table class="table">
                 <tr class="header-row">
-                    <th class="number-column"></th>
+                    <th class="number-column">#</th>
                     <th>Person Name</th>
                     <th>Type</th>
                     <th>Amount</th>
@@ -137,19 +59,108 @@
                     <th>End Date</th>
                     <th class="option-column"></th>
                 </tr>
-                <tr *ngFor="let item of userDebts; let i = index">
-                    <td class="number-column">{{i+1}}.</td>
-                    <td>{{item.person_name}}</td>
-                    <td class="center light">{{item.type}}</td>
-                    <td class="center" [class.text-fail]="item.type == 'debtor'" [class.text-success]="item.type == 'lender'">₹ {{item.amount | number:'1.2-2':'en-IN'}}</td>
-                    <td class="center">{{item.date | date}}</td>
-                    <td class="center light">{{item.end_date == null ? 'N/A' : item.end_date | date}}</td>
-                    <td class="option-column">
-                        <i class="fa fa-bars" aria-hidden="true"></i>
-                    </td>
-                </tr>
+                <ng-container *ngIf="userDebts.length > 0">
+                    <tr *ngFor="let item of userDebts; let i = index">
+                        <td class="number-column">{{i+1}}.</td>
+                        <td>{{item.person_name}}</td>
+                        <td class="center light">{{item.type}}</td>
+                        <td class="center" [class.text-fail]="item.type == 'debtor'" [class.text-success]="item.type == 'lender'">₹ {{item.amount | number:'1.2-2':'en-IN'}}</td>
+                        <td class="center">{{item.date | date}}</td>
+                        <td class="center light">{{item.end_date == null ? 'N/A' : item.end_date | date}}</td>
+                        <td class="option-column">
+                            <i class="fa fa-bars" aria-hidden="true"></i>
+                        </td>
+                    </tr>
+                </ng-container>
+                <ng-container *ngIf="userDebts.length <= 0">
+                    <tr class="no-record-found">
+                        <td colspan="9">No Record Found</td>
+                    </tr>
+                </ng-container>
             </table>
             <app-paging></app-paging>
+        </div>
+
+        <!-- add new account form -->
+        <div class="form-container"
+            *ngIf="isAddSection">
+            <h1 class="form-header">Add New Debt</h1>
+            <form class="form-fields-container" [formGroup]="addDebtForm">
+                <div class="input-field-container onethird">
+                    <label class="input-label" for="name">
+                        Person Name
+                    </label>
+                    <input type="text"
+                        class="input-field" 
+                        placeholder="Enter person name" 
+                        formControlName="person_name"
+                        required>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container onethird">
+                    <label class="input-label" for="type">
+                        Type
+                    </label>
+                    <select class="input-field" 
+                        formControlName="type">
+                        <option *ngFor="let item of debtTypes" value="{{item.value}}">
+                            {{item.label}}
+                        </option>
+                    </select>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container onethird">
+                    <label class="input-label" for="type">
+                        Debt/Lend Amount
+                    </label>
+                    <input type="text"
+                        class="input-field" 
+                        placeholder="Enter account opening balance" 
+                        formControlName="amount"
+                        required>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container half">
+                    <label class="input-label" for="type">
+                        Date On
+                    </label>
+                    <input type="date"
+                        class="input-field" 
+                        placeholder="Enter account current balance" 
+                        formControlName="date"
+                        required>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container half">
+                    <label class="input-label" for="type">
+                        Return/End Date
+                    </label>
+                    <input type="date" 
+                        class="input-field" 
+                        placeholder="Enter account current balance" 
+                        formControlName="end_date">
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+            </form>
+            <div class="btn-container">
+                <button class="btn btn-dark" (click)="addNewDebt()">Add</button>
+                <button class="btn btn-light" (click)="cancelForm()">Cancel</button>
+            </div>
         </div>
     </div>
 </section>

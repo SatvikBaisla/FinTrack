@@ -16,6 +16,7 @@ import { SubscriptionComponent } from './page/subscription/subscription.componen
 import { BaseChartDirective } from 'ng2-charts';
 import { DebtsComponent } from './page/debts/debts.component';
 import { SavingComponent } from './page/saving/saving.component';
+import { SettingsComponent } from './page/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SavingComponent } from './page/saving/saving.component';
     PagingComponent,
     SubscriptionComponent,
     DebtsComponent,
-    SavingComponent
+    SavingComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
