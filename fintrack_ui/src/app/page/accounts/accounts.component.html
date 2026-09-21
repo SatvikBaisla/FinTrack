@@ -3,11 +3,57 @@
     <div class="section-content-container">
         <!-- page header -->
         <div class="page-header">
-            <h1 class="page-name font-heading-big">Your Accounts</h1>
+            <div>
+                <h1 class="page-name">Your Accounts</h1>
+                <p class="page-description">Lorem ipsum dolor sit amet.</p>
+            </div>
             <div class="flex-1"></div>
-            <button class="btn btn-light" (click)="showAddAccountSection()">Add New</button>
+            <button class="btn btn-dark" (click)="showAddAccountSection()">Add New</button>
         </div>
         
+        
+
+        <!-- accounts table -->
+        <div class="table-container account-table">
+            <div class="table-header">
+                <h1>List of your accounts</h1>
+                <p>1 - 1 of 4</p>
+            </div>
+            <table class="table">
+                <tr class="header-row">
+                    <th class="number-column">#</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Ref Number</th>
+                    <th>opening balance</th>
+                    <th>current balance</th>
+                    <th>created at</th>
+                    <th class="option-column"></th>
+                </tr>
+                <ng-container *ngIf="userAccounts.length > 0">
+                    <tr *ngFor="let item of userAccounts; let i = index">
+                        <td class="number-column">{{i+1}}.</td>
+                        <td>{{item.name}}</td>
+                        <td class="center">{{item.type}}</td>
+                        <td class="center light">#{{item.ref_number}}</td>
+                        <td class="center light">₹ {{item.opening_balance | number:'1.2-2':'en-IN'}}</td>
+                        <td class="center">₹ {{item.current_balance | number:'1.2-2':'en-IN'}}</td>
+                        <td class="center light">{{item.created_at | date}}</td>
+                        <td class="option-column">
+                            <i class="fa fa-bars" aria-hidden="true"></i>
+                        </td>
+                    </tr>
+                </ng-container>
+                
+                <ng-container *ngIf="userAccounts.length <= 0">
+                    <tr class="no-record-found">
+                        <td colspan="8">No Record Found</td>
+                    </tr>
+                </ng-container>
+            </table>
+            <app-paging></app-paging>
+        </div>
+
         <!-- add new account form -->
         <div class="form-container"
             *ngIf="isAddAccountSection">
@@ -15,7 +61,7 @@
             <form class="form-fields-container" [formGroup]="addAccountForm">
                 <div class="input-field-container onethird">
                     <label class="input-label" for="name">
-                        Account Name:
+                        Account Name
                     </label>
                     <input type="text" name="name" class="input-field" placeholder="Enter account name" formControlName="name"
                         required>
@@ -26,7 +72,7 @@
                 </div>
                 <div class="input-field-container onethird">
                     <label class="input-label" for="name">
-                        Account Ref Number:
+                        Account Ref Number
                     </label>
                     <input type="text" name="name" class="input-field" placeholder="Enter account ref number" formControlName="ref_number"
                         required>
@@ -37,7 +83,7 @@
                 </div>
                 <div class="input-field-container onethird">
                     <label class="input-label" for="type">
-                        Account Type:
+                        Account Type
                     </label>
                     <select class="input-field" formControlName="type" formControlName="type">
                         <option *ngFor="let item of accountTypes" value="{{item.value}}">
@@ -51,7 +97,7 @@
                 </div>
                 <div class="input-field-container half">
                     <label class="input-label" for="type">
-                        Opening Balance:
+                        Opening Balance
                     </label>
                     <input type="text" id="username" name="username" class="input-field" placeholder="Enter account opening balance" formControlName="opening_balance"
                         required>
@@ -62,7 +108,7 @@
                 </div>
                 <div class="input-field-container half">
                     <label class="input-label" for="type">
-                        Current Balance:
+                        Current Balance
                     </label>
                     <input type="text" id="username" name="username" class="input-field" placeholder="Enter account current balance" formControlName="current_balance"
                         required>
@@ -76,39 +122,6 @@
                 <button class="btn btn-dark" (click)="addNewAccount()">Add</button>
                 <button class="btn btn-light" (click)="cancelForm()">Cancel</button>
             </div>
-        </div>
-
-        <!-- accounts table -->
-        <div class="table-container account-table">
-            <div class="table-header">
-                <h1>List of your accounts</h1>
-                <p>1 - 1 of 4</p>
-            </div>
-            <table class="table">
-                <tr class="header-row">
-                    <th class="number-column"></th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Ref Number</th>
-                    <th>opening balance</th>
-                    <th>current balance</th>
-                    <th>created at</th>
-                    <th class="option-column"></th>
-                </tr>
-                <tr *ngFor="let item of userAccounts; let i = index">
-                    <td class="number-column">{{i+1}}.</td>
-                    <td>{{item.name}}</td>
-                    <td class="center">{{item.type}}</td>
-                    <td class="center light">#{{item.ref_number}}</td>
-                    <td class="center light">₹ {{item.opening_balance | number:'1.2-2':'en-IN'}}</td>
-                    <td class="center">₹ {{item.current_balance | number:'1.2-2':'en-IN'}}</td>
-                    <td class="center light">{{item.created_at | date}}</td>
-                    <td class="option-column">
-                        <i class="fa fa-bars" aria-hidden="true"></i>
-                    </td>
-                </tr>
-            </table>
-            <app-paging></app-paging>
         </div>
     </div>
 </section>

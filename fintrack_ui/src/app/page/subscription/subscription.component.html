@@ -8,13 +8,79 @@
             <button class="btn btn-light" (click)="showAddSubscription()">Add New</button>
         </div>
 
+        
+        <!-- info container -->
+        <div class="info-container">
+            <h1 class="info-heading">Basic Information</h1>
+            <div class="info-text">
+                <div class="info">
+                    <span class="info-header">Number of Subs:</span>
+                    <span class="info-body">{{userSubscriptions.length}}</span>
+                </div>
+                <div class="info">
+                    <span class="info-header">Total Subs Cost:</span>
+                    <span class="info-body">₹ {{totalSubsCost | number:'1.2-2':'en-IN'}}</span>
+                </div>
+                <div class="info">
+                    <span class="info-header">Max Subs Goal:</span>
+                    <span class="info-body">₹ {{maxSubsGoal | number:'1.2-2':'en-IN'}}</span>
+                </div>
+                <div class="info">
+                    <span class="info-header">Max Subs Goal:</span>
+                    <span class="info-body">₹ {{maxSubsGoal | number:'1.2-2':'en-IN'}}</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- accounts table -->
+        <div class="table-container account-table">
+            <div class="table-header">
+                <h1>List of your Emi/Subscriptions</h1>
+                <p>1 - 1 of 4</p>
+            </div>
+            <table class="table">
+                <tr class="header-row">
+                    <th class="number-column">#</th>
+                    <th>Subs Name</th>
+                    <th>Linked Account</th>
+                    <th>Subs Amount</th>
+                    <th>Subs Date</th>
+                    <th>start date</th>
+                    <th>end date</th>
+                    <th>status</th>
+                    <th class="option-column"></th>
+                </tr>
+                <ng-container *ngIf="userSubscriptions.length > 0">
+                    <tr *ngFor="let item of userSubscriptions; let i = index">
+                        <td class="number-column">{{i+1}}.</td>
+                        <td>{{item.name}}</td>
+                        <td class="light">{{item.account_name}} - {{item.account_type}} - #{{item.ref_number}}</td>
+                        <td class="center">₹ {{item.sub_amount | number:'1.2-2':'en-IN'}}</td>
+                        <td class="center">{{item.sub_date | date:'dd MMM'}}</td>
+                        <td class="center light">{{item.start_date | date}}</td>
+                        <td class="center light">{{item.end_date == null ? 'N/A' : item.end_date | date}}</td>
+                        <td class="center">{{item.status}}</td>
+                        <td class="option-column">
+                            <i class="fa fa-bars" aria-hidden="true"></i>
+                        </td>
+                    </tr>
+                </ng-container>
+                <ng-container *ngIf="userSubscriptions.length <= 0">
+                    <tr class="no-record-found">
+                        <td colspan="9">No Record Found</td>
+                    </tr>
+                </ng-container>
+            </table>
+            <app-paging></app-paging>
+        </div>
+
         <!-- add new account form -->
         <div class="form-container" *ngIf="isAddSubscription">
             <h1 class="form-header">Add New Emi/Subscriptions</h1>
             <form class="form-fields-container" [formGroup]="subscriptionForm">
                 <div class="input-field-container oneforth">
                     <label class="input-label" for="name">
-                        Subscription Name:
+                        Subscription Name
                     </label>
                     <input type="text" name="name" class="input-field" placeholder="Enter subscription name"
                         formControlName="name" required>
@@ -25,7 +91,7 @@
                 </div>
                 <div class="input-field-container oneforth">
                     <label class="input-label" for="type">
-                        Subscription Amount (₹):
+                        Subscription Amount (₹)
                     </label>
                     <input type="text" name="name" class="input-field" placeholder="Enter subscription amount"
                         formControlName="sub_amount" required>
@@ -36,7 +102,7 @@
                 </div>
                 <div class="input-field-container oneforth">
                     <label class="input-label" for="type">
-                        Select Account:
+                        Select Account
                     </label>
                     <select class="input-field" formControlName="account_id">
                         <option value="0">Select Account</option>
@@ -52,7 +118,7 @@
                 </div>
                 <div class="input-field-container oneforth">
                     <label class="input-label" for="type">
-                        Select Status:
+                        Select Status
                     </label>
                     <select class="input-field" formControlName="status">
                         <option value="null">Select Status</option>
@@ -68,7 +134,7 @@
                 </div>
                 <div class="input-field-container onethird">
                     <label class="input-label" for="type">
-                        Subscription Date:
+                        Subscription Date
                     </label>
                     <input type="date" id="username" name="username" class="input-field"
                         placeholder="Enter subscription date" formControlName="sub_date" required>
@@ -79,7 +145,7 @@
                 </div>
                 <div class="input-field-container onethird">
                     <label class="input-label" for="type">
-                        Subscription Start Date:
+                        Subscription Start Date
                     </label>
                     <input type="date" id="username" name="username" class="input-field" placeholder="Enter start date"
                         formControlName="start_date" required>
@@ -90,7 +156,7 @@
                 </div>
                 <div class="input-field-container onethird">
                     <label class="input-label" for="type">
-                        Subscription End Date:
+                        Subscription End Date
                     </label>
                     <input type="date" id="username" name="username" class="input-field" placeholder="Enter end date"
                         formControlName="end_date" required>
@@ -104,59 +170,6 @@
                 <button class="btn btn-dark" (click)="addNewSubscriptions()">Add</button>
                 <button class="btn btn-light" (click)="cancelForm()">Cancel</button>
             </div>
-        </div>
-
-        <!-- info container -->
-        <div class="info-container">
-            <div class="info-text">
-                <div class="info">
-                    <strong class="info-header">Number of Subs:</strong>
-                    <span class="info-body">{{userSubscriptions.length}}</span>
-                </div>
-                <div class="info">
-                    <strong class="info-header">Total Subs Cost:</strong>
-                    <span class="info-body">₹ {{totalSubsCost | number:'1.2-2':'en-IN'}}</span>
-                </div>
-                <div class="info">
-                    <strong class="info-header">Max Subs Goal:</strong>
-                    <span class="info-body">₹ {{maxSubsGoal | number:'1.2-2':'en-IN'}}</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- accounts table -->
-        <div class="table-container account-table">
-            <div class="table-header">
-                <h1>List of your Emi/Subscriptions</h1>
-                <p>1 - 1 of 4</p>
-            </div>
-            <table class="table">
-                <tr class="header-row">
-                    <th class="number-column"></th>
-                    <th>Subs Name</th>
-                    <th>Linked Account</th>
-                    <th>Subs Amount</th>
-                    <th>Subs Date</th>
-                    <th>start date</th>
-                    <th>end date</th>
-                    <th>status</th>
-                    <th class="option-column"></th>
-                </tr>
-                <tr *ngFor="let item of userSubscriptions; let i = index">
-                    <td class="number-column">{{i+1}}.</td>
-                    <td>{{item.name}}</td>
-                    <td class="light">{{item.account_name}} - {{item.account_type}} - #{{item.ref_number}}</td>
-                    <td class="center">₹ {{item.sub_amount | number:'1.2-2':'en-IN'}}</td>
-                    <td class="center">{{item.sub_date | date:'dd MMM'}}</td>
-                    <td class="center light">{{item.start_date | date}}</td>
-                    <td class="center light">{{item.end_date == null ? 'N/A' : item.end_date | date}}</td>
-                    <td class="center">{{item.status}}</td>
-                    <td class="option-column">
-                        <i class="fa fa-bars" aria-hidden="true"></i>
-                    </td>
-                </tr>
-            </table>
-            <app-paging></app-paging>
         </div>
     </div>
 </section>

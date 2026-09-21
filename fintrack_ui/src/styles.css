@@ -1,11 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 :root {
     /* color */
-    --primary-color: #092328;
+    --primary-color: #123F36;
     --secondary-color: #2C2C2C;
-    --accent-color: #EEEEEE;
+    --accent-color: #C5C1C1;
     --background-color: #fff;
+
+    /* blue color */
+    --color-blue: #90CAF9;
+    --color-blue-light: #E3F2FD;
+    --color-blue-dark: #091540;
+
+    /* green color */
+    --color-green: #A5D6A7;
+    --color-green-light: #E8F5E9;
+    --color-green-dark: #1D4533;
+
+    /* red color */
+    --color-red: #F5788B;
+    --color-red-light: #FFF5F8;
+    --color-red-dark: #DF301C;
+
+    --background-green-light: #E8F5E9;
     --highlight-color: #E3F2FD;
     --text-color-light: #fff;
     --text-color-dark: #333;
@@ -47,13 +65,65 @@
     font-size: var(--font-text-small);
 }
 
+/* section */
+/* 
+<section class="section-container">
+    <div class="section-content-container">
+        <div class="page-header">
+            <div>
+                <h1 class="page-name">Your Accounts</h1>
+                <p class="page-description">Lorem ipsum dolor sit amet.</p>
+            </div>
+            <div class="flex-1"></div>
+            <button class="btn btn-dark" (click)="showAddAccountSection()">Add New</button>
+        </div>
+    </div>
+</div>
+*/
+.section-container{
+    background-color: var(--background-color);
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+}
+.section-content-container{
+    padding: 20px 20px 20px 260px;
+    width: 100%;
+}
+.page-header{
+    margin-bottom: var(--space-between);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-radius: var(--border-radius);
+}
+.page-header .page-name{
+    margin-bottom: 10px;
+    font-size: var(--font-heading-big);
+    color: var(--primary-color);
+}
+.page-header .page-description{
+    font-size: var(--font-text);
+    opacity: 0.4;
+    font-weight: light;
+}
+.back-link{
+    padding: 10px 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 12px;
+}
+.back-link:hover{
+    background-color: var(--accent-color);
+}
+
 /* form container */
 .form-container{
     margin-bottom: var(--space-between);
-    padding: 30px 40px;
-    background-color: var(--background-color);
-    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
-    border-radius: var(--border-radius);
+    padding: 10px 20px 10px 0;
+    border-right: 4px solid var(--color-green-dark);
 }
 .form-header{
     margin-bottom: 10px;
@@ -76,8 +146,9 @@
 .form-fields-container .oneforth{
     width: calc(25% - 20px);
 }
-
-
+.form-fields-container .onefivth{
+    width: calc(20% - 25px);
+}
 /* input field */
 .input-field-container {
     display: flex;
@@ -86,7 +157,7 @@
 }
 .input-label{
     margin-bottom: 2px;
-    font-size: var(--font-text-small);
+    font-size: var(--font-text);
     opacity: 0.4;
 }
 .input-field {
@@ -99,8 +170,8 @@
     background: none;
     border-radius: 6px;
     font-size: var(--font-text);
-    opacity: 0.9;
-    border: 1px solid var(--text-color-dark);
+    border: 1px solid var(--color-green);
+    background-color: var(--color-green-light);
 }
 .error-message-container {
     height: 10px;
@@ -126,12 +197,13 @@
     padding-bottom: 10px;
 }
 .btn {
-    padding: 10px 20px;
+    padding: 8px 20px;
     width: 120px;
     border-radius: 10px;
     font-size: var(--font-text);
     cursor: pointer;
     transition: 0.4s;
+    font-weight: bold;
 }
 .btn-small {
     padding: 5px 10px;
@@ -142,12 +214,13 @@
     transform: scale(1.05);
 }
 .btn-light {
-    color: var(--text-color-dark);
+    color: var(--primary-color);
+    font-weight: bold;
     background-color: var(--background-color);
-    border: 1px solid var(--text-color-dark);
+    border: 2px solid var(--primary-color);
 }
 .btn-light:hover {
-    color: var(--text-color-dark);
+    background-color: var(--color-green-light);
 }
 .btn-light:disabled {
     opacity: 0.6;
@@ -167,15 +240,42 @@
 }
 
 /* table */
+/* 
+<div class="table-container account-table">
+    <div class="table-header">
+        <h1>List of your accounts</h1>
+        <p>1 - 1 of 4</p>
+    </div>
+    <table class="table">
+        <tr class="header-row">
+            <th class="number-column">#</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th class="option-column"></th>
+        </tr>
+        <ng-container *ngIf="userAccounts.length > 0">
+            <tr *ngFor="let item of userAccounts; let i = index">
+                <td class="number-column">{{i+1}}.</td>
+                <td>{{item.name}}</td>
+                <td class="center">{{item.type}}</td>
+                <td class="option-column">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                </td>
+            </tr>
+        </ng-container>
+        <ng-container *ngIf="userAccounts.length <= 0">
+            <tr class="no-record-found">
+                <td>No Record Found</td>
+            </tr>
+        </ng-container>
+    </table>
+    <app-paging></app-paging>
+</div> 
+*/
 .table-container{
     margin-bottom: var(--space-between);
-    padding: 30px 40px;
-    background-color: var(--background-color);
-    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
-    border-radius: var(--border-radius);
-}
-.table-container:last-child{
-    margin-bottom: 0px;
+    padding: 10px 20px 10px 0;
+    border-right: 4px solid var(--color-green-dark);
 }
 .table-header{
     margin-bottom: 10px;
@@ -195,21 +295,21 @@
 }
 .table{
     margin-bottom: 20px;
-    border: 1px solid var(--accent-color);
+    border: 1px solid var(--color-green);
     border-collapse: collapse;
     width: 100%;
     font-size: var(--font-text-small);
 }
 .table th, .table td{
     padding: 8px 12px;
-    border: 1px solid var(--accent-color);
+    border: 1px solid var(--color-green);
 }
 .table .header-row{
-    background-color: var(--primary-color);
-    color: var(--text-color-light);
+    color: var(--primary-color);
+    background-color: var(--color-green-light);
 }
 .table .header-row th{
-    opacity: 0.6;
+    opacity: 0.8;
     text-transform: uppercase;
 }
 .table .number-column{
@@ -229,8 +329,10 @@
 .table .option-column i:hover{
     background-color: var(--accent-color);
 }
-.table .no-record-found{
+.table .no-record-found td{
     width: 100%;
+    text-align: center;
+    opacity: 0.4;
 }
 .table .light{
     opacity: 0.4;
@@ -238,19 +340,92 @@
 .table .center{
     text-align: center;
 }
+.item-5{
+    width: 5%;
+}
+.item-10{
+    width: 10%;
+}
+.item-15{
+    width: 15%;
+}
+.item-20{
+    width: 20%;
+}
+.item-25{
+    width: 25%;
+}
+.item-30{
+    width: 30%;
+}
+.item-35{
+    width: 35%;
+}
+.item-40{
+    width: 40%;
+}
+.item-45{
+    width: 45%;
+}
+.item-50{
+    width: 50%;
+}
+.item-55{
+    width: 55%;
+}
+.item-60{
+    width: 60%;
+}
+.item-65{
+    width: 65%;
+}
+.item-70{
+    width: 70%;
+}
+.item-75{
+    width: 75%;
+}
+.item-80{
+    width: 80%;
+}
+.item-85{
+    width: 85%;
+}
+.item-90{
+    width: 90%;
+}
+.item-95{
+    width: 95%;
+}
+.item-100{
+    width: 100%;
+}
 
 /* info */
+/*
+<div class="info-container">
+    <h1 class="info-heading">Basic Information</h1>
+    <div class="info-text">
+        <div class="info">
+            <span class="info-header">Number of Subs:</span>
+            <span class="info-body">{{userSubscriptions.length}}</span>
+        </div>
+    </div>
+</div>
+*/
 .info-container{
     margin-bottom: var(--space-between);
-    padding: 30px 40px;
-    background-color: var(--background-color);
-    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
-    border-radius: var(--border-radius);
     display: flex;
     gap: 20px;
     align-items: center;
 }
+.info-container .info-heading{
+    font-size: var(--font-subheading);
+}
 .info-container .info-text{
+    padding: 12px 24px;
+    background-color: var(--background-color);
+    border-left: 1px solid var(--accent-color);
     flex: 1;
     display: flex;
     flex-wrap: wrap;
@@ -261,45 +436,113 @@
     font-size: var(--font-text);
     display: flex;
     gap: 5px;
+    font-size: var(--font-text-small);
 }
 .info-container .info:last-child{
     margin-bottom: 0px;
 }
 .info-container .info-header{
-    opacity: 0.4;
+    opacity: 0.6;
+}
+.info-container .info-body{
+    font-weight: bold;
 }
 
-/* section */
-.section-container{
-    background-color: var(--accent-color);
-    min-height: 100vh;
-    width: 100%;
+/* cards */
+/*
+<div class="cards-container">
+    <div class="card">
+        <h1 class="card-heading">
+            <i class="fa fa-coffee card-icon" aria-hidden="true"></i>
+            lol
+        </h1>
+        <button class="view-all-btn">View All</button>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <h1 class="card-big-text">₹ 70,000.00</h1>
+        <p class="opacity-6">Last Month: 37,000</p>
+        <ul class="card-list">
+            <li>item</li>
+            <li>item</li>
+        </ul>
+    </div>
+</div> 
+*/
+.cards-container{
     display: flex;
+    gap: var(--space-between);
+    margin-bottom: 20px;
 }
-.section-content-container{
-    padding: 20px 20px 20px 260px;
-    width: 100%;
-}
-.page-header{
-    padding: 20px 40px;
-    margin-bottom: var(--space-between);
-    width: 100%;
-    display: flex;
-    align-items: center;
-    background-color: var(--background-color);
-    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+.card{
+    flex: 1;
+    padding: 16px 20px;
     border-radius: var(--border-radius);
+    border: 1px solid var(--accent-color);
+    background-color: var(--background-color);
+    font-size: var(--font-text-small);
+    position: relative;
 }
-.back-link{
-    padding: 10px 20px;
+.view-all-btn{
+    font-size: var(--font-text-small);
+    color: var(--primary-color);
+    font-weight: bold;
+    background: none;
+    border: none;
+    border-radius: 10px;
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    cursor: pointer;
+}
+.view-all-btn:hover{
+    text-decoration: underline;
+}
+.card-icon{
+    margin-right: 5px;
+}
+.card-heading{
+    margin-bottom: 20px;
+    font-size: var(--font-text);
+}
+.cards-container .blue{
+    background-color: var(--color-blue-light);
+    border: 1px solid var(--color-blue);
+}
+.cards-container .blue .card-heading{
+    color: var(--color-blue-dark);
+}
+.cards-container .green{
+    background-color: var(--color-green-light);
+    border: 1px solid var(--color-green);
+}
+.cards-container .green .card-heading{
+    color: var(--color-green-dark);
+}
+.cards-container .red{
+    background-color: var(--color-red-light);
+    border: 1px solid var(--color-red);
+}
+.cards-container .red .card-heading{
+    color: var(--color-red-dark);
+}
+.card-big-text{
+    margin-bottom: 5px;
+    font-size: var(--font-heading-big);
+}
+.card-list{
+    border-radius: 10px;
+    list-style: none;
+}
+.card-list li{
+    padding: 6px 10px;
+    background-color: var(--background-color);
+    border-radius: 2px;
+    border-bottom: 1px solid var(--accent-color);
     display: flex;
     gap: 10px;
     align-items: center;
-    cursor: pointer;
-    border-radius: 12px;
 }
-.back-link:hover{
-    background-color: var(--accent-color);
+.card-list li:last-child{
+    margin-bottom: 0px;
 }
 
 /* commoon classes */
