@@ -19,10 +19,10 @@
             </div>
             <table class="table">
                 <tr class="header-row">
-                    <th class="number-column"></th>
-                    <th>account_name</th>
-                    <th>account_type</th>
-                    <th>saving_amount</th>
+                    <th class="number-column">#</th>
+                    <th>account name</th>
+                    <th>account type</th>
+                    <th>saving amount</th>
                     <th>current balance</th>
                     <th>created at</th>
                     <th class="option-column"></th>
@@ -46,14 +46,15 @@
         <div class="form-container"
             *ngIf="isAddSection">
             <h1 class="form-header">Add New Savings</h1>
-            <form class="form-fields-container">
+            <form class="form-fields-container" [formGroup]="addSavingForm">
                 <div class="input-field-container half">
-                    <label class="input-label" for="name">
-                        Account Name:
+                    <label class="input-label">
+                        Saving Amount
                     </label>
                     <input type="text"
                         class="input-field" 
-                        placeholder="Enter account name" 
+                        placeholder="Enter saving amount" 
+                        formControlName="amount"
                         required>
                     <div class="error-message-container">
                         <span class="error-message">
@@ -61,12 +62,14 @@
                     </div>
                 </div>
                 <div class="input-field-container half">
-                    <label class="input-label" for="type">
-                        Account Type:
+                    <label class="input-label">
+                        Account Type
                     </label>
-                    <select class="input-field">
-                        <option *ngFor="let item of accountTypes" value="{{item.value}}">
-                            {{item.label}}
+                    <select class="input-field"
+                        formControlName="account_id">
+                        <option value="0">Select Account</option>
+                        <option *ngFor="let item of userAccounts" value="{{item.account_id}}">
+                            {{item.name}} - {{item.ref_number}}
                         </option>
                     </select>
                     <div class="error-message-container">
@@ -76,7 +79,7 @@
                 </div>
             </form>
             <div class="btn-container">
-                <button class="btn btn-dark">Add</button>
+                <button class="btn btn-dark" (click)="addNewSaving()">Add</button>
                 <button class="btn btn-light" (click)="cancelForm()">Cancel</button>
             </div>
         </div>

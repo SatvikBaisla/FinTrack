@@ -141,10 +141,10 @@
     width: calc(50% - 10px);
 }
 .form-fields-container .onethird{
-    width: calc(33.3% - 15px);
+    width: calc(33.3% - 13px);
 }
 .form-fields-container .oneforth{
-    width: calc(25% - 20px);
+    width: calc(25% - 15px);
 }
 .form-fields-container .onefivth{
     width: calc(20% - 25px);
@@ -425,9 +425,9 @@
 .info-container .info-text{
     padding: 12px 24px;
     background-color: var(--background-color);
-    border-left: 4px solid var(--color-green-dark);
+    border-right: 4px solid var(--color-green-dark);
     background-color: var(--color-green-light);
-    border-radius: 0 10px 10px 0;
+    border-radius: 10px 0  0 10px;
     flex: 1;
     display: flex;
     flex-wrap: wrap;

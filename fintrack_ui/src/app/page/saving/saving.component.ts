@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { IUserSaving } from '../../common/interface/common';
-import { TAccountTypes } from '../../common/interface/type';
+import { IAddSaving, IUserAccount, IUserSaving } from '../../common/interface/common';
 import { NavigationService } from '../../common/service/navigation.service';
 import { FinanceService } from '../../common/service/finance.service';
+import { UserService } from '../../common/service/user.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-saving',
@@ -11,28 +12,54 @@ import { FinanceService } from '../../common/service/finance.service';
 })
 export class SavingComponent implements OnInit{
   userSavings: IUserSaving[] = [];
-  isAddSection: boolean = true;
+  isAddSection: boolean = false;
+  userAccounts: IUserAccount[] = [];
 
-  accountTypes: { value: TAccountTypes; label: string }[] = [
-    { value: 'cash', label: 'Cash' },
-    { value: 'bank', label: 'Bank' },
-    { value: 'credit_card', label: 'Credit Card' },
-    { value: 'wallet', label: 'Wallet' }
-  ];
+  addSavingForm: FormGroup = new FormGroup({
+    account_id: new FormControl<number>(0),
+    amount: new FormControl<number>(0)
+  })
 
   constructor(
     private navigationService: NavigationService,
-    private financeService: FinanceService
+    private financeService: FinanceService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
     this.navigationService.activeNavOption = 'savings';
     this.getAllSavings();
+    this.getUserAccounts();
   }
 
   getAllSavings() {
     this.financeService.getAllSavings().subscribe(response => {
       this.userSavings = response.data ?? [];
+    })
+  }
+
+  getUserAccounts(){
+    this.userService.getAllUserAccounts().subscribe(response => {
+      this.userAccounts = response.data ?? [];
+    })
+  }
+
+  addNewSaving(){
+    const reqBody: IAddSaving = {
+      account_id: this.addSavingForm.value.account_id,
+      amount: this.addSavingForm.value.amount
+    };
+
+    this.financeService.addSaving(reqBody).subscribe(response => {
+      console.log(response.data);
+      this.getAllSavings();
+
+      this.addSavingForm.setValue({
+        account_id: 0,
+        amount: 0
+      })
+
+      this.isAddSection = false;
     })
   }
 

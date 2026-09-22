@@ -12,7 +12,7 @@
             <div class="current-balance-container">
                 <p class="font-text-small opacity-6">Current Balance</p>
                 <h1 class="current-balance">
-                    <strong>₹ 50,000<span class="font-text">.00</span></strong>
+                    <strong>₹ {{currentBalance | number:'1.2-2':'en-IN'}}</strong>
                 </h1>
             </div>
         </div>
@@ -23,31 +23,35 @@
                     <i class="fa fa-sign-in card-icon" aria-hidden="true"></i>
                     Total Income
                 </h1>
-                <h1 class="card-big-text">₹ 70,000.00</h1>
-                <p class="opacity-6">Source Count: 2</p>
+                <h1 class="card-big-text">₹ {{totalIncome | number:'1.2-2':'en-IN'}}</h1>
+                <p class="opacity-6">Source Count: {{numberOfIncome}}</p>
             </div>
             <div class="card blue">
                 <h1 class="card-heading">
                     <i class="fa fa-briefcase card-icon" aria-hidden="true"></i>
                     Fixed Expenses
                 </h1>
-                <h1 class="card-big-text">₹ 20,000.00</h1>
-                <p class="opacity-6">Total Emi/Subscriptions: 7</p>
+                <h1 class="card-big-text">₹ {{fixedExpenses | number:'1.2-2':'en-IN'}}</h1>
+                <p class="opacity-6">Total Emi/Subscriptions: {{numberOfExpenses}}</p>
             </div>
             <div class="card red">
                 <h1 class="card-heading">
                     <i class="fa fa-book card-icon" aria-hidden="true"></i>
                     Total Active Debt/Lend
                 </h1>
-                <h1 class="card-big-text">₹ 70,000.00</h1>
-                <p class="opacity-6">Debt Count: 3</p>
+                <h1 class="card-big-text"
+                    [class.text-success]="debtBalance > 0"
+                    [class.text-fail]="debtBalance < 0">
+                    ₹ {{debtBalance | number:'1.2-2':'en-IN'}}
+                </h1>
+                <p class="opacity-6">Debt Count: {{numberOfDebts}}</p>
             </div>
             <div class="card green">
                 <h1 class="card-heading">
                     <i class="fa fa-university card-icon" aria-hidden="true"></i>
                     Total Savings
                 </h1>
-                <h1 class="card-big-text">₹ 70,000.00</h1>
+                <h1 class="card-big-text">₹ {{totalSaving | number:'1.2-2':'en-IN'}}</h1>
                 <p class="opacity-6">Last Month: 37,000</p>
             </div>
         </div>
@@ -61,7 +65,7 @@
                 <button class="view-all-btn">View All</button>
                 <ul class="card-list">
                     <li *ngFor="let item of userAccounts">
-                        <span>{{item.name}} ({{item.type}})</span>
+                        <span>{{item.name}} <span class="opacity-6">({{item.type}})</span></span>
                         <span class="flex-1"></span>
                         <span class="font-text fw-b">₹ {{item.current_balance | number:'1.2-2':'en-IN'}}</span>
                     </li>
@@ -74,7 +78,11 @@
                 </h1>
                 <button class="view-all-btn">View All</button>
                 <ul class="card-list">
-                    <li>item</li>
+                    <li *ngFor="let item of userSubscribtions">
+                        <span>{{item.name}} <span class="opacity-6">({{item.account_name}} - #{{item.ref_number}})</span></span>
+                        <span class="flex-1"></span>
+                        <span class="font-text fw-b">₹ {{item.sub_amount | number:'1.2-2':'en-IN'}}</span>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -87,7 +95,15 @@
                 </h1>
                 <button class="view-all-btn">View All</button>
                 <ul class="card-list">
-                    <li>item</li>
+                    <li *ngFor="let item of userDebts">
+                        <span>{{item.person_name}} <span class="opacity-6">({{item.type}})</span></span>
+                        <span class="flex-1"></span>
+                        <span class="font-text fw-b"
+                            [class.text-success]="item.type == 'debtor'"
+                            [class.text-fail]="item.type == 'lender'">
+                            ₹ {{item.amount | number:'1.2-2':'en-IN'}}
+                        </span>
+                    </li>
                 </ul>
             </div>
             <div class="card green">
@@ -97,11 +113,13 @@
                 </h1>
                 <button class="view-all-btn">View All</button>
                 <ul class="card-list">
-                    <li>item</li>
+                    <li *ngFor="let item of userSavings">
+                        <span>{{item.account_name}}</span>
+                        <span class="flex-1"></span>
+                        <span class="font-text fw-b">₹ {{item.saving_amount | number:'1.2-2':'en-IN'}}</span>
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
-
-
 </section>

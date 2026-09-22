@@ -109,3 +109,7 @@ export interface IUserSaving{
     current_balance: number;
     created_at: Date;
 }
+export interface IAddSaving{
+    account_id: number;
+    amount: number;
+}

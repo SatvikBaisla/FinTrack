@@ -75,6 +75,9 @@ ALTER TABLE fintrack_db.emi_subscription
 MODIFY COLUMN account_id INT NOT NULL
 AFTER user_id;
 
+ALTER TABLE fintrack_db.emi_subscription
+ADD status ENUM('active', 'inactive', 'paused') NOT NULL;
+
 CREATE TABLE fintrack_db.debts (
 	id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
