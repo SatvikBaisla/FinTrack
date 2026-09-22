@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IAddSaving, IUserAccount, IUserSaving } from '../../common/interface/common';
+import { IAddSavingReqBody, IUserAccount, IUserSaving } from '../../common/interface/common';
 import { NavigationService } from '../../common/service/navigation.service';
 import { FinanceService } from '../../common/service/finance.service';
 import { UserService } from '../../common/service/user.service';
@@ -45,7 +45,7 @@ export class SavingComponent implements OnInit{
   }
 
   addNewSaving(){
-    const reqBody: IAddSaving = {
+    const reqBody: IAddSavingReqBody = {
       account_id: this.addSavingForm.value.account_id,
       amount: this.addSavingForm.value.amount
     };

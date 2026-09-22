@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { AbstractType, Injectable } from '@angular/core';
 import { IApiResponse, ILoginRequestBody, ILoginResponseBody, IRegisterRequestBody, IRegisterResponseBody } from '../interface/common';
 import { environment } from '../../../environments/environment.development';
 
@@ -7,7 +7,6 @@ import { environment } from '../../../environments/environment.development';
   providedIn: 'root'
 })
 export class AuthService {
-
   constructor(private http: HttpClient) { }
 
   userLogin(requestBody: ILoginRequestBody) {

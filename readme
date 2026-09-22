@@ -156,6 +156,13 @@ CREATE TABLE fintrack_db.users (
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+ALTER TABLE fintrack_db.users
+ADD COLUMN income DECIMAL NOT NULL DEFAULT 0;
+
+ALTER TABLE fintrack_db.users
+MODIFY COLUMN income DECIMAL NOT NULL DEFAULT 0
+AFTER password_hash;
+
 2. refresh token
 CREATE TABLE fintrack_db.refresh_tokens (
 	id INT PRIMARY KEY AUTO_INCREMENT,

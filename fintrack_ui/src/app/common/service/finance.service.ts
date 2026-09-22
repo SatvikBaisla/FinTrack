@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ISubscription, IApiResponse, IUserDebt, IUserDebtReqBody, IUserSaving, IAddSaving } from '../interface/common';
+import { ISubscription, IApiResponse, IUserDebt, IUserDebtReqBody, IUserSaving, IAddSavingReqBody } from '../interface/common';
 import { environment } from '../../../environments/environment.development';
 
 @Injectable({
@@ -31,7 +31,7 @@ export class FinanceService {
   getAllSavings() {
     return this.http.get<IApiResponse<IUserSaving[]>>(`${environment.apiUrl}/finance/savings`);
   }
-  addSaving(reqBody: IAddSaving){
+  addSaving(reqBody: IAddSavingReqBody){
     return this.http.post<IApiResponse<any>>(`${environment.apiUrl}/finance/savings`, reqBody);
   }
 }

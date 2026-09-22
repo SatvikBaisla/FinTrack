@@ -18,6 +18,12 @@ export interface ILoginResponseBody{
     email: string;
 }
 
+// user
+export interface IUser{
+    email: string;
+    user_name: string;
+}
+
 // register 
 export interface IRegisterRequestBody{
     name: string;
@@ -109,7 +115,7 @@ export interface IUserSaving{
     current_balance: number;
     created_at: Date;
 }
-export interface IAddSaving{
+export interface IAddSavingReqBody{
     account_id: number;
     amount: number;
 }

@@ -4,7 +4,7 @@
         <!-- page header -->
         <div class="page-header">
             <div>
-                <h1 class="page-name">Welcome back, Satvik</h1>
+                <h1 class="page-name">Welcome back, {{user.user_name}}</h1>
                 <p class="page-description">Here's your financial overview for a better tommorow.</p>
             </div>
             <div class="flex-1"></div>
@@ -62,7 +62,7 @@
                     <i class="fa fa-coffee card-icon" aria-hidden="true"></i>
                     Your Accounts
                 </h1>
-                <button class="view-all-btn">View All</button>
+                <button class="view-all-btn" routerLink="/account">View All</button>
                 <ul class="card-list">
                     <li *ngFor="let item of userAccounts">
                         <span>{{item.name}} <span class="opacity-6">({{item.type}})</span></span>
@@ -76,7 +76,7 @@
                     <i class="fa fa-briefcase card-icon" aria-hidden="true"></i>
                     Emi/Subscriptions List
                 </h1>
-                <button class="view-all-btn">View All</button>
+                <button class="view-all-btn" routerLink="/emisubscription">View All</button>
                 <ul class="card-list">
                     <li *ngFor="let item of userSubscribtions">
                         <span>{{item.name}} <span class="opacity-6">({{item.account_name}} - #{{item.ref_number}})</span></span>
@@ -93,7 +93,7 @@
                     <i class="fa fa-book card-icon" aria-hidden="true"></i>
                     Active Debt List
                 </h1>
-                <button class="view-all-btn">View All</button>
+                <button class="view-all-btn" routerLink="/debts">View All</button>
                 <ul class="card-list">
                     <li *ngFor="let item of userDebts">
                         <span>{{item.person_name}} <span class="opacity-6">({{item.type}})</span></span>
@@ -111,7 +111,7 @@
                     <i class="fa fa-university card-icon" aria-hidden="true"></i>
                     Saving List (2026)
                 </h1>
-                <button class="view-all-btn">View All</button>
+                <button class="view-all-btn" routerLink="/savings">View All</button>
                 <ul class="card-list">
                     <li *ngFor="let item of userSavings">
                         <span>{{item.account_name}}</span>

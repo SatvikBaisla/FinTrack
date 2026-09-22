@@ -56,6 +56,8 @@ export class LoginComponent {
         }
 
         console.log('User login successful');
+        const user = JSON.stringify(response.data);
+        localStorage.setItem('user', user);
         this.router.navigate(['/home']);
       },
 

@@ -144,7 +144,7 @@ const loginUser = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000
         });
 
-        const { password_hash, ...userDetails } = user;
+        const { password_hash, user_id, ...userDetails } = user;
 
         // login response
         return res.status(200).json({

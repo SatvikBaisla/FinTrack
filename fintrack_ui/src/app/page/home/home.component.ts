@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../common/service/user.service';
-import { IUserAccount, IUserDebt, IUserSaving } from '../../common/interface/common';
+import { IUser, IUserAccount, IUserDebt, IUserSaving } from '../../common/interface/common';
 import { NavigationService } from '../../common/service/navigation.service';
 import { FinanceService } from '../../common/service/finance.service';
 import { forkJoin } from 'rxjs';
@@ -11,6 +11,7 @@ import { forkJoin } from 'rxjs';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
+  user!: IUser;
   totalIncome: number = 70000;
   numberOfIncome: number = 2;
   fixedExpenses: number = 0;
@@ -32,6 +33,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.navigationService.activeNavOption = 'dashboard';
+
+    this.userService.getUserFromLocalstorage();
+    this.user = this.userService.user;
 
     forkJoin({
       accounts: this.userService.getAllUserAccounts(),

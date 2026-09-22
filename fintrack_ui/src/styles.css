@@ -94,6 +94,7 @@
     margin-bottom: var(--space-between);
     width: 100%;
     display: flex;
+    gap: 10px;
     align-items: center;
     border-radius: var(--border-radius);
 }
@@ -198,7 +199,7 @@
 }
 .btn {
     padding: 8px 20px;
-    width: 120px;
+    min-width: 120px;
     border-radius: 10px;
     font-size: var(--font-text);
     cursor: pointer;
@@ -207,7 +208,7 @@
 }
 .btn-small {
     padding: 5px 10px;
-    border-radius: 6px;
+    border-radius: 4px;
 }
 .btn:hover {
     opacity: 1;
