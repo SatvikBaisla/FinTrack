@@ -8,7 +8,7 @@
                 <p class="page-description">Lorem ipsum dolor sit amet.</p>
             </div>
             <div class="flex-1"></div>
-            <button class="btn btn-small btn-dark">Add Fund</button>
+            <button class="btn btn-small btn-dark" (click)="isAddFundSection = true">Add Fund</button>
             <button class="btn btn-small btn-light" (click)="showAddAccountSection()">Add Account</button>
         </div>
         
@@ -120,6 +120,78 @@
             <div class="btn-container">
                 <button class="btn btn-dark" (click)="addNewAccount()">Add</button>
                 <button class="btn btn-light" (click)="cancelForm()">Cancel</button>
+            </div>
+        </div>
+
+        <!-- add fund form -->
+        <div class="form-container"
+            *ngIf="isAddFundSection">
+            <h1 class="form-header">Add/Transfer Fund Fund</h1>
+
+            <form class="form-fields-container" 
+                [formGroup]="fundForm">
+                <div class="input-field-container onethird">
+                    <label class="input-label" 
+                        for="type">
+                        Add/Transfer to Account
+                    </label>
+                    <select class="input-field"
+                        formControlName="to_account_id">
+                        <option value="0">Select Account</option>
+                        <option *ngFor="let item of userAccounts" 
+                            value="{{item.account_id}}">
+                            {{item.name}} - #{{item.ref_number}}
+                        </option>
+                    </select>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                            {{toAccountError}}
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container onethird">
+                    <label class="input-label" 
+                        for="type">
+                        Transfer from Account
+                    </label>
+                    <select class="input-field"
+                        (change)="updateTransferLimit()"
+                        formControlName="from_account_id">
+                        <option value="0">Select Account</option>
+                        <option *ngFor="let item of userAccounts"
+                            value="{{item.account_id}}">
+                            {{item.name}} - #{{item.ref_number}}
+                        </option>
+                    </select>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                            {{fromAccountError}}
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container onethird">
+                    <label class="input-label" 
+                        for="type">
+                        Amount to Transfer (Max: {{maxTransferLimit > 0 ? maxTransferLimit : 'N/A'}})
+                    </label>
+                    <input type="text" 
+                        class="input-field" 
+                        placeholder="Enter account current balance"
+                        formControlName="transfer_amount"
+                        required>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                            {{amountError}}
+                        </span>
+                    </div>
+                </div>
+            </form>
+
+            <p class="note"><strong>Note:-</strong> If "Transfer from Account" is not selected then new fund will be added to the "Transfer to Account".</p>
+
+            <div class="btn-container">
+                <button class="btn btn-dark" (mouseenter)="checkFundForm()" (click)="updateFund()">Add</button>
+                <button class="btn btn-light" (click)="isAddFundSection = false">Cancel</button>
             </div>
         </div>
     </div>

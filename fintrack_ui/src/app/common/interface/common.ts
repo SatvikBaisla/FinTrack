@@ -48,7 +48,6 @@ export interface IGetAllAccountsRequestBody{
     current_balance: number;
     created_at: Date;
 }
-
 export interface IUserAccount{
     account_id: number;
     name: string;
@@ -58,12 +57,16 @@ export interface IUserAccount{
     current_balance: number;
     created_at: Date;
 }
-
 export interface IAddNewAccountRequestBody{
     name: string;
     type: TAccountTypes;
     opening_balance: number;
     current_balance: number;
+}
+export interface IUpdateFundReqBody{
+    to_account_id: number;
+    from_account_id: number;
+    transfer_amount: number;
 }
 
 // subscription

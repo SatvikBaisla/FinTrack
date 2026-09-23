@@ -166,11 +166,58 @@ const addNewSaving = async (userId, savingDetails) => {
     return newSaving[0];
 }
 
+const updateFund = async (transferDetails) => {
+    try {
+        // add new fund
+        await pool.query(
+            `
+            UPDATE accounts
+            SET current_balance = current_balance + ?
+            WHERE id = ?;
+            `,
+            [transferDetails.transfer_amount, transferDetails.to_account_id]
+        )
+        // transder form another account
+        if (transferDetails.from_account_id != 0) {
+            await pool.query(
+                `
+                UPDATE accounts
+                SET current_balance = current_balance - ?
+                WHERE id = ?;
+                `,
+                [transferDetails.transfer_amount, transferDetails.from_account_id]
+            )
+        }
+
+        const [updatedAccount] = await pool.query(
+            `
+            SELECT 
+                id AS account_id,
+                name,
+                ref_number,
+                type,
+                opening_balance,
+                current_balance,
+                created_at
+            FROM accounts 
+            WHERE id = ?;
+            `,
+            [transferDetails.to_account_id]
+        )
+
+        return updatedAccount[0];
+    }
+    catch(error){
+        return error;
+    }
+}
+
 module.exports = {
     getAllUsersSubscription,
     addNewSubscription,
     getAllDebts,
     addNewDebt,
     getAllSavings,
-    addNewSaving
+    addNewSaving,
+    updateFund
 }

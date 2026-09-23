@@ -174,11 +174,14 @@
     border: 1px solid var(--color-green);
     background-color: var(--color-green-light);
 }
+.checkbox-label{
+    margin-bottom: 10px;
+}
 .error-message-container {
     height: 10px;
     min-width: 20px;
     position: relative;
-    top: -6px;
+    top: -4px;
     left: 10px;
 }
 .error-message {
@@ -590,4 +593,10 @@
 }
 .text-fail{
     color: var(--text-warning);
+}
+.note{
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: var(--font-text-small);
+    opacity: 0.8;
 }

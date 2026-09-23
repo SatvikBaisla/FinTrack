@@ -135,11 +135,37 @@ const addNewSaving = async (req, res) => {
     }
 }
 
+// req body -> to_account_id, from_account_id, transfer_amount
+const updateFund = async (req, res) => {
+    try{
+        const transferDetails = req.body;
+        const updatedAccount = await financeService.updateFund(transferDetails);
+        if(!updatedAccount){
+            return res.status(404).json({
+                success: false,
+                message: 'fail to update the fund'
+            })
+        }
+        return res.status(200).json({
+            success: true,
+            message: 'fund added/transfered successfully',
+            data: updatedAccount
+        })
+    }
+    catch(error){
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+
 module.exports = {
     getAllUsersSubscription,
     addNewSubscription,
     getAllDebts,
     addNewDebt,
     getAllSavings,
-    addNewSaving
+    addNewSaving,
+    updateFund
 }
