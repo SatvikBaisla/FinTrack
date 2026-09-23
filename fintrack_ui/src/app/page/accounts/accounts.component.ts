@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { TAccountTypes } from '../../common/interface/type';
+import { TAccountTypes, TCardType } from '../../common/interface/type';
 import { UserService } from '../../common/service/user.service';
-import { IUpdateFundReqBody, IUserAccount } from '../../common/interface/common';
+import { ICard, ICardAddReqBody, IUpdateFundReqBody, IUser, IUserAccount } from '../../common/interface/common';
 import { NavigationService } from '../../common/service/navigation.service';
 import { FinanceService } from '../../common/service/finance.service';
 
@@ -15,10 +15,13 @@ export class AccountsComponent implements OnInit {
   userAccounts: IUserAccount[] = [];
   isAddAccountSection: boolean = false; 
   isAddFundSection: boolean = false;
+  isCardSection: boolean = true;
   maxTransferLimit: number = 0;
   toAccountError: string = '';
   fromAccountError: string = '';
   amountError: string = '';
+  userCards: ICard[] = [];
+  user!: IUser;
   
   accountTypes: { value: TAccountTypes; label: string }[] = [
     { value: 'cash', label: 'Cash' },
@@ -37,7 +40,22 @@ export class AccountsComponent implements OnInit {
     to_account_id: new FormControl<number>(0),
     from_account_id: new FormControl<number>(0),
     transfer_amount: new FormControl<number>(0)
-  })
+  });
+  cardForm: FormGroup = new FormGroup({
+    account_id: new FormControl<number>(0),
+    number: new FormControl<string>(''),
+    type: new FormControl<TCardType>('debit'),
+    ex_month: new FormControl<string>(''),
+    ex_year: new FormControl<string>(''),
+    pin: new FormControl<number>(123),
+    note: new FormControl<string>(''),
+    used_amount: new FormControl<number | null>(null),
+    card_limit: new FormControl<number | null>(null)
+  });
+  cardType: { label: string, value: TCardType }[] = [
+    { label: 'Credit Card', value: 'credit' },
+    { label: 'Debit Card', value: 'debit' }
+  ];
   
   constructor(
     private userService: UserService, 
@@ -47,7 +65,10 @@ export class AccountsComponent implements OnInit {
 
   ngOnInit(): void {
     this.navigationService.activeNavOption = 'accounts';
+    const userString = localStorage.getItem('user');
+    if(userString) this.user = JSON.parse(userString);
     this.getAllUserAccounts();
+    this.getAllCards();
   }
 
   getAllUserAccounts() {
@@ -58,6 +79,12 @@ export class AccountsComponent implements OnInit {
       error: error => {
         console.log(error.error.message);
       }
+    })
+  }
+
+  getAllCards() {
+    this.financeService.getAllCards().subscribe(response => {
+      this.userCards = response.data ?? [];
     })
   }
 
@@ -123,6 +150,29 @@ export class AccountsComponent implements OnInit {
       this.isAddFundSection = false;
       this.getAllUserAccounts();
     })
+  }
+
+  addNewCard() {
+    const reqBody: ICardAddReqBody = {
+      account_id: this.cardForm.value.account_id,
+      card_number: this.cardForm.value.number,
+      card_type: this.cardForm.value.type,
+      ex_month: this.cardForm.value.ex_month,
+      ex_year: this.cardForm.value.ex_year,
+      pin: this.cardForm.value.pin,
+      note: this.cardForm.value.note,
+      used_amount: this.cardForm.value.used_amount == null ? 0 : this.cardForm.value.used_amount,
+      card_limit: this.cardForm.value.card_limit
+    }
+
+    this.financeService.addNewCard(reqBody).subscribe(response => {
+      this.getAllCards();
+      this.isCardSection = false;
+    })
+  }
+
+  formatCardNumber(number: string): string {
+    return number.replace(/(.{4})/g, '$1 ').trim();
   }
 
   showAddAccountSection() {

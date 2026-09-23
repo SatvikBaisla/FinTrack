@@ -10,6 +10,7 @@
             <div class="flex-1"></div>
             <button class="btn btn-small btn-dark" (click)="isAddFundSection = true">Add Fund</button>
             <button class="btn btn-small btn-light" (click)="showAddAccountSection()">Add Account</button>
+            <button class="btn btn-small btn-light">Add Card</button>
         </div>
         
         <!-- accounts table -->
@@ -57,57 +58,35 @@
         <div class="cdcards-container">
             <div class="cdcards-header">
                 <h1>List of your cards</h1>
-                <p>Card Total: 4</p>
+                <p>Card Total: {{userCards.length}}</p>
             </div>
             <div class="cdcards-body">
-                <div class="cdcards credit">
+                <div class="cdcards"
+                    [class.credit]="item.card_type == 'credit'"
+                    [class.debit]="item.card_type == 'debit'"
+                    *ngFor="let item of userCards">
                     <img class="card-chip-img" src="../../../assets/images/card-chip.png">
                     <div class="card-body">
-                        <h1 class="bank-name">HDFC Bank</h1>
+                        <h1 class="bank-name">{{item.bank_name}} Bank</h1>
                         <div class="card-number">
                             <p class="number-des">Card Number</p>
-                            <p class="number">5467 8365 1245 0967</p>
-                            <p class="card-type">Credit Card</p>
+                            <p class="number">{{formatCardNumber(item.card_number)}}</p>
+                            <p class="card-type">{{item.card_type}} Card</p>
                         </div>
-                        <p class="owner-name">Satvik Baisla</p>
+                        <p class="owner-name">{{user.user_name}}</p>
                         <div class="used-bar-container">
                             <div class="min-max">
-                                <p class="min">0</p>
-                                <p class="max">50000</p>
+                                <p class="min">₹ {{item.used_amount | number:'1.2-2':'en-IN'}}</p>
+                                <p class="max">₹ {{item.card_limit | number:'1.2-2':'en-IN'}}</p>
                             </div>
                             <div class="bar-container">
-                                <div class="used-bar"></div>
+                                <div class="used-bar" [style.width.%]="(item.used_amount / item.card_limit) * 100"></div>
                             </div>
                         </div>
                     </div>
                     <div class="valid-till-container">
                         <p class="valid-till-des">Valid Till</p>
-                        <p class="valid-till">05/28</p>
-                    </div>
-                </div>
-                <div class="cdcards debit">
-                    <img class="card-chip-img" src="../../../assets/images/card-chip.png">
-                    <div class="card-body">
-                        <h1 class="bank-name">HDFC Bank</h1>
-                        <div class="card-number">
-                            <p class="number-des">Card Number</p>
-                            <p class="number">5467 8365 1245 0967</p>
-                            <p class="card-type">Debit Card</p>
-                        </div>
-                        <p class="owner-name">Satvik Baisla</p>
-                        <div class="used-bar-container">
-                            <div class="min-max">
-                                <p class="min">0</p>
-                                <p class="max">50000</p>
-                            </div>
-                            <div class="bar-container">
-                                <div class="used-bar"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="valid-till-container">
-                        <p class="valid-till-des">Valid Till</p>
-                        <p class="valid-till">05/28</p>
+                        <p class="valid-till">{{item.ex_month}}/{{item.ex_year}}</p>
                     </div>
                 </div>
             </div>
@@ -252,6 +231,145 @@
             <div class="btn-container">
                 <button class="btn btn-dark" (mouseenter)="checkFundForm()" (click)="updateFund()">Add</button>
                 <button class="btn btn-light" (click)="isAddFundSection = false">Cancel</button>
+            </div>
+        </div>
+
+        <!-- add card form -->
+        <div class="form-container"
+            *ngIf="isCardSection">
+            <h1 class="form-header">Add New Card Fund</h1>
+
+            <form class="form-fields-container" 
+                [formGroup]="cardForm">
+                <div class="input-field-container onethird">
+                    <label class="input-label" 
+                        for="type">
+                        Select Account
+                    </label>
+                    <select class="input-field"
+                        formControlName="account_id">
+                        <option value="0">Select Account</option>
+                        <ng-container *ngFor="let item of userAccounts" >
+                            <option *ngIf="item.type == 'bank'"
+                                value="{{item.account_id}}">
+                                {{item.name}} - #{{item.ref_number}}
+                            </option>
+                        </ng-container>
+
+                        
+                    </select>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                            {{toAccountError}}
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container onethird">
+                    <label class="input-label" for="type">
+                        Card Number
+                    </label>
+                    <input type="text" 
+                        class="input-field" 
+                        placeholder="Enter card numbers" 
+                        formControlName="number"
+                        required>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container onethird">
+                    <label class="input-label" 
+                        for="type">
+                        Transfer from Account
+                    </label>
+                    <select class="input-field"
+                        formControlName="type">
+                        <option *ngFor="let item of cardType"
+                            value="{{item.value}}">
+                            {{item.label}}
+                        </option>
+                    </select>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container oneforth">
+                    <label class="input-label" for="type">
+                        Card Expire Month
+                    </label>
+                    <input type="text" 
+                        class="input-field" 
+                        placeholder="Enter card expire month" 
+                        formControlName="ex_month"
+                        required>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container oneforth">
+                    <label class="input-label" for="type">
+                        Card Expire Year
+                    </label>
+                    <input type="text" 
+                        class="input-field" 
+                        placeholder="Enter card expire year" 
+                        formControlName="ex_year"
+                        required>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container oneforth">
+                    <label class="input-label" for="type">
+                        Card Limit
+                    </label>
+                    <input type="text" 
+                        class="input-field" 
+                        placeholder="Enter card limit" 
+                        formControlName="card_limit"
+                        required>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container oneforth">
+                    <label class="input-label" for="type">
+                        Card Used Amount
+                    </label>
+                    <input type="text" 
+                        class="input-field" 
+                        placeholder="Enter amount used" 
+                        formControlName="used_amount"
+                        required>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+                <div class="input-field-container full">
+                    <label class="input-label" for="type">
+                        Note
+                    </label>
+                    <input type="text" 
+                        class="input-field" 
+                        placeholder="Enter card note" 
+                        formControlName="note"
+                        required>
+                    <div class="error-message-container">
+                        <span class="error-message">
+                        </span>
+                    </div>
+                </div>
+            </form>
+
+            <div class="btn-container">
+                <button class="btn btn-dark" (click)="addNewCard()">Add</button>
+                <button class="btn btn-light">Cancel</button>
             </div>
         </div>
     </div>

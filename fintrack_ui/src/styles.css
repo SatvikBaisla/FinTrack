@@ -456,22 +456,39 @@
 
 /* cards */
 /*
-<div class="cards-container">
-    <div class="card">
-        <h1 class="card-heading">
-            <i class="fa fa-coffee card-icon" aria-hidden="true"></i>
-            lol
-        </h1>
-        <button class="view-all-btn">View All</button>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-        <h1 class="card-big-text">₹ 70,000.00</h1>
-        <p class="opacity-6">Last Month: 37,000</p>
-        <ul class="card-list">
-            <li>item</li>
-            <li>item</li>
-        </ul>
+<div class="cdcards-container">
+    <div class="cdcards-header">
+        <h1>List of your cards</h1>
+        <p>Card Total: 4</p>
     </div>
-</div> 
+    <div class="cdcards-body">
+        <div class="cdcards credit">
+            <img class="card-chip-img" src="../../../assets/images/card-chip.png">
+            <div class="card-body">
+                <h1 class="bank-name">HDFC Bank</h1>
+                <div class="card-number">
+                    <p class="number-des">Card Number</p>
+                    <p class="number">5467 8365 1245 0967</p>
+                    <p class="card-type">Credit Card</p>
+                </div>
+                <p class="owner-name">Satvik Baisla</p>
+                <div class="used-bar-container">
+                    <div class="min-max">
+                        <p class="min">0</p>
+                        <p class="max">50000</p>
+                    </div>
+                    <div class="bar-container">
+                        <div class="used-bar"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="valid-till-container">
+                <p class="valid-till-des">Valid Till</p>
+                <p class="valid-till">05/28</p>
+            </div>
+        </div>
+    </div>
+</div>
 */
 .cards-container{
     display: flex;
@@ -552,9 +569,6 @@
 }
 
 /* credit/debit cards */
-/* 
-
-*/
 .cdcards-container{
     margin-bottom: var(--space-between);
     padding: 10px 20px 10px 0;
@@ -583,7 +597,7 @@
     flex-wrap: wrap;
 }
 .cdcards{
-    width: 400px;
+    width: 360px;
     height: 220px;
     padding: 16px;
     border-radius: 10px;
@@ -624,10 +638,12 @@
 .card-number .number{
     font-size: var(--font-heading);
     margin-bottom: 10px;
+    word-spacing: 10px;
 }
 .card-number .card-type{
     font-size: var(--font-text-small);
     opacity: 0.8;
+    text-transform: capitalize;
 }
 .card-body .owner-name{
     font-size: var(--font-text);
@@ -635,6 +651,7 @@
     text-transform: uppercase;
 }
 .used-bar-container .min-max{
+    margin-bottom: 4px;
     display: flex;
     justify-content: space-between;
     font-size: 12px;

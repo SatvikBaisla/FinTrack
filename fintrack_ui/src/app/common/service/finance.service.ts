@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ISubscription, IApiResponse, IUserDebt, IUserDebtReqBody, IUserSaving, IAddSavingReqBody, IUpdateFundReqBody, IUserAccount } from '../interface/common';
+import { ISubscription, IApiResponse, IUserDebt, IUserDebtReqBody, IUserSaving, IAddSavingReqBody, IUpdateFundReqBody, IUserAccount, ICard, ICardAddReqBody } from '../interface/common';
 import { environment } from '../../../environments/environment.development';
 
 @Injectable({
@@ -38,5 +38,13 @@ export class FinanceService {
   // funds
   updateFund(reqBody: IUpdateFundReqBody){
     return this.http.put<IApiResponse<IUserAccount>>(`${environment.apiUrl}/finance/funds`, reqBody);
+  }
+
+  // cards
+  getAllCards() {
+    return this.http.get<IApiResponse<ICard[]>>(`${environment.apiUrl}/user/cards`);
+  }
+  addNewCard(reqBody: ICardAddReqBody) {
+    return this.http.post<IApiResponse<ICard>>(`${environment.apiUrl}/user/cards`, reqBody);
   }
 }

@@ -107,9 +107,60 @@ const deleteAccount = async (req, res) => {
     }
 }
 
+const getAllCards = async (req, res) => {
+    try {
+        const userId = 2;
+        const allCards = await userService.getAllCards(userId);
+        if (!allCards) {
+            return res.status(404).json({
+                success: false,
+                message: 'cards not found'
+            })
+        }
+        return res.status(200).json({
+            success: true,
+            message: 'all user cards',
+            data: allCards
+        })
+    }
+    catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+const addNewCard = async (req, res) => {
+    try {
+        const cardDetails = req.body;
+        const newCard = await userService.addNewCard(cardDetails);
+        if (!newCard) {
+            return res.status(404).json({
+                success: false,
+                message: 'cards not found'
+            })
+        }
+        return res.status(200).json({
+            success: true,
+            message: 'all user cards',
+            data: newCard
+        })
+    }
+    catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+
 module.exports = {
     getAllUserAccounts,
     addNewAccount,
     editAccount,
-    deleteAccount
+    deleteAccount,
+    getAllCards,
+    addNewCard
 }

@@ -95,9 +95,73 @@ const deleteAccount = async (accountId) => {
     return true;
 }
 
+const getAllCards = async (userId) => {
+    const [cards] = await pool.query(
+        `
+        SELECT
+            c.id AS card_id,
+            a.name AS bank_name,
+            a.ref_number,
+            c.number AS card_number,
+            c.type AS card_type,
+            c.ex_month,
+            c.ex_year,
+            c.note,
+            c.card_limit,
+            c.used_amount,
+            c.created_at
+        FROM cards c
+        LEFT JOIN accounts a
+            ON c.account_id = a.id
+        WHERE a.user_id = ?
+        `,
+        [userId]
+    )
+
+    return cards;
+}
+
+const addNewCard = async (cardDetails) => {
+    const [card] = await pool.query(
+        `
+        INSERT INTO fintrack_db.cards
+        (account_id, number, type, ex_month, ex_year, pin, note, used_amount, card_limit)
+        VALUES
+        (?, ?, ?, ?, ?, ?, ?, ?, ?);
+        `,
+        [cardDetails.account_id, cardDetails.card_number, cardDetails.card_type, cardDetails.ex_month, cardDetails.ex_year, '123', cardDetails.note, cardDetails.used_amount, cardDetails.card_limit]
+    )
+
+    const [newCard] = await pool.query(
+        `
+        SELECT
+            c.id AS card_id,
+            a.name AS bank_name,
+            a.ref_number,
+            c.number AS card_number,
+            c.type AS card_type,
+            c.ex_month,
+            c.ex_year,
+            c.note,
+            c.card_limit,
+            c.used_amount,
+            c.created_at
+        FROM cards c
+        LEFT JOIN accounts a
+            ON c.account_id = a.id
+        WHERE c.id = ?
+        `,
+        [card.insertId]
+    )
+
+    return newCard[0];
+}
+
 module.exports = {
     getAllUserAccounts,
     addNewAccount,
     editAccount,
-    deleteAccount
+    deleteAccount,
+    getAllCards,
+    addNewCard
 }

@@ -1,4 +1,4 @@
-import { TAccountTypes, TDebtType, TSubscriptionStatus } from "./type";
+import { TAccountTypes, TCardType, TDebtType, TSubscriptionStatus } from "./type";
 
 export interface IApiResponse<T> {
     success: boolean;
@@ -122,4 +122,30 @@ export interface IUserSaving{
 export interface IAddSavingReqBody{
     account_id: number;
     amount: number;
+}
+
+// cards
+export interface ICard{
+    card_id: number;
+    bank_name: string;
+    ref_number: number;
+    card_number: string;
+    card_type: TCardType;
+    ex_month: string;
+    ex_year: string;
+    note: string;
+    card_limit: number;
+    used_amount: number;
+    created_at: Date;
+}
+export interface ICardAddReqBody{
+    account_id: number;
+    card_number: string;
+    card_type: TCardType;
+    ex_month: string;
+    ex_year: string;
+    pin: string;
+    note: string;
+    used_amount: number;
+    card_limit: number;
 }

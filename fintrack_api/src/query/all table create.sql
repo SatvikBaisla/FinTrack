@@ -128,7 +128,8 @@ CREATE TABLE fintrack_db.cards (
 	id INT PRIMARY KEY AUTO_INCREMENT,
     account_id INT NOT NULL,
     name VARCHAR(50) NOT NULL,
-    number VARCHAR(10) NOT NULL,
+    number VARCHAR(16) NOT NULL,
+    type ENUM('credit', 'debit'),
     ex_month VARCHAR(3) NOT NULL,
 	ex_year VARCHAR(3) NOT NULL,
     pin VARCHAR(3) NOT NULL,
@@ -143,3 +144,9 @@ CREATE TABLE fintrack_db.cards (
 		REFERENCES fintrack_db.accounts(id)
 );
 SELECT * FROM fintrack_db.cards;
+DROP TABLE fintrack_db.cards;
+
+INSERT INTO fintrack_db.cards
+(account_id, name, number, type, ex_month, ex_year, pin, note, used_amount, card_limit)
+VALUES
+(2, 'IDFC Bank', '8945378564128945', 'debit', '9', '28', '123', 'this is note', 7459.45, 50000);
