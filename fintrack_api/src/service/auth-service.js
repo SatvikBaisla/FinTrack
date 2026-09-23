@@ -60,6 +60,7 @@ const searchUserByEmail = async (email) => {
             id AS user_id,
             name AS user_name,
             email,
+            income,
             password_hash
         FROM users 
         WHERE email = ?;

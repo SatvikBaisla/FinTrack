@@ -22,6 +22,7 @@ export interface ILoginResponseBody{
 export interface IUser{
     email: string;
     user_name: string;
+    income: number;
 }
 
 // register 

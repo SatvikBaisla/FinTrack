@@ -51,6 +51,7 @@ export class LoginComponent {
     const reqBody: ILoginRequestBody = this.loginForm.value;
     this.authService.userLogin(reqBody).subscribe({
       next: response => {
+        debugger;
         if (response.token) {
           localStorage.setItem('access_token', response.token);
         }

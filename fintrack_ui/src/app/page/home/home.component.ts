@@ -12,13 +12,15 @@ import { forkJoin } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
   user!: IUser;
-  totalIncome: number = 70000;
-  numberOfIncome: number = 2;
+  totalIncome: number = 0;
+  numberOfIncome: number = 1;
   fixedExpenses: number = 0;
   numberOfExpenses: number = 0;
   debtBalance: number = 0;
   numberOfDebts: number = 0;
+  numberOfLends: number = 0;
   totalSaving: number = 0;
+  lastMonthSaving: number = 0;
   currentBalance: number = 50000;
   userAccounts: IUserAccount[] = [];
   userSubscribtions: any[] = [];
@@ -33,9 +35,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.navigationService.activeNavOption = 'dashboard';
-
     this.userService.getUserFromLocalstorage();
     this.user = this.userService.user;
+    this.totalIncome = this.user.income;
 
     forkJoin({
       accounts: this.userService.getAllUserAccounts(),
@@ -50,6 +52,7 @@ export class HomeComponent implements OnInit {
         this.userSavings = response.savings.data ?? [];
 
         this.cardCalculations();
+        this.currentBalanceCalculation();
       },
       error: error => {
         console.log(error.error.message);
@@ -58,7 +61,7 @@ export class HomeComponent implements OnInit {
   }
 
   cardCalculations(){
-    // Fixed Expenses
+    // Fixed Expenses card
     this.fixedExpenses = 0;
     this.numberOfExpenses = 0;
     for(let item of this.userSubscribtions){
@@ -66,23 +69,49 @@ export class HomeComponent implements OnInit {
       this.numberOfExpenses = this.numberOfExpenses + 1;
     }
 
-    // Active Debt/Lend
+    // Active Debt/Lend card
     this.debtBalance = 0;
     this.numberOfDebts = 0;
+    this.numberOfLends = 0;
     for(let item of this.userDebts){
       if(item.type == 'debtor'){
         this.debtBalance = this.debtBalance + Number(item.amount);
+        this.numberOfDebts = this.numberOfDebts + 1;
       }
       else{
         this.debtBalance = this.debtBalance - Number(item.amount);
+        this.numberOfLends = this.numberOfLends + 1;
       }
-      this.numberOfDebts = this.numberOfDebts + 1;
     }
 
-    // Total Savings
+    // Total Savings card 
     this.totalSaving = 0;
+    const activeMonth = new Date().getMonth() + 1;
+    console.log(activeMonth);
     for(let item of this.userSavings){
       this.totalSaving = this.totalSaving + Number(item.saving_amount);
+
+      const dbDateMonth = new Date(item.created_at).getMonth() + 1;
+      if(dbDateMonth < activeMonth){
+        this.lastMonthSaving = this.lastMonthSaving + Number(item.saving_amount);
+      }
+    }
+  }
+
+  currentBalanceCalculation(){
+    const today = new Date();
+    let dbdate;
+
+    console.log(this.userSubscribtions);
+
+    for(let item of this.userSubscribtions){
+      if(item.status == 'active'){
+        dbdate = new Date(item.sub_date);
+
+        if(dbdate.getDate() + 1 <= today.getDate() + 1){
+          this.currentBalance = this.currentBalance - item.sub_amount;
+        }
+      }
     }
   }
 }

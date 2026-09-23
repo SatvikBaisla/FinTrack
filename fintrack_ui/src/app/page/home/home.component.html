@@ -44,7 +44,7 @@
                     [class.text-fail]="debtBalance < 0">
                     ₹ {{debtBalance | number:'1.2-2':'en-IN'}}
                 </h1>
-                <p class="opacity-6">Debt Count: {{numberOfDebts}}</p>
+                <p class="opacity-6">Debts: {{numberOfDebts}}, Lends: {{numberOfLends}}</p>
             </div>
             <div class="card green">
                 <h1 class="card-heading">
@@ -52,7 +52,7 @@
                     Total Savings
                 </h1>
                 <h1 class="card-big-text">₹ {{totalSaving | number:'1.2-2':'en-IN'}}</h1>
-                <p class="opacity-6">Last Month: 37,000</p>
+                <p class="opacity-6">Last Month: ₹ {{lastMonthSaving | number:'1.2-2':'en-IN'}}</p>
             </div>
         </div>
 
