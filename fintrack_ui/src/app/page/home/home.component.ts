@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   numberOfLends: number = 0;
   totalSaving: number = 0;
   lastMonthSaving: number = 0;
-  currentBalance: number = 50000;
+  currentBalance: number = 0;
   userAccounts: IUserAccount[] = [];
   userSubscribtions: any[] = [];
   userDebts: IUserDebt[] =[];
@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
     this.userService.getUserFromLocalstorage();
     this.user = this.userService.user;
     this.totalIncome = this.user.income;
+    this.currentBalance = this.user.income;
 
     forkJoin({
       accounts: this.userService.getAllUserAccounts(),
@@ -87,7 +88,6 @@ export class HomeComponent implements OnInit {
     // Total Savings card 
     this.totalSaving = 0;
     const activeMonth = new Date().getMonth() + 1;
-    console.log(activeMonth);
     for(let item of this.userSavings){
       this.totalSaving = this.totalSaving + Number(item.saving_amount);
 
@@ -98,18 +98,17 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  currentBalanceCalculation(){
+  currentBalanceCalculation() {
+    debugger;
     const today = new Date();
     let dbdate;
-
-    console.log(this.userSubscribtions);
 
     for(let item of this.userSubscribtions){
       if(item.status == 'active'){
         dbdate = new Date(item.sub_date);
 
         if(dbdate.getDate() + 1 <= today.getDate() + 1){
-          this.currentBalance = this.currentBalance - item.sub_amount;
+          this.currentBalance = this.currentBalance - Number(item.sub_amount);
         }
       }
     }

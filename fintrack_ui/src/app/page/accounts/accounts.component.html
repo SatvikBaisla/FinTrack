@@ -53,6 +53,66 @@
             <app-paging></app-paging>
         </div>
 
+        <!-- credit/debit cards -->
+        <div class="cdcards-container">
+            <div class="cdcards-header">
+                <h1>List of your cards</h1>
+                <p>Card Total: 4</p>
+            </div>
+            <div class="cdcards-body">
+                <div class="cdcards credit">
+                    <img class="card-chip-img" src="../../../assets/images/card-chip.png">
+                    <div class="card-body">
+                        <h1 class="bank-name">HDFC Bank</h1>
+                        <div class="card-number">
+                            <p class="number-des">Card Number</p>
+                            <p class="number">5467 8365 1245 0967</p>
+                            <p class="card-type">Credit Card</p>
+                        </div>
+                        <p class="owner-name">Satvik Baisla</p>
+                        <div class="used-bar-container">
+                            <div class="min-max">
+                                <p class="min">0</p>
+                                <p class="max">50000</p>
+                            </div>
+                            <div class="bar-container">
+                                <div class="used-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="valid-till-container">
+                        <p class="valid-till-des">Valid Till</p>
+                        <p class="valid-till">05/28</p>
+                    </div>
+                </div>
+                <div class="cdcards debit">
+                    <img class="card-chip-img" src="../../../assets/images/card-chip.png">
+                    <div class="card-body">
+                        <h1 class="bank-name">HDFC Bank</h1>
+                        <div class="card-number">
+                            <p class="number-des">Card Number</p>
+                            <p class="number">5467 8365 1245 0967</p>
+                            <p class="card-type">Debit Card</p>
+                        </div>
+                        <p class="owner-name">Satvik Baisla</p>
+                        <div class="used-bar-container">
+                            <div class="min-max">
+                                <p class="min">0</p>
+                                <p class="max">50000</p>
+                            </div>
+                            <div class="bar-container">
+                                <div class="used-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="valid-till-container">
+                        <p class="valid-till-des">Valid Till</p>
+                        <p class="valid-till">05/28</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- add new account form -->
         <div class="form-container"
             *ngIf="isAddAccountSection">

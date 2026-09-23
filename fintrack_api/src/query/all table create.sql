@@ -8,6 +8,13 @@ CREATE TABLE fintrack_db.users (
 );
 SELECT * FROM fintrack_db.users;
 
+ALTER TABLE fintrack_db.users
+ADD COLUMN income DECIMAL NOT NULL DEFAULT 0;
+
+ALTER TABLE fintrack_db.users
+MODIFY COLUMN income DECIMAL NOT NULL DEFAULT 0
+AFTER password_hash;
+
 CREATE TABLE fintrack_db.refresh_tokens (
 	id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
@@ -116,3 +123,23 @@ ALTER TABLE fintrack_db.savings
 ADD CONSTRAINT savings_users_fk
 FOREIGN KEY (user_id)
 REFERENCES fintrack_db.users(id);
+
+CREATE TABLE fintrack_db.cards (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    account_id INT NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    number VARCHAR(10) NOT NULL,
+    ex_month VARCHAR(3) NOT NULL,
+	ex_year VARCHAR(3) NOT NULL,
+    pin VARCHAR(3) NOT NULL,
+    note VARCHAR(100),
+    used_amount DECIMAL(15,2),
+    card_limit DECIMAL(15,2),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    CONSTRAINT cards_accounts_fk
+		FOREIGN KEY (account_id)
+		REFERENCES fintrack_db.accounts(id)
+);
+SELECT * FROM fintrack_db.cards;

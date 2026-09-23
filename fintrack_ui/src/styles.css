@@ -551,6 +551,128 @@
     margin-bottom: 0px;
 }
 
+/* credit/debit cards */
+/* 
+
+*/
+.cdcards-container{
+    margin-bottom: var(--space-between);
+    padding: 10px 20px 10px 0;
+    border-right: 4px solid var(--color-green-dark);
+}
+.cdcards-header{
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.cdcards-header h1{
+    font-size: var(--font-subheading);
+}
+.cdcards-header p{
+    font-size: var(--font-text-small);
+    opacity: 0.6;
+}
+.cdcards-header{
+    margin-bottom: 10px;
+    font-size: var(--font-subheading);
+}
+.cdcards-body{
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.cdcards{
+    width: 400px;
+    height: 220px;
+    padding: 16px;
+    border-radius: 10px;
+    position: relative;
+}
+.credit{
+    background-color: #6D0808;
+    color: #EEEAD7;
+    box-shadow: 0px 2px 14px var(--color-red);
+}
+.debit{
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+    box-shadow: 0px 2px 14px var(--color-green-dark);
+}
+.card-chip-img{
+    height: 40px;
+    width: auto;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+.card-body{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.card-body .bank-name{
+    font-size: var(--font-text);
+    opacity: 0.6;
+}
+.card-number .number-des{
+    font-size: var(--font-text-small);
+    opacity: 0.4;
+    margin-bottom: 5px;
+}
+.card-number .number{
+    font-size: var(--font-heading);
+    margin-bottom: 10px;
+}
+.card-number .card-type{
+    font-size: var(--font-text-small);
+    opacity: 0.8;
+}
+.card-body .owner-name{
+    font-size: var(--font-text);
+    opacity: 0.8;
+    text-transform: uppercase;
+}
+.used-bar-container .min-max{
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+}
+.used-bar-container .bar-container{
+    height: 10px;
+    border-radius: 10px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    position: relative;
+}
+.used-bar-container .bar-container .used-bar{
+    width: 40%;
+    height: 10px;
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.credit .used-bar{
+    background-color: var(--color-red);
+}
+.debit .used-bar{
+    background-color: var(--color-green);
+}
+.valid-till-container{
+    position: absolute;
+    top: 80px;
+    right: 14px;
+}
+.valid-till-container .valid-till-des{
+    font-size: var(--font-text-small);
+    opacity: 0.4;
+}
+.valid-till-container .valid-till{
+    font-size: var(--font-subheading);
+}
+
 /* commoon classes */
 .fw-b{
     font-weight: bold !important;
@@ -595,7 +717,7 @@
     color: var(--text-warning);
 }
 .note{
-    margin-bottom: 10px;
+    margin: 10px;
     text-align: center;
     font-size: var(--font-text-small);
     opacity: 0.8;
