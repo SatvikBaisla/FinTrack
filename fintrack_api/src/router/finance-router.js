@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 
 const financeController = require('../controller/finance-contoller');
+const authMiddleware = require('../middleware/auth-middleware');
 
-router.get('/subscription', financeController.getAllUsersSubscription);
-router.post('/subscription', financeController.addNewSubscription);
-router.get('/debts', financeController.getAllDebts);
-router.post('/debts', financeController.addNewDebt);
-router.get('/savings', financeController.getAllSavings);
-router.post('/savings', financeController.addNewSaving);
-router.put('/funds', financeController.updateFund);
+router.get('/subscription', authMiddleware, financeController.getAllUsersSubscription);
+router.post('/subscription', authMiddleware, financeController.addNewSubscription);
+router.get('/debts', authMiddleware, financeController.getAllDebts);
+router.post('/debts', authMiddleware, financeController.addNewDebt);
+router.get('/savings', authMiddleware, financeController.getAllSavings);
+router.post('/savings', authMiddleware, financeController.addNewSaving);
+router.put('/funds', authMiddleware, financeController.updateFund);
 
 module.exports = router;

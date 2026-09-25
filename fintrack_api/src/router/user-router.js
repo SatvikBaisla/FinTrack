@@ -3,11 +3,13 @@ const router = express.Router();
 
 const userController = require('../controller/user-controller');
 
-router.get('/accounts', userController.getAllUserAccounts);
-router.post('/accounts', userController.addNewAccount);
-router.put('/accounts/:accountId', userController.editAccount);
-router.delete('/accounts/:accountId', userController.deleteAccount);
-router.get('/cards', userController.getAllCards);
-router.post('/cards', userController.addNewCard);
+const authMiddleware = require('../middleware/auth-middleware');
+
+router.get('/accounts', authMiddleware, userController.getAllUserAccounts);
+router.post('/accounts', authMiddleware, userController.addNewAccount);
+router.put('/accounts/:accountId', authMiddleware, userController.editAccount);
+router.delete('/accounts/:accountId', authMiddleware, userController.deleteAccount);
+router.get('/cards', authMiddleware, userController.getAllCards);
+router.post('/cards', authMiddleware, userController.addNewCard);
 
 module.exports = router;

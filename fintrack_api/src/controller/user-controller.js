@@ -1,7 +1,7 @@
 const userService = require('../service/user-service');
 
 const getAllUserAccounts = async (req, res) => {
-    const userId = 2;
+    const userId = req.user.userId;
     try{
         const allAccounts = await userService.getAllUserAccounts(userId);
         if(!allAccounts){
@@ -28,7 +28,7 @@ const getAllUserAccounts = async (req, res) => {
 
 // req body -> name, ref_number, type, opening_balance, current_balance
 const addNewAccount = async (req, res) => {
-    const userId = 2;
+    const userId = req.user.userId;
     const {name, ref_number, type, opening_balance, current_balance} = req.body;
     try{
         const newAccount = await userService.addNewAccount(name, ref_number, type, opening_balance, current_balance, userId);
@@ -109,7 +109,7 @@ const deleteAccount = async (req, res) => {
 
 const getAllCards = async (req, res) => {
     try {
-        const userId = 2;
+        const userId = req.user.userId;
         const allCards = await userService.getAllCards(userId);
         if (!allCards) {
             return res.status(404).json({

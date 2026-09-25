@@ -146,7 +146,10 @@ CREATE TABLE fintrack_db.cards (
 SELECT * FROM fintrack_db.cards;
 DROP TABLE fintrack_db.cards;
 
+ALTER TABLE fintrack_db.cards
+DROP COLUMN name;
+
 INSERT INTO fintrack_db.cards
-(account_id, name, number, type, ex_month, ex_year, pin, note, used_amount, card_limit)
+(account_id, number, type, ex_month, ex_year, pin, note, used_amount, card_limit)
 VALUES
-(2, 'IDFC Bank', '8945378564128945', 'debit', '9', '28', '123', 'this is note', 7459.45, 50000);
+(3, '2345378555128914', 'credit', '3', '32', '123', 'this is note', 19459.13, 100000);

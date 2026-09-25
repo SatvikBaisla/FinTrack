@@ -2,7 +2,7 @@ const financeService = require('../service/finance-service');
 
 const getAllUsersSubscription = async (req, res) => {
     try {
-        const userId = 2;
+        const userId = req.user.userId;
         const subscriptions = await financeService.getAllUsersSubscription(userId);
         return res.status(200).json({
             success: true,
@@ -21,7 +21,7 @@ const getAllUsersSubscription = async (req, res) => {
 // req body -> name, account_id, sub_amount, sub_date, start_date, end_date, status
 const addNewSubscription = async (req, res) => {
     try {
-        const userId = 2;
+        const userId = req.user.userId;
         const subscriptionDetails = req.body;
         const newSubscription = await financeService.addNewSubscription(userId, subscriptionDetails);
 
@@ -48,7 +48,7 @@ const addNewSubscription = async (req, res) => {
 
 const getAllDebts = async (req, res) => {
     try {
-        const userId = 2;
+        const userId = req.user.userId;
         const debts = await financeService.getAllDebts(userId);
         return res.status(200).json({
             success: true,
@@ -67,7 +67,7 @@ const getAllDebts = async (req, res) => {
 // req body -> person_name, type, amount, date, end_date
 const addNewDebt = async (req, res) => {
     try {
-        const userId = 2;
+        const userId = req.user.userId;
         const debtDetails = req.body;
         const newDebt = await financeService.addNewDebt(userId, debtDetails);
         if (!newDebt) {
@@ -93,7 +93,7 @@ const addNewDebt = async (req, res) => {
 
 const getAllSavings = async (req, res) => {
     try {
-        const userId = 2;
+        const userId = req.user.userId;
         const savings = await financeService.getAllSavings(userId);
         return res.status(200).json({
             success: true,
@@ -112,7 +112,7 @@ const getAllSavings = async (req, res) => {
 // req body -> account_id, amount
 const addNewSaving = async (req, res) => {
     try {
-        const userId = 2;
+        const userId = req.user.userId;
         const savingDetails = req.body;
         const newSaving = await financeService.addNewSaving(userId, savingDetails);
         if (!newSaving) {

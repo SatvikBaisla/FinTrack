@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './page/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HomeComponent } from './page/home/home.component';
 import { RegisterComponent } from './page/register/register.component';
 import { UpdateComponent } from './page/update/update.component';
@@ -17,6 +17,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import { DebtsComponent } from './page/debts/debts.component';
 import { SavingComponent } from './page/saving/saving.component';
 import { SettingsComponent } from './page/settings/settings.component';
+import { authInterceptor } from './common/interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,11 @@ import { SettingsComponent } from './page/settings/settings.component';
     ReactiveFormsModule,
     BaseChartDirective
   ],
-  providers: [],
+  providers: [
+    provideHttpClient(
+      withInterceptors([authInterceptor])
+    )
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
